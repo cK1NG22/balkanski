@@ -41,3 +41,12 @@ example
 # generated native folders
 /ios
 /android
+
+# content pipeline
+content-pipeline/cache/
+content-pipeline/.venv/
+**/__pycache__/
+
+# ephemeral test / debug artifacts
+output/
+.playwright-cli/

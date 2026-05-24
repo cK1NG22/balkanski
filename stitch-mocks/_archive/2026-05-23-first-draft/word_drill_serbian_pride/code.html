@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Source+Sans+3:wght@400;600&amp;family=Lexend:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#b32830",
+                        "inverse-primary": "#ffb3b0",
+                        "secondary-fixed": "#d5e3ff",
+                        "tertiary-container": "#89653b",
+                        "outline": "#8d706e",
+                        "primary-container": "#c6363c",
+                        "primary": "#a41b27",
+                        "tertiary": "#6e4d25",
+                        "on-surface": "#191c1d",
+                        "on-tertiary-fixed-variant": "#5f401a",
+                        "surface-bright": "#f8f9fa",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ffebd9",
+                        "inverse-on-surface": "#f0f1f2",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-highest": "#e1e3e4",
+                        "tertiary-fixed-dim": "#ecbe8d",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-primary-fixed-variant": "#91081c",
+                        "secondary-container": "#98c0fe",
+                        "surface": "#f8f9fa",
+                        "on-primary-fixed": "#410006",
+                        "surface-container": "#edeeef",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#355f97",
+                        "surface-container-high": "#e7e8e9",
+                        "on-primary-container": "#ffeae8",
+                        "on-secondary-container": "#214e84",
+                        "background": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001c3b",
+                        "on-secondary-fixed-variant": "#18477e",
+                        "primary-fixed": "#ffdad8",
+                        "tertiary-fixed": "#ffddb9",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#ffb3b0",
+                        "secondary-fixed-dim": "#a6c8ff",
+                        "outline-variant": "#e1bebc",
+                        "on-surface-variant": "#59413f",
+                        "surface-container-low": "#f3f4f5",
+                        "surface-dim": "#d9dadb",
+                        "on-background": "#191c1d",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "40px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "md": "16px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Source Sans 3"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-md": ["Source Sans 3"],
+                        "label-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .firesteel-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9zm0 4c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z' fill='%23a41b27' fill-opacity='0.03'/%3E%3C/svg%3E");
+        }
+        .card-perspective {
+            perspective: 1000px;
+        }
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .card-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Top Navigation Anchor (As per JSON) -->
+<header class="bg-surface border-b border-outline-variant shadow-sm docked full-width top-0 z-50 h-16">
+<div class="flex justify-between items-center w-full px-lg max-w-container-max mx-auto h-full">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border-2 border-primary">
+<span class="material-symbols-outlined text-primary" data-icon="shield" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary uppercase tracking-wider">Balkanski</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<nav class="flex gap-md">
+<a class="text-primary font-bold transition-colors" href="#">Practice</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-lg transition-colors" href="#">Review</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-lg transition-colors" href="#">Profile</a>
+</nav>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+</div>
+</div>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="menu">menu</span>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow container mx-auto px-md py-xl flex flex-col items-center max-w-2xl relative">
+<!-- Progress Bar Section -->
+<div class="w-full mb-xl space-y-base">
+<div class="flex justify-between items-end px-xs">
+<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-widest">Current Session</span>
+<span class="font-label-md text-label-md text-on-surface-variant">14 / 20 Words</span>
+</div>
+<div class="h-3 w-full bg-secondary-fixed rounded-full overflow-hidden shadow-inner">
+<div class="h-full bg-primary transition-all duration-700 ease-out shadow-[0_0_8px_rgba(164,27,39,0.3)]" style="width: 70%"></div>
+</div>
+</div>
+<!-- Mascot & Interaction Layer -->
+<div class="w-full flex justify-center mb-md relative">
+<div class="absolute -top-12 right-0 md:-right-16 animate-bounce">
+<div class="bg-surface-container-lowest border border-outline-variant p-sm rounded-xl shadow-lg relative">
+<p class="font-label-md text-label-md font-bold text-primary">Idemo! You've got this!</p>
+<div class="absolute -bottom-2 right-6 w-4 h-4 bg-surface-container-lowest border-r border-b border-outline-variant rotate-45"></div>
+</div>
+</div>
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-full bg-surface-container p-1 border-4 border-white shadow-md overflow-hidden">
+<img alt="Balkanski Basketball Mascot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4QBuQyffkksLihLTnrilh0lLqRDcjLbLHqUXHyM6_NGIxxanpTHAi9DB8KyMKYtGMc-jVhSjX6OZ6FXxxDhoYZ_3AmDLUsAUBI--oQr_pogZhk3MnMxQADRVblONZUp3LBIwvL0xwIjqrVvkAxZjS8mATwZc9MVi3sOU0MzcMVBOIDB68hQV05KJbxLneRKAgRCxpGI2kuF1jWO0SeCAW4Q2sDA1ZtWBBnPm7eOqA5m_ILVNCY-GoUgtSQoKIN5WUtI9ATUR16Rs"/>
+</div>
+</div>
+<!-- Flashcard Module -->
+<div class="w-full card-perspective group cursor-pointer h-80 md:h-96" onclick="flipCard()">
+<div class="card-inner relative w-full h-full" id="flashcard-inner">
+<!-- Front Face -->
+<div class="card-face absolute inset-0 bg-surface-container-lowest border-2 border-surface-container-highest rounded-xl shadow-xl flex flex-col items-center justify-center firesteel-bg overflow-hidden p-xl">
+<div class="absolute top-4 left-4 flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary opacity-50" data-icon="volume_up">volume_up</span>
+<span class="text-[10px] font-bold text-secondary-container uppercase tracking-tighter">Listen</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-xs">voda</h1>
+<p class="font-label-md text-label-md text-primary font-bold uppercase tracking-[0.3em]">SERBIAN</p>
+<div class="mt-xl text-on-surface-variant/40 flex items-center gap-xs">
+<span class="material-symbols-outlined text-md" data-icon="touch_app">touch_app</span>
+<span class="font-label-md text-label-md italic">Tap to reveal meaning</span>
+</div>
+</div>
+<!-- Back Face -->
+<div class="card-back card-face absolute inset-0 bg-secondary text-on-secondary rounded-xl shadow-xl flex flex-col items-center justify-center p-xl">
+<div class="mb-sm opacity-60">
+<span class="material-symbols-outlined text-4xl" data-icon="water_drop">water_drop</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl mb-xs">Water</h2>
+<p class="font-body-lg text-body-lg italic opacity-80 mb-xl">Noun, Feminine</p>
+<div class="bg-white/10 p-md rounded-lg w-full max-w-xs text-center border border-white/20">
+<p class="font-body-md text-body-md">"Dajte mi jednu čašu <span class="font-bold underline decoration-secondary-container">vode</span>, molim vas."</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Panel -->
+<div class="w-full mt-xl flex flex-col sm:flex-row gap-md items-stretch">
+<button class="flex-1 px-lg py-md border-2 border-secondary text-secondary font-bold rounded-xl hover:bg-secondary-fixed transition-all active:scale-95 flex items-center justify-center gap-sm" onclick="flipCard()">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+                Show meaning
+            </button>
+<button class="flex-1 px-lg py-md bg-primary text-on-primary font-bold rounded-xl shadow-lg hover:bg-primary-container transition-all active:scale-95 flex items-center justify-center gap-sm border-b-4 border-on-primary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                I knew it
+            </button>
+</div>
+<!-- Meta Info -->
+<div class="mt-xl flex gap-lg text-on-surface-variant/60">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span>
+<span class="font-label-md text-label-md">Streak: 12 days</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm text-tertiary" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-md text-label-md">Rank: Duke</span>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only Shell) -->
+<footer class="md:hidden bg-surface fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe shadow-[0_-2px_10px_rgba(0,0,0,0.08)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-6 py-1 transition-all duration-300 scale-90">
+<span class="material-symbols-outlined" data-icon="exercise" style="font-variation-settings: 'FILL' 1;">exercise</span>
+<span class="font-label-md text-label-md">Practice</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:bg-surface-container-low rounded-xl">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-md text-label-md">Review</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:bg-surface-container-low rounded-xl">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</div>
+</footer>
+<script>
+        function flipCard() {
+            const card = document.getElementById('flashcard-inner');
+            card.classList.toggle('card-flipped');
+        }
+
+        // Spacebar shortcut to flip
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                flipCard();
+            }
+        });
+    </script>
+</body></html>

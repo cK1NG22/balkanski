@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Source+Sans+3:wght@400;600&amp;family=Lexend:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#b32830",
+                    "inverse-primary": "#ffb3b0",
+                    "secondary-fixed": "#d5e3ff",
+                    "tertiary-container": "#89653b",
+                    "outline": "#8d706e",
+                    "primary-container": "#c6363c",
+                    "primary": "#a41b27",
+                    "tertiary": "#6e4d25",
+                    "on-surface": "#191c1d",
+                    "on-tertiary-fixed-variant": "#5f401a",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#ffebd9",
+                    "inverse-on-surface": "#f0f1f2",
+                    "inverse-surface": "#2e3132",
+                    "surface-container-highest": "#e1e3e4",
+                    "tertiary-fixed-dim": "#ecbe8d",
+                    "on-tertiary-fixed": "#2b1700",
+                    "on-primary-fixed-variant": "#91081c",
+                    "secondary-container": "#98c0fe",
+                    "surface": "#f8f9fa",
+                    "on-primary-fixed": "#410006",
+                    "surface-container": "#edeeef",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#355f97",
+                    "surface-container-high": "#e7e8e9",
+                    "on-primary-container": "#ffeae8",
+                    "on-secondary-container": "#214e84",
+                    "background": "#f8f9fa",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#001c3b",
+                    "on-secondary-fixed-variant": "#18477e",
+                    "primary-fixed": "#ffdad8",
+                    "tertiary-fixed": "#ffddb9",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#ffb3b0",
+                    "secondary-fixed-dim": "#a6c8ff",
+                    "outline-variant": "#e1bebc",
+                    "on-surface-variant": "#59413f",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-dim": "#d9dadb",
+                    "on-background": "#191c1d",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "40px",
+                    "xs": "4px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "body-lg": ["Source Sans 3"],
+                    "headline-md": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "body-md": ["Source Sans 3"],
+                    "label-md": ["Lexend"]
+            },
+            "fontSize": {
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .modal-slide-up {
+            animation: slideUp 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(15%); }
+        }
+        .firesteel-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10C10 5 15 5 15 10C15 15 10 15 10 10ZM10 10C5 10 5 15 10 15C15 15 15 10 10 10Z' fill='%23a41b27' fill-opacity='0.02'/%3E%3C/svg%3E");
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface overflow-hidden">
+<!-- Mock Background Content -->
+<div class="h-screen w-full flex flex-col p-md blur-sm pointer-events-none">
+<div class="h-12 w-full bg-surface-container rounded-lg mb-md"></div>
+<div class="grid grid-cols-1 gap-md">
+<div class="h-32 w-full bg-surface-container rounded-xl"></div>
+<div class="h-32 w-full bg-surface-container rounded-xl"></div>
+<div class="h-32 w-full bg-surface-container rounded-xl"></div>
+</div>
+</div>
+<!-- Modal Overlay Backdrop -->
+<div class="fixed inset-0 bg-on-surface/20 backdrop-blur-[2px] z-40"></div>
+<!-- Word Detail Modal -->
+<div class="fixed inset-0 z-50 flex items-end justify-center">
+<div class="modal-slide-up w-full max-w-container-max h-full bg-surface rounded-t-[32px] shadow-2xl overflow-hidden flex flex-col border-t border-outline-variant/30">
+<!-- Drag Indicator -->
+<div class="w-full flex justify-center py-sm">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full"></div>
+</div>
+<!-- Header Section -->
+<header class="px-lg pb-md border-b border-outline-variant/20 relative">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<div class="flex items-center gap-xs mb-xs">
+<span class="w-6 h-4 bg-gradient-to-b from-[#C6363C] via-[#0C4076] to-[#FFFFFF] rounded-xs shadow-sm" title="Serbian Flag Accent"></span>
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase">Noun • Feminine</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface">voda</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant italic">"water" (meaning chip / core element)</p>
+</div>
+<button class="p-base hover:bg-surface-container-high rounded-full transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant group-active:scale-90 transition-transform">close</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto px-lg py-xl firesteel-bg">
+<!-- Declension Table Section -->
+<section class="mb-xl">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-weight="fill">table_rows</span>
+                        Grammatical Declension
+                    </h2>
+<div class="overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container">
+<th class="p-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Case</th>
+<th class="p-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Singular</th>
+<th class="p-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Plural</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr>
+<td class="p-md font-label-md bg-surface-container-low/50">Nominative</td>
+<td class="p-md font-headline-md text-headline-md text-primary">voda</td>
+<td class="p-md font-headline-md text-headline-md text-primary">vode</td>
+</tr>
+<tr>
+<td class="p-md font-label-md bg-surface-container-low/50">Genitive</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vode</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">voda</td>
+</tr>
+<tr>
+<td class="p-md font-label-md bg-surface-container-low/50">Dative</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vodi</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vodama</td>
+</tr>
+<tr>
+<td class="p-md font-label-md bg-surface-container-low/50">Accusative</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vodu</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vode</td>
+</tr>
+<tr>
+<td class="p-md font-label-md bg-surface-container-low/50">Vocative</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vodo</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vode</td>
+</tr>
+<tr>
+<td class="p-md font-label-md bg-surface-container-low/50">Instrumental</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vodom</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vodama</td>
+</tr>
+<tr>
+<td class="p-md font-label-md bg-surface-container-low/50">Locative</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vodi</td>
+<td class="p-md font-body-md text-body-md text-primary font-bold">vodama</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Balkan Variants Section (Bento Style) -->
+<section class="mb-xl">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">language</span>
+                        Other Balkan variants
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Serbian Cluster -->
+<div class="p-lg bg-primary-fixed/30 rounded-xl border border-primary-container/20 flex flex-col gap-sm">
+<span class="font-label-md text-on-primary-fixed-variant">Serbian</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">вода</span>
+<span class="font-body-md text-on-surface-variant">voda (Cyrillic/Latin)</span>
+</div>
+</div>
+<!-- Croatian -->
+<div class="p-lg bg-surface-container rounded-xl border border-outline-variant/30 flex flex-col gap-sm">
+<span class="font-label-md text-secondary">Croatian</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">voda</span>
+<span class="font-body-md text-on-surface-variant">Common usage</span>
+</div>
+</div>
+<!-- Bosnian -->
+<div class="p-lg bg-surface-container rounded-xl border border-outline-variant/30 flex flex-col gap-sm">
+<span class="font-label-md text-tertiary">Bosnian</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">voda</span>
+<span class="font-body-md text-on-surface-variant">Regional nuances</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Usage Card -->
+<section class="mb-xl">
+<div class="relative w-full h-48 rounded-2xl overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A cinematic, high-resolution photograph of crystalline water droplets suspended against a dark, minimalist background with dramatic red side-lighting. The scene captures the high-performance and authoritative aesthetic of the Balkanski brand, featuring a professional and structured feel. The lighting creates deep shadows and sharp highlights, emphasizing a sense of clarity and heritage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM5UABU6DGRDlxdbJ7PA-okzWoi4sYaEBDbKiaVHXVuSAUDNVx34tpQEmv9EzECZpkVbMeNWsTmoHQSbZHGeFMqMFhirp3jtHjcM1UUR3chcXNZJLl65VubKLEv3eBCqq49kk14wV86ZR03wPV7XqsCVuRKWxARb0TT8pwXSAyEFueoD-luHtK5aJxMlDvZZ1-7j7dMkJm5HQoYUZzUILq9kpluZNHvktVTnG_0JV0XrktCcBZskn0Mjsm_2LhgHs6ZnXXZGRd3g4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-lg">
+<h3 class="font-headline-md text-headline-md text-white">Learn through Context</h3>
+<p class="text-white/90 font-body-md">Practice "voda" in real-world scenarios across the Balkans.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Area -->
+<footer class="p-lg bg-surface border-t border-outline-variant/20 flex gap-md">
+<button class="flex-1 py-md bg-primary text-on-primary rounded-xl font-label-md hover:brightness-110 active:scale-95 transition-all shadow-md">
+                    Add to Review
+                </button>
+<button class="px-md py-md border-2 border-secondary text-secondary rounded-xl font-label-md hover:bg-secondary-container/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined">share</span>
+</button>
+</footer>
+</div>
+</div>
+<!-- Logic for closing modal (Demo only) -->
+<script>
+        document.querySelector('button.group').addEventListener('click', () => {
+            document.querySelector('.modal-slide-up').style.transform = 'translateY(100%)';
+            document.querySelector('.modal-slide-up').style.transition = 'transform 0.4s ease-in';
+            setTimeout(() => {
+                window.history.back();
+            }, 400);
+        });
+    </script>
+</body></html>

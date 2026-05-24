@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="light" lang="sr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Balkanski Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Source+Sans+3:wght@400;600&amp;family=Lexend:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#b32830",
+                        "inverse-primary": "#ffb3b0",
+                        "secondary-fixed": "#d5e3ff",
+                        "tertiary-container": "#89653b",
+                        "outline": "#8d706e",
+                        "primary-container": "#c6363c",
+                        "primary": "#a41b27",
+                        "tertiary": "#6e4d25",
+                        "on-surface": "#191c1d",
+                        "on-tertiary-fixed-variant": "#5f401a",
+                        "surface-bright": "#f8f9fa",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ffebd9",
+                        "inverse-on-surface": "#f0f1f2",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-highest": "#e1e3e4",
+                        "tertiary-fixed-dim": "#ecbe8d",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-primary-fixed-variant": "#91081c",
+                        "secondary-container": "#98c0fe",
+                        "surface": "#f8f9fa",
+                        "on-primary-fixed": "#410006",
+                        "surface-container": "#edeeef",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#355f97",
+                        "surface-container-high": "#e7e8e9",
+                        "on-primary-container": "#ffeae8",
+                        "on-secondary-container": "#214e84",
+                        "background": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001c3b",
+                        "on-secondary-fixed-variant": "#18477e",
+                        "primary-fixed": "#ffdad8",
+                        "tertiary-fixed": "#ffddb9",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#ffb3b0",
+                        "secondary-fixed-dim": "#a6c8ff",
+                        "outline-variant": "#e1bebc",
+                        "on-surface-variant": "#59413f",
+                        "surface-container-low": "#f3f4f5",
+                        "surface-dim": "#d9dadb",
+                        "on-background": "#191c1d",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "40px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "md": "16px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Source Sans 3"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-md": ["Source Sans 3"],
+                        "label-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .firesteel-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9zm0 2c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7z' fill='%23a41b27' fill-opacity='0.02'/%3E%3C/svg%3E");
+        }
+        .bento-card {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .bento-card:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen firesteel-bg pb-24">
+<!-- Top App Bar (Task-Focused: Suppressed Nav Shell) -->
+<header class="bg-surface dark:bg-surface-container border-b border-outline-variant dark:border-outline shadow-sm sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-lg max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed uppercase tracking-wider">Settings</h1>
+</div>
+<div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center overflow-hidden border-2 border-primary">
+<img alt="Balkan Dad" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnYtcAIEGQ1AlHCVTI2RiTs7_gqdye8YtQK9pwYRB2idawzZ5mro-WClEjOe9SZOJD0SuFGQEd2NgxFC740M4vh6nHB2qmFChYNjXYLwU2wUq7iETyoZDb28g4lHxqlzYXdKAoGZ373fsYj0iUqNf9hbA3OshqCQFeJv8h86wlD7PYOE4FtJYqozESCL26jOFszxLSkTCd6WXX0_Dre-n9dK7ERCZlobbaoa5uPTAM9hKHOOyghphwcwul9imAgTCImEEcbvNwcDE"/>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-md md:px-lg mt-md space-y-md">
+<!-- Profile Bento Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-sm flex items-center gap-md relative overflow-hidden">
+<div class="absolute -right-8 -bottom-8 opacity-[0.03] rotate-12">
+<span class="material-symbols-outlined text-[120px] text-primary">shield</span>
+</div>
+<div class="w-24 h-24 rounded-full border-4 border-secondary-container shadow-md flex-shrink-0">
+<img alt="Balkan Dad Profile" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnYtcAIEGQ1AlHCVTI2RiTs7_gqdye8YtQK9pwYRB2idawzZ5mro-WClEjOe9SZOJD0SuFGQEd2NgxFC740M4vh6nHB2qmFChYNjXYLwU2wUq7iETyoZDb28g4lHxqlzYXdKAoGZ373fsYj0iUqNf9hbA3OshqCQFeJv8h86wlD7PYOE4FtJYqozESCL26jOFszxLSkTCd6WXX0_Dre-n9dK7ERCZlobbaoa5uPTAM9hKHOOyghphwcwul9imAgTCImEEcbvNwcDE"/>
+</div>
+<div class="flex-grow">
+<h2 class="font-headline-md text-headline-md text-primary">Balkan Dad</h2>
+<p class="font-body-md text-on-surface-variant">Level 42 Rakija Master</p>
+<div class="mt-xs inline-flex items-center gap-2 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="font-label-md text-label-md">Fluent Speaker</span>
+</div>
+</div>
+</div>
+<div class="bg-primary text-on-primary rounded-xl p-md border border-primary-container shadow-lg flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md opacity-80">STREAK</h3>
+<p class="font-headline-xl text-headline-xl leading-none">157</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-body-md">Days in a row!</span>
+</div>
+</div>
+</section>
+<!-- Dialect Selection (Asymmetric Layout) -->
+<section class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-sm">
+<div class="flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-secondary">translate</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Target Dialect</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-sm">
+<!-- Hrvatski -->
+<button class="bento-card border-2 border-outline-variant hover:border-secondary p-md rounded-xl text-center group transition-all">
+<div class="w-12 h-12 bg-surface-container mx-auto rounded-full flex items-center justify-center mb-sm group-hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-secondary-container">castle</span>
+</div>
+<span class="font-label-md text-label-md block">Hrvatski</span>
+</button>
+<!-- Srpski (Selected) -->
+<button class="bento-card border-2 border-primary bg-primary-container/10 p-md rounded-xl text-center relative group">
+<div class="absolute top-2 right-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="w-12 h-12 bg-primary mx-auto rounded-full flex items-center justify-center mb-sm shadow-md">
+<span class="material-symbols-outlined text-on-primary">fort</span>
+</div>
+<span class="font-label-md text-label-md block text-primary font-bold">Srpski</span>
+</button>
+<!-- Bosanski -->
+<button class="bento-card border-2 border-outline-variant hover:border-secondary p-md rounded-xl text-center group transition-all">
+<div class="w-12 h-12 bg-surface-container mx-auto rounded-full flex items-center justify-center mb-sm group-hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-secondary-container">mosque</span>
+</div>
+<span class="font-label-md text-label-md block">Bosanski</span>
+</button>
+</div>
+</section>
+<!-- Daily Goal Stepper -->
+<section class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-sm">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-tertiary-fixed rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Daily Goal</h3>
+<p class="font-body-md text-on-surface-variant">How many lessons today?</p>
+</div>
+</div>
+<div class="flex items-center bg-surface-container rounded-full p-1 border border-outline-variant w-full md:w-auto justify-between">
+<button class="w-12 h-12 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors active:scale-90" id="decrement">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="px-8 text-center min-w-[80px]">
+<span class="font-headline-md text-headline-md text-primary" id="goal-value">5</span>
+<span class="font-label-md text-label-md block opacity-60">lessons</span>
+</div>
+<button class="w-12 h-12 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors active:scale-90" id="increment">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Danger Zone / Sign Out -->
+<section class="pt-md">
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-headline-md flex items-center justify-center gap-3 shadow-md active:scale-95 transition-transform hover:bg-surface-tint">
+<span class="material-symbols-outlined">logout</span>
+                Sign out
+            </button>
+</section>
+<!-- High-Performance Visual Decoration -->
+<div class="relative py-xl">
+<div aria-hidden="true" class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<div class="relative flex justify-center">
+<span class="bg-background px-4 text-on-surface-variant font-label-md">End of settings</span>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="max-w-container-max mx-auto px-lg pb-xl text-center space-y-2 opacity-60">
+<p class="font-label-md text-label-md">Balkanski v2.4.0-pro</p>
+<p class="font-body-md italic flex items-center justify-center gap-2">
+            Made with coffee and Rakija 
+            <span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</p>
+</footer>
+<!-- Interactive Logic -->
+<script>
+        const goalEl = document.getElementById('goal-value');
+        let goal = 5;
+
+        document.getElementById('increment').addEventListener('click', () => {
+            if (goal < 20) {
+                goal++;
+                goalEl.innerText = goal;
+                goalEl.classList.add('scale-110', 'text-secondary');
+                setTimeout(() => goalEl.classList.remove('scale-110', 'text-secondary'), 150);
+            }
+        });
+
+        document.getElementById('decrement').addEventListener('click', () => {
+            if (goal > 1) {
+                goal--;
+                goalEl.innerText = goal;
+                goalEl.classList.add('scale-90', 'text-error');
+                setTimeout(() => goalEl.classList.remove('scale-90', 'text-error'), 150);
+            }
+        });
+
+        // Simple button active state visual ripple simulation
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                this.classList.add('opacity-70');
+                setTimeout(() => this.classList.remove('opacity-70'), 100);
+            });
+        });
+    </script>
+</body></html>

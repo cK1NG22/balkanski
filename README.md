@@ -1,56 +1,42 @@
-# Welcome to your Expo app 👋
+# balkanski
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Mobile language-learning app for **Croatian, Serbian, and Bosnian**, built for Carter and his wife (personal use).
 
-## Get started
+Three distinct languages, not variants of one. Regional dialects (Dalmatinski, Beogradski, …) are first-class metadata. Curriculum is **linear Pareto-ordered** — lessons unlock in strict word-frequency order. SRS sits on top as a review layer. Audio is fully deferred to Phase 5+.
 
-1. Install dependencies
+## Stack
 
-   ```bash
-   npm install
-   ```
+Expo SDK 56 · React Native 0.85 · React 19.2 · TypeScript 6 · expo-router v4 · NativeWind v4 · TanStack Query · Supabase · `ts-fsrs` · pnpm.
 
-2. Start the app
+## Workflow
 
-   ```bash
-   npx expo start
-   ```
+Carter sketches each screen, runs it through Google Stitch to get HTML/Tailwind mocks, drops them in `stitch-mocks/`. Claude converts to React Native using shells from `src/components/`, following `docs/conversion-cheatsheet.md` and `docs/workflow-recipe.md`.
 
-In the output, you'll find options to open the app in a
+## Source of truth
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **`CLARIFICATIONS.md`** — locked decisions: data model, curriculum, grading, auth, deferral list.
+- **`AGENTS.md`** — agent instructions (stack rules, conventions, project layout).
+- **`ROADMAP.md`** — phased plan (9 phases, layer-tagged).
+- **`FEATURES.md`** — feature inventory grouped by architectural layer.
+- **`docs/conversion-cheatsheet.md`** — HTML → React Native reference (read on every Stitch mock conversion).
+- **`docs/workflow-recipe.md`** — 10-step Stitch HTML → shipped screen procedure.
+- **`docs/decisions/`** — ADRs.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Running
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```sh
+pnpm install
+pnpm start        # Expo dev server
+pnpm ios          # iOS simulator
+pnpm android      # Android emulator
+pnpm test         # jest
+pnpm tsc --noEmit # type check
+pnpm exec tsx scripts/stress-test-schema.ts   # 20-row schema edge-case suite
+pnpm exec tsx scripts/validate-content.ts     # content JSON validation
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Phase 0 status
 
-### Other setup steps
+Scaffold complete: bootable Expo app, 14+ component shells with NativeWind, all expo-router routes, zod schemas matching Carter's 2-table data model, tiered grading library + tests, linear Pareto sequencer + tests, 20-row schema stress-test, debug components gallery, conversion cheatsheet, workflow recipe, ADR, ROADMAP, FEATURES.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Phase 1 starts when Carter provisions a Supabase project and provides `EXPO_PUBLIC_SUPABASE_URL` + `EXPO_PUBLIC_SUPABASE_ANON_KEY`.
