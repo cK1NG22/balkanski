@@ -62,15 +62,15 @@ async function main() {
   console.log(`Methodology version: ${bundle.meta.version}`);
 
   console.log('\nUpserting concepts (must land first — variants FK to them)...');
-  // Dedupe by id: the content pipeline can produce duplicate rows when two
-  // source entries hash to the same UUIDv5 (same englishLemma + partOfSpeech).
-  // Postgres ON CONFLICT DO UPDATE rejects batches that contain the same key
-  // twice. Tracked TODO: fix the dedupe at source in content-pipeline/.
+  // Defence-in-depth dedupe by id. The Python pipeline collapses any concepts
+  // that share a UUIDv5 before writing (build.py:_dedupe_concepts), so this
+  // map is expected to match the input size 1:1. We keep the dedupe in case
+  // a future hand-edited JSON or pipeline regression slips through.
   const conceptById = new Map(bundle.concepts.map((c) => [c.id, c]));
   if (conceptById.size < bundle.concepts.length) {
     console.warn(
       `  ! deduped ${bundle.concepts.length - conceptById.size} concept(s) by id ` +
-        `(pipeline should dedupe at source)`,
+        `— pipeline regression or hand-edited JSON?`,
     );
   }
   const conceptRows = [...conceptById.values()].map(conceptRow);

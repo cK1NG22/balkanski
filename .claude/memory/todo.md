@@ -75,8 +75,12 @@ Authoritative design: **`docs/decisions/0002-known-words-vs-placement-test.md`**
 
 ## Outstanding from prior sessions
 
-- [ ] **content-pipeline fix**: dedupe by `id` in the Python pipeline before serializing — currently emits two rows for `"but" / conjunction` (same UUIDv5, same intended concept). Seeder defensively dedups today, but source-level fix is cleaner. See `content-pipeline/` (Python+uv project at repo root).
+- [x] **content-pipeline source-level dedup** — done 2026-05-25. `build.py:_dedupe_concepts` collapses concept rows that share a UUIDv5 (e.g. "a" + "ali" → one "but" concept with two SR variants), favoring the lower frequency rank. Regenerated `content/vocab/sr-starter.json`; `pnpm validate-content` ✓, tsc + 69 tests pass. Seeder's defensive dedup kept as defence-in-depth.
 - [ ] **OAuth + rebind smoke-test deferred** — `pnpm exec expo run:ios` failed on full Xcode missing (only Command Line Tools installed). To smoke-test: install Xcode from the Mac App Store, then `pnpm ios`. OAuth code + rebind are type-checked + unit-tested but not user-verified end-to-end. Don't claim OAuth works until this test actually passes.
+
+## Phase 1 polish — scope decision needed
+
+- [ ] **"Close answers show correction inline" — implementation gap surfaced 2026-05-25 audit.** The ROADMAP Phase 1 Done-when criterion calls for this, but the lesson runner only ships the `recognize` direction (FlashCard + self-grade via `GradingButtonRow`); the user never types an answer to be graded against `gradingTier()`. The grading library returns `result.correction` for close + wrong tiers, and `FillInBlankInput` calls into it correctly — but `FillInBlankInput` is currently only referenced from `(debug)/components.tsx`. **Decision needed**: either (A) wire a `produce` direction into `(modal)/lesson-active.tsx` so the user types the Serbian word + correction renders inline on close, or (B) update the ROADMAP criterion to clarify `produce` direction ships in Phase 2/3 alongside `CaseEndingPicker` typing drills. Recommend (A) since the underlying machinery (`useParetoLesson`, grading lib, FillInBlankInput shell) is all built — only the screen wiring is missing.
 
 ## Phase 4 — locked decisions (when phase starts)
 

@@ -2,6 +2,14 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-25 — Session 9 (cont'd): pipeline dedup + Phase 1 polish audit
+
+**Pipeline dedup**: `content-pipeline/balkanski_pipeline/build.py` gained `_dedupe_concepts` which collapses concept rows that share a UUIDv5 (favoring the lower aggregate rank). Two seed entries can legitimately point at one concept — "a" and "ali" both mean "but" in Serbian — and the build loop was naively emitting one concept row per seed entry. JSON now ships clean: 120 concepts / 121 variants (was 121 / 121 with the seeder catching the dup on upload). Seeder's defensive dedup stays in place as defence-in-depth; its warning text updated to reflect the new role.
+
+**Phase 1 polish audit**: ROADMAP Phase 1 Done-when criterion calls for "close answers show correction inline." The grading library returns `result.correction` for close + wrong tiers, and `FillInBlankInput` consumes it — but no production screen uses `FillInBlankInput`. The lesson runner only ships `recognize` direction (FlashCard + self-grade). Surfaced as a scope question in todo.md (Phase 1 polish section) — either wire a `produce` direction into `(modal)/lesson-active.tsx` or update the ROADMAP criterion to defer to Phase 2/3. Not silently fixed — it's a feature scope decision, not a code bug.
+
+**Verification**: `pnpm validate-content` ✓, `pnpm tsc --noEmit` ✓, `pnpm test` 69/69.
+
 ## 2026-05-24 — Session 9 (cont'd): Phase 1D follow-ups landed
 
 Two unblocked follow-ups from the Phase 1C commit cleared in one push:

@@ -114,17 +114,6 @@
     {
       "id": "0e2f674c-cfa0-5203-b528-9a9e1d78260a",
       "englishLemma": "but",
-      "englishTranslation": "and; but (mild)",
-      "partOfSpeech": "conjunction",
-      "senseDisambiguator": null,
-      "topicTags": [
-        "function-word"
-      ],
-      "frequencyRankAggregate": 27
-    },
-    {
-      "id": "0e2f674c-cfa0-5203-b528-9a9e1d78260a",
-      "englishLemma": "but",
       "englishTranslation": "but",
       "partOfSpeech": "conjunction",
       "senseDisambiguator": null,
@@ -3064,7 +3053,7 @@
   ],
   "_meta": {
     "version": "1.0.0",
-    "generated_at": "2026-05-24T19:06:11.577628+00:00",
+    "generated_at": "2026-05-25T16:17:22.356009+00:00",
     "sources": [
       {
         "name": "opensubtitles-2018",

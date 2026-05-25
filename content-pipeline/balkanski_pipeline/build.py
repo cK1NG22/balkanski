@@ -37,6 +37,29 @@ def _variant_id(entry: SeedEntry, language: str) -> str:
     return str(uuid5(NAMESPACE_URL, key))
 
 
+def _dedupe_concepts(concepts: list[Concept]) -> list[Concept]:
+    """Two seed entries can intentionally share a concept (e.g. 'a' and 'ali'
+    both mean 'but'). Their `_concept_id` collides on englishLemma +
+    senseDisambiguator -- that's by design. We keep one concept row per id,
+    favoring the more-frequent (lower) rank so the aggregate field reflects
+    the best surface form across variants. The TS seeder used to dedupe
+    defensively; with this in place, the pipeline ships clean JSON.
+    """
+    by_id: dict[str, Concept] = {}
+    for c in concepts:
+        existing = by_id.get(c.id)
+        if existing is None:
+            by_id[c.id] = c
+            continue
+        if (
+            c.frequencyRankAggregate is not None
+            and existing.frequencyRankAggregate is not None
+            and c.frequencyRankAggregate < existing.frequencyRankAggregate
+        ):
+            by_id[c.id] = c
+    return list(by_id.values())
+
+
 def _build_language(
     language: Language,
     seed: list[SeedEntry],
@@ -92,9 +115,14 @@ def _build_language(
     if missing:
         print(f"  ! {len(missing)} seed lemmas missing from corpus, using fallback ranks: {missing}")
 
+    deduped_concepts = _dedupe_concepts(concepts)
+    collapsed = len(concepts) - len(deduped_concepts)
+    if collapsed:
+        print(f"  · merged {collapsed} concept row(s) that shared a UUIDv5 (multiple variants per concept)")
+
     return VocabBundle(
         language=language,
-        concepts=concepts,
+        concepts=deduped_concepts,
         variants=variants,
         meta=Methodology(
             version=METHODOLOGY_VERSION,
