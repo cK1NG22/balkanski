@@ -65,7 +65,7 @@ Authoritative design: **`docs/decisions/0002-known-words-vs-placement-test.md`**
 
 ## Phase 1C — still open (next session)
 
-- [ ] **Carter: run `pnpm exec supabase db push`** to land `0004_known_variants.sql` on `khbwshwghilupemmvloq`. The auto-mode classifier gated this from me because it drops a table + column on a production-ish DB. Migration is local and tsc/test-clean; just needs your hand on the trigger.
+- [x] **`pnpm exec supabase db push` applied 2026-05-25** — 0004 landed on `khbwshwghilupemmvloq`. Probed remote post-deploy: `known_variants` returns `rows=0` under RLS for unauth (table exists), `placement_test_results` returns "Could not find the table" (dropped), `users.proficiency_estimate` returns "column does not exist" (dropped). Commits `a7409fc` + `210c41e` pushed to GitHub.
 - [x] **Push known_variants in the rebind-on-sign-in path** — done in session 9 continuation. `RebindIO` gained `getLocalKnown` + `upsertRemoteKnown`; `rebindOnSignIn` orchestration pushes both review_items and known_variants. `RebindResult.rebound` is now the total across both. 2 new tests cover the dual-flow + known-only case.
 - [ ] **Smoke test once Xcode is installed** — full end-to-end: sign-in → onboarding choice → mark some words → lesson runner skips them → re-open editor from settings → unmark → next lesson surfaces the word again.
 
