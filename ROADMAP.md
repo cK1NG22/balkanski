@@ -18,22 +18,22 @@ Bootable Expo + NativeWind app with every shell, every route stub, every config.
 
 ---
 
-## Phase 1 — OAuth + Placement Test + Serbian Starter MVP
+## Phase 1 — OAuth + Known-Words + Serbian Starter MVP
 
 *Layer 1 + Layer 2 base. Weeks 1–4.*
 
 - **Google OAuth** wired through Supabase Auth (Apple deferred until iOS App Store distribution).
 - SQL migration created and applied to Supabase project.
 - **Content pipeline runs first**: Python ingestion of CLARIN.SI srWaC + OpenSubtitles + Wikipedia + Tatoeba → real `frequency_rank_in_lang` values for Serbian.
-- Placement test: **mixed** — 5 SR vocab questions + 5 SR grammar questions (2 min), writes `users.proficiency_estimate`.
-- Linear Pareto sequencer reads `variant.frequency_rank_in_lang` for Serbian — the user's primary language.
+- **Self-marked Known Words** replaces the placement test (see ADR 0002): scrollable checkbox list with a "know everything up to here" bulk-mark shortcut, post-sign-in nudge offering "Start fresh" or "Mark words I know," same editor lives in Settings for revising later.
+- Linear Pareto sequencer reads `variant.frequency_rank_in_lang` for Serbian — the user's primary language — and intersects its seen-set with the user's known-set.
 - First ~100 starter Serbian words seeded from the ingestion output (NOT invented placeholders).
 - FlashCard SRS review (FSRS via `ts-fsrs`) on top of Pareto.
 - Tiered grading (right/close/wrong) live in the lesson runner.
 - Streak counter via MMKV.
 - **`ParetoProgress.validated` flips to `true`** once ingestion produces real frequencies — until then, the component shows raw count only (Carter's Pareto-honesty rule).
 
-**Done when**: Carter signs in via Google, takes placement test, completes a 5-min daily session in Serbian, streak increments next day, "close" answers show correction inline, ParetoProgress shows real corpus-derived rank.
+**Done when**: Carter signs in via Google, marks zero-or-more known words from the editor (or taps "Start fresh"), completes a 5-min daily session in Serbian, streak increments next day, "close" answers show correction inline, ParetoProgress shows real corpus-derived rank.
 
 ---
 
@@ -143,7 +143,7 @@ Bootable Expo + NativeWind app with every shell, every route stub, every config.
 ## Decisions (locked 2026-05-23)
 
 1. ✓ **Phase 1 seed language**: Serbian (sr)
-2. ✓ **Placement test design**: mixed (5 vocab + 5 grammar, 2 min)
+2. ✓ **Placement test replaced with self-marked Known Words** (ADR 0002): checkbox list, "know everything up to here" bulk-mark shortcut, settings-resident editor, optional post-sign-in nudge. No discrete test.
 3. ✓ **OAuth providers**: Google only in Phase 1 (Apple deferred)
 4. ✓ **Persona roster for Phase 4**: full named list incl. politicians (Jokić, Modrić, Đoković, Dodik, Vučić, Tesla, Balkan Dad, +TBD per country) — personal-use exposure accepted, revisit before public launch
 5. ✓ **Visual art style**: AI-generated with consistent style-reference image

@@ -143,3 +143,21 @@ export function getAllKnownVariantIds(userId: string): Set<string> {
   );
   return new Set(rows.map((r) => r.variant_id));
 }
+
+/** Get every review item for a user — used by the first-sign-in rebind to push local state to remote. */
+export function getAllReviewItemsForUser(userId: string): ReviewItem[] {
+  const rows = getReviewQueueDb().getAllSync<Row>(
+    'SELECT * FROM review_items WHERE user_id = ?',
+    [userId],
+  );
+  return rows.map(rowToItem);
+}
+
+/** Rebind every local review_items row from oldId to newId. Idempotent — running twice is a no-op on the second pass. */
+export function rebindUserIdInSqlite(oldId: string, newId: string): void {
+  if (oldId === newId) return;
+  getReviewQueueDb().runSync(
+    'UPDATE review_items SET user_id = ? WHERE user_id = ?',
+    [newId, oldId],
+  );
+}

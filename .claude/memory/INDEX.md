@@ -30,4 +30,4 @@ Phase 0 worked around this by inlining auth helpers in `src/providers/AuthProvid
 
 ## Active context
 
-Phase 0 — scaffold complete. See `ROADMAP.md` for next phases.
+Phase 1C nearly complete — migrations 0001/0002/0003 deployed, content seeded (120/121), Google OAuth wired with PKCE + secure-storage, first-sign-in rebind wired with 5 unit tests, all 62 tests + tsc clean. **Design pivot this session** (ADR 0002): placement test replaced with self-marked Known Words. Two open items for next session: (a) implement Known Words per the spec in `todo.md` + ADR 0002, (b) end-to-end smoke test in iOS sim once full Xcode is installed.

@@ -1,12 +1,28 @@
 import { Image } from 'expo-image';
-import { View } from 'react-native';
+import { useState } from 'react';
+import { Alert, View } from 'react-native';
 
 import { Button, Screen, Text } from '@/components';
+import { signInWithGoogle } from '@/lib/auth';
 
 const FLAG_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuAxpaMuyPQp2ZOu136OHkvTE5Iep7Ip09tajIBWdBQIpiCAcP7XZq6Zup8or78-Jibr2rBHn6LV4u5mKKdRId-laZrwuhZQhXcNrP-4INr-fjlQf_5SA6ajJIAVS-0D3gHFu0MS5_ULMMXp47WYsZ7E7kXvnN7yWy16pQWTdPHPbz4XgfhiBibApb7GmCWYJsBEXWOXm9xMTZGEj1JcbHUatXctATug_M6m90eopN6AdqbhJKABdJuxoadQWt6JKoCc7CV9Ghg5_nc';
 
 export default function SignIn() {
+  const [signingIn, setSigningIn] = useState(false);
+
+  async function handleSignIn() {
+    if (signingIn) return;
+    setSigningIn(true);
+    const result = await signInWithGoogle();
+    setSigningIn(false);
+    if (result.type === 'error') {
+      Alert.alert('Sign-in failed', result.message);
+    }
+    // On success, AuthProvider's onAuthChange subscription fires and the
+    // index route redirects automatically — no navigation call needed here.
+  }
+
   return (
     <Screen>
       <View className="flex-1 justify-center gap-8 px-3">
@@ -32,10 +48,9 @@ export default function SignIn() {
 
         <View className="gap-5">
           <Button
-            label="Sign in with Google"
-            onPress={() => {
-              /* Phase 1: wire to Supabase Google OAuth. */
-            }}
+            label={signingIn ? 'Opening Google…' : 'Sign in with Google'}
+            onPress={handleSignIn}
+            disabled={signingIn}
             fullWidth
             size="lg"
           />
@@ -51,9 +66,6 @@ export default function SignIn() {
         <View className="items-center gap-3">
           <Text variant="body" align="center" weight="semibold">
             Personal use. No tracking.
-          </Text>
-          <Text variant="caption" align="center" color="muted">
-            Google sign-in lands with Supabase Auth in Phase 1.
           </Text>
         </View>
       </View>

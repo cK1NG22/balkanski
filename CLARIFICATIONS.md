@@ -50,7 +50,7 @@ The source brainstorm (the original "everything I want this app to do" dump) liv
 - **Spaced repetition (Anki-style)** on top of the linear Pareto path. New material follows the Pareto spine; SRS schedules surface past-learned items for review.
 
 ### Onboarding
-- **Placement test required** at first launch. Without one, users who already speak some SCB are forced through A0 and quit. Design TBD — but the placeholder lives in the schema as a `proficiency_estimate` on the user record.
+- **No placement test.** Replaced by self-marked **Known Words** (see ADR 0002). After sign-in, a one-time card offers "Start fresh" or "Mark words I already know"; the latter opens a frequency-ranked checkbox list with a bulk-mark shortcut. The same editor lives in Settings so users can revise over time. Pareto sequencer intersects its seen-set with the user's known-set.
 
 ### Persistence
 - **Cross-device sync via OAuth.** No custom auth. Provider TBD (Google / Apple are the obvious picks given the audience).
@@ -124,7 +124,7 @@ The single highest-leverage decision in the app is the data model for words. The
 The following are intentionally NOT in the initial scope, and not because they were forgotten:
 
 - **Notifications strategy** (push, email, in-app reminders)
-- **Onboarding flow** (post-placement-test)
+- **Onboarding flow** beyond the known-words nudge (richer welcome, tutorial cards, etc.)
 - **Monetization model** (this is personal-use for now)
 - **MVP scoping** (will be sized in the other planning session)
 - **Social / community features** (leaderboards, friends, clubs) — not on the original brainstorm; absent by choice
@@ -142,7 +142,7 @@ These are decisions the other planning session is responsible for. Each one is r
 1. **Tech stack / platform** — web (Next.js + PWA), React Native, native iOS, or web-first then native. Each implies a different shape for everything else. (Carter notes this is already being decided in the other session.)
 2. **Corpus source for the Pareto chart.** Where does the source text come from for word-frequency analysis? Wikipedia + OpenSubtitles + public-domain literature is the usual safe stack. Scraping copyrighted news works for a prototype but doesn't survive any commercial scale-up.
 3. **Native-speaker audio source** (for the eventual audio phase). Record Carter's wife? Hire freelancers? AI TTS? Mix?
-4. **Placement test design.** Vocab-recall based? Grammar-pattern based? Self-report? Mixed?
+4. ~~**Placement test design.**~~ Resolved by ADR 0002 — placement test replaced with self-marked known-words assessment. No test ships.
 5. **Persona roster lock.** Final list of lookalike teachers per country. Explicit yes/no on politically sensitive figures (Dodik, Vučić, etc.).
 6. **Visual / art style** for the animated cultural unlocks (recipes, locations, teacher portraits). Hand-illustrated? AI-generated with a consistent style guide? Stock?
 7. **OAuth provider(s)** for sync.
