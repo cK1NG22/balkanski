@@ -2,7 +2,6 @@ import {
   FLUENCY_TARGET_RANK,
   paretoStatus,
   selectNextVariant,
-  startingRankForProficiency,
 } from '@/lib/pareto/sequencer';
 import type { Variant } from '@/data/schemas/variant';
 
@@ -42,6 +41,26 @@ describe('selectNextVariant', () => {
     const next = selectNextVariant({
       language: 'sr',
       knownVariantIds: new Set(['a', 'b']),
+      allVariants: variants,
+    });
+    expect(next?.id).toBe('c');
+  });
+
+  it('skips self-marked known variants in addition to seen ones', () => {
+    const next = selectNextVariant({
+      language: 'sr',
+      knownVariantIds: new Set(['a']),
+      markedKnownVariantIds: new Set(['b']),
+      allVariants: variants,
+    });
+    expect(next?.id).toBe('c');
+  });
+
+  it('treats overlap between seen and marked-known as a single skip', () => {
+    const next = selectNextVariant({
+      language: 'sr',
+      knownVariantIds: new Set(['a', 'b']),
+      markedKnownVariantIds: new Set(['a']),
       allVariants: variants,
     });
     expect(next?.id).toBe('c');
@@ -97,22 +116,22 @@ describe('paretoStatus', () => {
     expect(status.percentToFluency).toBeCloseTo(0.1, 5);
   });
 
+  it('counts self-marked + seen together toward fluency progress', () => {
+    const status = paretoStatus(
+      {
+        language: 'sr',
+        knownVariantIds: new Set(['a']),
+        markedKnownVariantIds: new Set(['b']),
+        allVariants: variants,
+      },
+      10,
+    );
+    expect(status.knownCount).toBe(2);
+    expect(status.nextRankToTeach).toBe(3);
+    expect(status.percentToFluency).toBeCloseTo(0.2, 5);
+  });
+
   it('exposes the fluency-target constant', () => {
     expect(FLUENCY_TARGET_RANK).toBe(2000);
-  });
-});
-
-describe('startingRankForProficiency', () => {
-  it('starts at 1 for absolute beginners', () => {
-    expect(startingRankForProficiency(0)).toBe(1);
-    expect(startingRankForProficiency(-50)).toBe(1);
-  });
-
-  it('passes through mid-range estimates', () => {
-    expect(startingRankForProficiency(500)).toBe(500);
-  });
-
-  it('caps at the fluency target', () => {
-    expect(startingRankForProficiency(5000)).toBe(FLUENCY_TARGET_RANK);
   });
 });

@@ -14,7 +14,7 @@ import type { Variant } from '@/data/schemas/variant';
 import { getLocalLearnerId } from '@/lib/learner-id';
 import { selectNextVariant } from '@/lib/pareto/sequencer';
 import { gradeAndPersistVariant } from '@/lib/srs/persist';
-import { getAllKnownVariantIds } from '@/lib/srs/sqlite';
+import { getMarkedKnownVariantIds, getSeenVariantIds } from '@/lib/srs/sqlite';
 import { tickStreak } from '@/lib/streak';
 
 const DIRECTION = 'recognize' as const;
@@ -98,8 +98,13 @@ export function useParetoLesson(): UseParetoLesson {
 }
 
 function safeReadKnown(userId: string): Set<string> {
+  // Sequencer's skip-set = (variants seen in SRS) ∪ (variants user marked known).
+  // Either source is a fail-soft read; if SQLite isn't available the lesson
+  // loop still progresses, it just won't honor self-marks until next launch.
   try {
-    return getAllKnownVariantIds(userId);
+    const seen = getSeenVariantIds(userId);
+    const marked = getMarkedKnownVariantIds(userId);
+    return new Set([...seen, ...marked]);
   } catch {
     return new Set();
   }

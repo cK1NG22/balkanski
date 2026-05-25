@@ -133,6 +133,21 @@ export default function Settings() {
           </View>
         </Card>
 
+        <Card variant="outlined" className="gap-3">
+          <Text variant="h2" weight="bold">
+            Known Words
+          </Text>
+          <Text variant="body" color="muted">
+            Words you've marked as already known. Lessons skip these.
+          </Text>
+          <Button
+            label="Manage known words"
+            variant="secondary"
+            onPress={() => router.push('/(modal)/known-words')}
+            fullWidth
+          />
+        </Card>
+
         <Button label="Sign out" variant="destructive" onPress={() => router.replace('/(auth)/sign-in')} />
 
         <View className="items-center gap-3 py-6">

@@ -23,7 +23,7 @@ const DB_NAME = 'balkanski.db';
 
 let _db: SQLite.SQLiteDatabase | null = null;
 
-/** Lazily open the review-queue DB and ensure its schema exists. */
+/** Lazily open the local SRS DB and ensure its schema exists. */
 function getReviewQueueDb(): SQLite.SQLiteDatabase {
   if (_db) return _db;
   _db = SQLite.openDatabaseSync(DB_NAME);
@@ -47,6 +47,15 @@ function getReviewQueueDb(): SQLite.SQLiteDatabase {
     );
     CREATE INDEX IF NOT EXISTS review_items_due_idx
       ON review_items(user_id, due_at);
+
+    CREATE TABLE IF NOT EXISTS known_variants (
+      user_id TEXT NOT NULL,
+      variant_id TEXT NOT NULL,
+      marked_at TEXT NOT NULL,
+      PRIMARY KEY (user_id, variant_id)
+    );
+    CREATE INDEX IF NOT EXISTS known_variants_user_idx
+      ON known_variants(user_id);
   `);
   return _db;
 }
@@ -136,7 +145,14 @@ export function getDueItems(userId: string, now: Date = new Date()): ReviewItem[
   return rows.map(rowToItem);
 }
 
-export function getAllKnownVariantIds(userId: string): Set<string> {
+/**
+ * Variants the user has been graded on at least once (i.e. has a review_items row).
+ * Pareto sequencer input #1: "skip what's already in the SRS queue".
+ *
+ * NOTE: this is the "seen-set", not the self-marked-known set. Self-marking
+ * lives in `known_variants` below; the sequencer unions both before skipping.
+ */
+export function getSeenVariantIds(userId: string): Set<string> {
   const rows = getReviewQueueDb().getAllSync<{ variant_id: string }>(
     'SELECT DISTINCT variant_id FROM review_items WHERE user_id = ?',
     [userId],
@@ -153,11 +169,102 @@ export function getAllReviewItemsForUser(userId: string): ReviewItem[] {
   return rows.map(rowToItem);
 }
 
-/** Rebind every local review_items row from oldId to newId. Idempotent — running twice is a no-op on the second pass. */
+/** Rebind every local row (review_items + known_variants) from oldId to newId. Idempotent — running twice is a no-op on the second pass. */
 export function rebindUserIdInSqlite(oldId: string, newId: string): void {
   if (oldId === newId) return;
-  getReviewQueueDb().runSync(
+  const db = getReviewQueueDb();
+  db.runSync(
     'UPDATE review_items SET user_id = ? WHERE user_id = ?',
     [newId, oldId],
+  );
+  // known_variants rebinds the same way. ON CONFLICT keeps the existing
+  // (newId, variant_id) row if both ids already had a mark for the same
+  // variant -- the user's intent ("I know this") is preserved either way.
+  db.runSync(
+    `INSERT INTO known_variants (user_id, variant_id, marked_at)
+       SELECT ?, variant_id, marked_at FROM known_variants WHERE user_id = ?
+       ON CONFLICT(user_id, variant_id) DO NOTHING`,
+    [newId, oldId],
+  );
+  db.runSync('DELETE FROM known_variants WHERE user_id = ?', [oldId]);
+}
+
+// =============================================================================
+// known_variants helpers — self-marked "I already know this word" set.
+// Authoritative design: docs/decisions/0002-known-words-vs-placement-test.md
+// =============================================================================
+
+interface KnownRow {
+  user_id: string;
+  variant_id: string;
+  marked_at: string;
+}
+
+/** All variant ids the user has self-marked as known. */
+export function getMarkedKnownVariantIds(userId: string): Set<string> {
+  const rows = getReviewQueueDb().getAllSync<{ variant_id: string }>(
+    'SELECT variant_id FROM known_variants WHERE user_id = ?',
+    [userId],
+  );
+  return new Set(rows.map((r) => r.variant_id));
+}
+
+/** Did the user already mark this variant as known? */
+export function isVariantMarkedKnown(userId: string, variantId: string): boolean {
+  const row = getReviewQueueDb().getFirstSync<KnownRow>(
+    'SELECT * FROM known_variants WHERE user_id = ? AND variant_id = ?',
+    [userId, variantId],
+  );
+  return row !== null;
+}
+
+/** Mark a variant as known. Idempotent — a second call is a no-op. */
+export function markVariantKnown(
+  userId: string,
+  variantId: string,
+  now: Date = new Date(),
+): void {
+  getReviewQueueDb().runSync(
+    `INSERT INTO known_variants (user_id, variant_id, marked_at)
+       VALUES (?, ?, ?)
+       ON CONFLICT(user_id, variant_id) DO NOTHING`,
+    [userId, variantId, now.toISOString()],
+  );
+}
+
+/** Mark many variants as known in one transaction. Used by "I know up to here". */
+export function markVariantsKnown(
+  userId: string,
+  variantIds: readonly string[],
+  now: Date = new Date(),
+): void {
+  if (variantIds.length === 0) return;
+  const db = getReviewQueueDb();
+  const ts = now.toISOString();
+  db.withTransactionSync(() => {
+    for (const variantId of variantIds) {
+      db.runSync(
+        `INSERT INTO known_variants (user_id, variant_id, marked_at)
+           VALUES (?, ?, ?)
+           ON CONFLICT(user_id, variant_id) DO NOTHING`,
+        [userId, variantId, ts],
+      );
+    }
+  });
+}
+
+/** Unmark a variant. Used by the row checkbox toggle off. */
+export function unmarkVariantKnown(userId: string, variantId: string): void {
+  getReviewQueueDb().runSync(
+    'DELETE FROM known_variants WHERE user_id = ? AND variant_id = ?',
+    [userId, variantId],
+  );
+}
+
+/** Every known_variants row for a user — used by sync to push local state to remote. */
+export function getAllKnownVariantsForUser(userId: string): KnownRow[] {
+  return getReviewQueueDb().getAllSync<KnownRow>(
+    'SELECT * FROM known_variants WHERE user_id = ?',
+    [userId],
   );
 }

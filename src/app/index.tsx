@@ -9,7 +9,7 @@ import { storage, storageKeys } from '@/lib/storage/mmkv';
 // Splash / OAuth gate.
 // - Loading → render a tiny splash.
 // - Signed in + onboarded → redirect to tabs.
-// - Signed in but no onboarding → redirect to placement test.
+// - Signed in but no onboarding → redirect to onboarding (Known Words nudge).
 // - Not signed in → redirect to sign-in.
 
 export default function Index() {
@@ -37,7 +37,7 @@ export default function Index() {
 
   const onboardingComplete = storage.getBoolean(storageKeys.onboardingComplete);
   if (!onboardingComplete) {
-    return <Redirect href="/(auth)/placement-test" />;
+    return <Redirect href="/(auth)/onboarding" />;
   }
 
   return <Redirect href="/(tabs)/learn" />;

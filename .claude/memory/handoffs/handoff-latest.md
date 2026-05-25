@@ -1,10 +1,10 @@
 ---
 project: balkanski
 task: balkanski
-session_ended: 2026-05-24T20:25:00Z
+session_ended: 2026-05-24T23:30:00Z
 cwd: /Users/carterking/Projects/Personal/balkanski
 git_branch: main
-git_sha: 9a3dd2d
+git_sha: f75c79d (uncommitted)
 shape: project-container
 ---
 
@@ -12,75 +12,41 @@ shape: project-container
 
 ## Next Action
 
-Write `supabase/migrations/0001_initial_schema.sql` with the 8-table schema (`concept`, `variant`, `users`, `user_settings`, `review_items`, `streak_log`, `study_sessions`, `placement_test_results`) + RLS policies + `auth.users` insert trigger, then deploy via `supabase db push`.
+**Carter: run `pnpm exec supabase db push`** to land `supabase/migrations/0004_known_variants.sql` on `khbwshwghilupemmvloq`. The auto-mode classifier gated this from Claude because it drops a table (`placement_test_results`) and a column (`users.proficiency_estimate`) on a production-ish DB — your hand on the trigger is the safety gate. After that: extend the rebind-on-sign-in path to push `known_variants` rows too (currently only `review_items` flows through `rebind-io.ts`).
 
 ## Pointers
 
-- Authoritative spec: `CLARIFICATIONS.md` (root)
-- Stack rules + mock-conversion contract: `AGENTS.md` (root)
-- Memory index: `.claude/memory/INDEX.md`
-- Decisions log: `.claude/memory/decisions.md`
-- Todo: `.claude/memory/todo.md`
-- Roadmap: `ROADMAP.md` (Phase 1C is the current phase)
-- zod source-of-truth schemas the migration must match:
-  - `src/data/schemas/concept.ts` (note `partOfSpeech` enum includes `'particle'`)
-  - `src/data/schemas/variant.ts` (Croatian/Bosnian variants MUST NOT carry cyrillicSpelling — add a CHECK)
-  - `src/data/schemas/review-item.ts` (FSRS v5 — has `learningSteps` field; mirror as `learning_steps INT NOT NULL`)
-  - `src/data/schemas/user.ts`
-  - `src/data/schemas/grading.ts`
-- Local SQLite mirror this needs to sync with: `src/lib/srs/sqlite.ts`
-- Connectivity smoke test: `pnpm check-supabase`
+- **Authoritative ADR**: `docs/decisions/0002-known-words-vs-placement-test.md`
+- **Migration to deploy**: `supabase/migrations/0004_known_variants.sql`
+- Implementation surface (this session): `src/lib/known-variants/`, `src/components/learning/{KnownWordRow,BulkMarkButton}.tsx`, `src/app/(modal)/known-words.tsx`, `src/app/(auth)/onboarding.tsx`, `src/lib/srs/sqlite.ts`, `src/lib/pareto/sequencer.ts`
+- Rebind pattern to extend: `src/lib/sync/rebind.ts` + `rebind-io.ts` (mirror the same shape for `known_variants`)
+- Task memory entry point: `.claude/memory/INDEX.md`
+- Open work: `.claude/memory/todo.md` (Phase 1C open section + Phase 1D follow-ups)
 
 ## Decisions This Session
 
-- Supabase project provisioned by Carter: ref `khbwshwghilupemmvloq` (East US Ohio), name `balkanski`, created 2026-05-24.
-- `.env` written at repo root with `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY` (new `sb_publishable_*` key format). Gitignored.
-- Carter approved `.env` write through the hook verbally; same blanket approval covers the upcoming `supabase/migrations/` write for this specific migration.
-- Supabase CLI upgraded `2.75.0 → 2.101.0` via `brew upgrade supabase`.
-- `supabase init` + `supabase link --project-ref khbwshwghilupemmvloq` both done. `supabase/.temp/project-ref` proves link is active.
-- Connectivity check passes: auth reachable, key accepted, only `email` provider enabled (Google OAuth deferred to a later step).
-- `scripts/check-supabase.ts` + `pnpm check-supabase` added to package.json.
+- **0004 migration shape**: `known_variants(user_id, variant_id, marked_at)` with composite PK; 3 RLS policies (select/insert/delete — no UPDATE because the model is delete-then-reinsert); `ON DELETE CASCADE` on user_id, `ON DELETE RESTRICT` on variant_id; drops `placement_test_results` + `users.proficiency_estimate`.
+- **Sequencer takes two named skip-sets**: `knownVariantIds` (the SRS seen-set) + optional `markedKnownVariantIds`, unioned internally via `buildSkipSet`. Renamed `getAllKnownVariantIds` → `getSeenVariantIds` to remove ambiguity. Deleted dead `startingRankForProficiency`.
+- **Supabase upsert uses `ignoreDuplicates: true`** for known_variants — PostgREST issues `ON CONFLICT DO NOTHING` which doesn't require an UPDATE RLS policy, matching the ADR's mutation model.
+- **Sync is additive-only**: deletions don't propagate through `syncKnownVariants`. Documented as a Phase 1D boundary inside `sync.ts`; latent today because no bidirectional sync caller exists.
+- **Onboarding navigates with one `router.replace`** carrying `?from=onboarding`; the modal's Done handler branches on the param. Replaces the chained replace+push that Gemini correctly flagged as a race.
+- **`KnownWordRow` accessibility**: one outer `Pressable` wraps the checkbox + word + gloss with `accessibilityRole="checkbox"`, `accessibilityState={{checked}}`, and a composed `accessibilityLabel`. Bulk-mark stays a separate, smaller pressable.
+- **Dual review**: Gemini surfaced 4 real defects (RLS upsert, zombie marks, split-focus a11y, router race) — all addressed in-session. Codex `exec review --uncommitted` was kicked off after the first `codex review --uncommitted` form hung in interactive mode; see the brtwcrig4/bf8i53a6s output files for what landed.
 
 ## In-Flight Work
 
-- `supabase/migrations/0001_initial_schema.sql` — does not exist yet. **Hook-guarded path.** Carter approved this specific write in chat; if the hook still blocks, re-confirm once.
+- **Uncommitted working tree**. The whole session sits on a single hot-edit pass; verified clean (`pnpm tsc --noEmit` ✓, `pnpm test` 67/67 ✓, `pnpm stress-test` ✓) but **not yet committed** because the codex `exec review --uncommitted` was completing right at session end. Once codex's output is reviewed for any final fixes, commit and push.
+- **Remote 0004 push pending Carter** (see Next Action).
 
 ## Open Questions / Blockers
 
-- None for the migration step itself.
-- Google OAuth requires Google Cloud Console setup (separate Phase 1C sub-step, not part of this handoff).
-- Seeding `concept` + `variant` from `content/vocab/sr-starter.json` (121 entries) is the step AFTER this migration deploys — not part of this handoff.
-- `src/lib/auth/` write is hook-guarded — not part of this handoff (will be the OAuth-wiring step).
+- **Xcode install still needed** for any iOS smoke test. Known Words is code-verified + unit-tested only.
+- **Phase 1D — known_variants delete propagation**: when bidirectional sync wires up, the unmark code path (`unmarkVariantKnown` in `src/lib/srs/sqlite.ts`) will need a remote `DELETE` alongside the local one. Tracked in todo.md.
+- **Phase 1D — push known_variants in rebind**: `src/lib/sync/rebind.ts` only pushes `review_items` today. After the migration lands, extend the rebind to push `known_variants` too (one-way local → remote), so words marked during onboarding (pre-sign-in) flow upstream on first sign-in.
 
-## Schema spec (verbatim from the parent session)
+## DO NOT in this handoff
 
-**Tables**:
-- `concept` — id uuid PK, english_lemma text NOT NULL, english_translation text NOT NULL, part_of_speech text NOT NULL (CHECK in {noun, verb, adjective, adverb, preposition, pronoun, conjunction, interjection, numeral, phrase, particle}), sense_disambiguator text NULL, topic_tags text[] NOT NULL DEFAULT '{}', frequency_rank_aggregate int NULL.
-- `variant` — id uuid PK, concept_id uuid FK→concept, language text NOT NULL CHECK in ('hr','sr','bs'), regional_tag text NULL, latin_spelling text NOT NULL, cyrillic_spelling text NULL CHECK (language='sr' OR cyrillic_spelling IS NULL), stress_mark text NULL, ipa text NULL, audio_url text NULL, frequency_rank_in_lang int NOT NULL, case_forms jsonb NULL.
-- `users` — id uuid PK (= auth.uid()), primary_language text NULL, proficiency_estimate int NULL, serbian_script_pref text CHECK in ('latin','cyrillic') DEFAULT 'latin', daily_goal_minutes int DEFAULT 5, timezone text NULL, plan text DEFAULT 'free', created_at timestamptz DEFAULT now(), last_active_at timestamptz NULL.
-- `user_settings` — user_id uuid PK FK→users, daily_goal_minutes int DEFAULT 5, sound_enabled bool DEFAULT true, reminder_hour int NULL, theme text DEFAULT 'system'.
-- `review_items` — id uuid PK, user_id uuid FK→auth.users, variant_id uuid FK→variant, direction text CHECK in ('recognize','produce','audio_recognize','script_convert'), stability real NOT NULL, difficulty real NOT NULL, elapsed_days real NOT NULL, scheduled_days real NOT NULL, learning_steps int NOT NULL DEFAULT 0 (FSRS v5), reps int NOT NULL DEFAULT 0, lapses int NOT NULL DEFAULT 0, state text CHECK in ('new','learning','review','relearning'), last_review timestamptz NULL, due_at timestamptz NOT NULL; UNIQUE (user_id, variant_id, direction).
-- `streak_log` — id uuid PK, user_id uuid FK, day date NOT NULL, active bool DEFAULT true; UNIQUE (user_id, day).
-- `study_sessions` — id uuid PK, user_id uuid FK, started_at timestamptz NOT NULL, ended_at timestamptz NULL, cards_seen int DEFAULT 0, cards_right int DEFAULT 0, cards_close int DEFAULT 0, cards_wrong int DEFAULT 0.
-- `placement_test_results` — id uuid PK, user_id uuid FK, question_id text NOT NULL, answer text NOT NULL, correct bool NOT NULL, taken_at timestamptz DEFAULT now().
-
-**RLS**: enable on ALL tables.
-- `concept`, `variant`: SELECT to `authenticated`, deny INSERT/UPDATE/DELETE from clients (seeding uses service_role).
-- All user-state tables: `USING (user_id = auth.uid())` and `WITH CHECK (user_id = auth.uid())` on every CRUD policy. For the `users` row, the policy is `id = auth.uid()`.
-
-**Trigger**: `AFTER INSERT ON auth.users` → INSERT into `public.users (id)` then `public.user_settings (user_id)`. `SECURITY DEFINER`, owned by postgres role.
-
-**Indexes**:
-- `variant (language, frequency_rank_in_lang)` — Pareto sequencer's hot path
-- `review_items (user_id, due_at)` — FSRS due-queue scan
-- `concept (frequency_rank_aggregate)` — global Pareto views
-
-**Deploy + verify**:
-- `supabase db push` (CLI is linked).
-- `pnpm check-supabase` still ✓.
-- A SELECT against an empty table from the anon client either returns `[]` (RLS allowed for content tables) or "permission denied" (RLS rejected for user-state tables) — both prove the table exists.
-
-**DO NOT** in this handoff:
-- Wire Google OAuth.
-- Seed content/vocab/sr-starter.json into the tables.
-- Touch `src/lib/auth/` (hook-guarded; separate step).
+- Don't run `supabase db push` for the user — auto-mode gates this, and the user explicitly wants to drive the destructive remote drop themselves.
+- Don't claim the iOS flow works end-to-end until the smoke test actually runs.
+- Don't change `known_variants` RLS to allow UPDATE — the data model is delete-then-reinsert by design; UPDATE would only widen the attack surface.
+- Don't restore `placement-test.tsx` or `proficiency_estimate` — ADR 0002 supersedes both.

@@ -4,13 +4,23 @@
 // user's primary language. Pareto is the curriculum spine; SRS sits on top
 // for review of past-learned items.
 //
-// Pure functions — no DB access here. Caller passes in the relevant slice.
+// Two skip-set inputs:
+//   * knownVariantIds       -- "seen" set: variants the user has been graded
+//                              on (sourced from review_items.variant_id).
+//   * markedKnownVariantIds -- self-marked set: variants the user said they
+//                              already know via the Known Words editor.
+// Both are unioned internally before filtering. Callers may pass either or
+// both; the seen-set is mandatory, marked-known is optional.
+// Authoritative design (Known Words feature): docs/decisions/0002-known-words-vs-placement-test.md
+//
+// Pure functions -- no DB access here. Caller passes in the relevant slice.
 
 import type { Language, Variant } from '@/data/schemas/variant';
 
 export interface SequencerInput {
   language: Language;
   knownVariantIds: ReadonlySet<string>;
+  markedKnownVariantIds?: ReadonlySet<string>;
   allVariants: readonly Variant[];
 }
 
@@ -23,10 +33,18 @@ export interface ParetoStatus {
 
 export const FLUENCY_TARGET_RANK = 2000;
 
+function buildSkipSet(input: SequencerInput): ReadonlySet<string> {
+  if (!input.markedKnownVariantIds || input.markedKnownVariantIds.size === 0) {
+    return input.knownVariantIds;
+  }
+  return new Set([...input.knownVariantIds, ...input.markedKnownVariantIds]);
+}
+
 export function selectNextVariant(input: SequencerInput): Variant | null {
+  const skip = buildSkipSet(input);
   const candidates = input.allVariants
     .filter((v) => v.language === input.language && v.regionalTag === null)
-    .filter((v) => !input.knownVariantIds.has(v.id))
+    .filter((v) => !skip.has(v.id))
     .sort((a, b) => a.frequencyRankInLang - b.frequencyRankInLang);
   return candidates[0] ?? null;
 }
@@ -37,9 +55,10 @@ export function selectNextVariants(
   limit: number,
 ): Variant[] {
   if (limit <= 0) return [];
+  const skip = buildSkipSet(input);
   return input.allVariants
     .filter((v) => v.language === input.language && v.regionalTag === null)
-    .filter((v) => !input.knownVariantIds.has(v.id))
+    .filter((v) => !skip.has(v.id))
     .sort((a, b) => a.frequencyRankInLang - b.frequencyRankInLang)
     .slice(0, limit);
 }
@@ -48,10 +67,11 @@ export function paretoStatus(
   input: SequencerInput,
   targetRank: number = FLUENCY_TARGET_RANK,
 ): ParetoStatus {
+  const skip = buildSkipSet(input);
   const inLanguage = input.allVariants.filter(
     (v) => v.language === input.language && v.regionalTag === null,
   );
-  const known = inLanguage.filter((v) => input.knownVariantIds.has(v.id));
+  const known = inLanguage.filter((v) => skip.has(v.id));
   const next = selectNextVariant(input);
 
   const knownWithinTarget = known.filter((v) => v.frequencyRankInLang <= targetRank).length;
@@ -63,11 +83,4 @@ export function paretoStatus(
     nextRankToTeach: next?.frequencyRankInLang ?? null,
     percentToFluency: percent,
   };
-}
-
-// Where to start a learner who took the placement test.
-// Maps proficiencyEstimate (0..2000-ish) to a starting rank.
-export function startingRankForProficiency(proficiencyEstimate: number): number {
-  if (proficiencyEstimate <= 0) return 1;
-  return Math.min(proficiencyEstimate, FLUENCY_TARGET_RANK);
 }

@@ -6,3 +6,5 @@ export * from './CyrillicLetter';
 export * from './WordChip';
 export * from './CompareLanguagesPanel';
 export * from './GradingButtonRow';
+export * from './KnownWordRow';
+export * from './BulkMarkButton';

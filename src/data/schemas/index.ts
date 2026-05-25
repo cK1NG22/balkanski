@@ -4,3 +4,4 @@ export * from './user';
 export * from './review-item';
 export * from './lesson-pack';
 export * from './grading';
+export * from './known-variant';
