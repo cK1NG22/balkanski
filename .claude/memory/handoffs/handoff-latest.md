@@ -35,14 +35,14 @@ shape: project-container
 
 ## In-Flight Work
 
-- **Uncommitted working tree**. The whole session sits on a single hot-edit pass; verified clean (`pnpm tsc --noEmit` ✓, `pnpm test` 67/67 ✓, `pnpm stress-test` ✓) but **not yet committed** because the codex `exec review --uncommitted` was completing right at session end. Once codex's output is reviewed for any final fixes, commit and push.
+- **Two Phase 1D follow-ups landed this session** (rebind extension + unmark propagation) — both committed.
 - **Remote 0004 push pending Carter** (see Next Action).
 
 ## Open Questions / Blockers
 
 - **Xcode install still needed** for any iOS smoke test. Known Words is code-verified + unit-tested only.
-- **Phase 1D — known_variants delete propagation**: when bidirectional sync wires up, the unmark code path (`unmarkVariantKnown` in `src/lib/srs/sqlite.ts`) will need a remote `DELETE` alongside the local one. Tracked in todo.md.
-- **Phase 1D — push known_variants in rebind**: `src/lib/sync/rebind.ts` only pushes `review_items` today. After the migration lands, extend the rebind to push `known_variants` too (one-way local → remote), so words marked during onboarding (pre-sign-in) flow upstream on first sign-in.
+- **Phase 1D — known_variants delete propagation**: DONE. `unmarkAndPropagate` in `src/lib/known-variants/toggle.ts` does local + best-effort remote DELETE when session matches.
+- **Phase 1D — push known_variants in rebind**: DONE. `RebindIO` gained `getLocalKnown` + `upsertRemoteKnown`; orchestration pushes both tables together.
 
 ## DO NOT in this handoff
 

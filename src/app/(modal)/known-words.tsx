@@ -11,12 +11,12 @@ import {
 import { loadStarterVocab } from '@/data/loader';
 import type { Concept } from '@/data/schemas/concept';
 import type { Variant } from '@/data/schemas/variant';
+import { unmarkAndPropagate } from '@/lib/known-variants';
 import { getLocalLearnerId } from '@/lib/learner-id';
 import {
   getMarkedKnownVariantIds,
   markVariantKnown,
   markVariantsKnown,
-  unmarkVariantKnown,
 } from '@/lib/srs/sqlite';
 import { storage, storageKeys } from '@/lib/storage/mmkv';
 
@@ -91,11 +91,16 @@ export default function KnownWords() {
         else next.delete(variantId);
         return next;
       });
-      try {
-        if (nextChecked) markVariantKnown(userId, variantId);
-        else unmarkVariantKnown(userId, variantId);
-      } catch (err) {
-        if (__DEV__) console.warn('[known-words] persist toggle failed', err);
+      if (nextChecked) {
+        try {
+          markVariantKnown(userId, variantId);
+        } catch (err) {
+          if (__DEV__) console.warn('[known-words] persist mark failed', err);
+        }
+      } else {
+        // Local delete + best-effort remote DELETE when a session exists,
+        // so unmarks don't get re-added by a future bidirectional sync.
+        void unmarkAndPropagate(userId, variantId);
       }
     },
     [userId],

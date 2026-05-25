@@ -2,6 +2,16 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-24 — Session 9 (cont'd): Phase 1D follow-ups landed
+
+Two unblocked follow-ups from the Phase 1C commit cleared in one push:
+
+**(1) Rebind extension** — `RebindIO` now has `getLocalKnown` + `upsertRemoteKnown`. `rebindOnSignIn` pushes both `review_items` and `known_variants` to remote in one orchestration step (same crash-safety contract: local always consistent, remote is best-effort). `RebindResult.rebound` is total across both tables. `rebind-io.ts` wires up the real Supabase upsert with `ignoreDuplicates: true` (no UPDATE policy needed on known_variants). 2 new unit tests: dual-flow case (1 item + 2 known → rebound: 3, both remote arrays populated) and known-only case (no items, 1 known → only the known arr populated). Existing 5 tests refactored to use an `emptyState({...})` helper for the wider IO surface.
+
+**(2) Unmark deletion propagation** — new `src/lib/known-variants/toggle.ts` exports `unmarkAndPropagate(userId, variantId)`. Always issues the local SQLite delete; conditionally issues a remote DELETE when Supabase is configured AND a session matches the userId. Errors swallowed (warned in `__DEV__`) since local is already committed. The known-words editor's toggle handler calls it via `void unmarkAndPropagate(...)` so the optimistic UI update stays synchronous and the network round-trip happens off the render path. `syncKnownVariants` stays strictly additive-union; deletion goes through this path, not sync.
+
+**Verification**: `pnpm tsc --noEmit` clean, `pnpm test` 69/69 (was 67; +2 new rebind tests). No dual-review pass this time — the changes mirror existing patterns (rebind shape, sync-io shape) and the test deltas were small.
+
 ## 2026-05-24 — Session 9: Known Words implemented end-to-end (code-verified)
 
 Continuation of the post-handoff session. Implemented ADR 0002 (Known Words replaces placement test) per the 10-step plan in todo.md.

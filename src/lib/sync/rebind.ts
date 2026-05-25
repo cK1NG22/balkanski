@@ -1,3 +1,4 @@
+import type { KnownVariant } from '@/data/schemas/known-variant';
 import type { ReviewItem } from '@/data/schemas/review-item';
 
 // Pure orchestration for the first-sign-in rebind. All I/O is injected via
@@ -9,16 +10,20 @@ export interface RebindIO {
   getOldLearnerId(): string | null;
   /** MMKV: store the new learner id (the auth uid after sign-in). */
   setLearnerId(id: string): void;
-  /** SQLite: UPDATE review_items SET user_id = newId WHERE user_id = oldId. */
+  /** SQLite: rebind every user-state row (review_items + known_variants) from oldId to newId. */
   rebindLocal(oldId: string, newId: string): void;
   /** SQLite: SELECT all review_items rows belonging to a user. */
   getLocalItems(userId: string): ReviewItem[];
+  /** SQLite: SELECT all known_variants rows belonging to a user. */
+  getLocalKnown(userId: string): KnownVariant[];
   /** Supabase: upsert items into public.review_items. */
   upsertRemote(items: ReviewItem[]): Promise<void>;
+  /** Supabase: idempotent insert into public.known_variants (ON CONFLICT DO NOTHING). */
+  upsertRemoteKnown(rows: KnownVariant[]): Promise<void>;
 }
 
 export interface RebindResult {
-  /** How many local rows were rebound + (best-effort) pushed to remote. */
+  /** Total rows rebound (review_items + known_variants), best-effort pushed to remote. */
   rebound: number;
   /** Whether the rebind ran (false when no-op: no oldId or oldId === authUid). */
   ran: boolean;
@@ -45,15 +50,18 @@ export async function rebindOnSignIn(
   io.setLearnerId(authUid);
 
   const items = io.getLocalItems(authUid);
-  if (items.length === 0) {
+  const known = io.getLocalKnown(authUid);
+  const total = items.length + known.length;
+  if (total === 0) {
     return { rebound: 0, ran: true };
   }
 
   try {
-    await io.upsertRemote(items);
-    return { rebound: items.length, ran: true };
+    if (items.length > 0) await io.upsertRemote(items);
+    if (known.length > 0) await io.upsertRemoteKnown(known);
+    return { rebound: total, ran: true };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    return { rebound: items.length, ran: true, remoteError: message };
+    return { rebound: total, ran: true, remoteError: message };
   }
 }

@@ -66,12 +66,12 @@ Authoritative design: **`docs/decisions/0002-known-words-vs-placement-test.md`**
 ## Phase 1C — still open (next session)
 
 - [ ] **Carter: run `pnpm exec supabase db push`** to land `0004_known_variants.sql` on `khbwshwghilupemmvloq`. The auto-mode classifier gated this from me because it drops a table + column on a production-ish DB. Migration is local and tsc/test-clean; just needs your hand on the trigger.
-- [ ] **Push known_variants in the rebind-on-sign-in path** — `src/lib/sync/rebind.ts` + `rebind-io.ts` currently only push review_items. The local `known_variants` rows (set during onboarding before sign-in) need to follow the same one-way local→remote path on first sign-in. Smallest change: add a parallel `getLocalKnownVariants` + `upsertRemoteKnownVariants` to `RebindIO` and call them in `rebindOnSignIn` alongside the existing items. Or add a `pushKnownVariantsOnSignIn` separately and call from `AuthProvider` post-rebind.
+- [x] **Push known_variants in the rebind-on-sign-in path** — done in session 9 continuation. `RebindIO` gained `getLocalKnown` + `upsertRemoteKnown`; `rebindOnSignIn` orchestration pushes both review_items and known_variants. `RebindResult.rebound` is now the total across both. 2 new tests cover the dual-flow + known-only case.
 - [ ] **Smoke test once Xcode is installed** — full end-to-end: sign-in → onboarding choice → mark some words → lesson runner skips them → re-open editor from settings → unmark → next lesson surfaces the word again.
 
-## Phase 1D — follow-ups (when bidirectional sync wires up)
+## Phase 1D — follow-ups
 
-- [ ] **`known_variants` deletion propagation**: `syncKnownVariants` is additive-union only; when the unmark path is wired across two devices, deletions become "zombie" marks. Fix: in the unmark code path (currently `unmarkVariantKnown` in `src/lib/srs/sqlite.ts`), also issue a `DELETE` against the remote `known_variants` row when a session exists. Documented as a known boundary in `src/lib/known-variants/sync.ts`. Latent in Phase 1 — no bidirectional sync caller exists today, so the failure mode can't trigger.
+- [x] **`known_variants` deletion propagation**: done in session 9 continuation. `src/lib/known-variants/toggle.ts` exports `unmarkAndPropagate(userId, variantId)` which does the local SQLite delete and a best-effort remote DELETE when a Supabase session exists for that user. The known-words editor's toggle handler calls it via `void unmarkAndPropagate(...)` so the screen's optimistic update stays synchronous. The boundary docs in `src/lib/known-variants/sync.ts` still hold: `syncKnownVariants` itself remains additive-only — deletion goes through `unmarkAndPropagate`, not the sync function. (Phase 1D bidirectional sync, if/when it lands, can still rely on the additive-only contract.)
 
 ## Outstanding from prior sessions
 

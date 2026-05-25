@@ -1,5 +1,7 @@
+import type { KnownVariant } from '@/data/schemas/known-variant';
 import type { ReviewItem } from '@/data/schemas/review-item';
 import {
+  getAllKnownVariantsForUser,
   getAllReviewItemsForUser,
   rebindUserIdInSqlite,
 } from '@/lib/srs/sqlite';
@@ -43,11 +45,31 @@ export const realRebindIO: RebindIO = {
   getLocalItems(userId) {
     return getAllReviewItemsForUser(userId);
   },
+  getLocalKnown(userId) {
+    return getAllKnownVariantsForUser(userId).map((r) => ({
+      userId: r.user_id,
+      variantId: r.variant_id,
+      markedAt: r.marked_at,
+    }));
+  },
   async upsertRemote(items) {
     const rows = items.map(itemToRow);
     const { error } = await getSupabase()
       .from('review_items')
       .upsert(rows, { onConflict: 'user_id,variant_id,direction' });
+    if (error) throw new Error(error.message);
+  },
+  async upsertRemoteKnown(rows) {
+    // ignoreDuplicates -> ON CONFLICT DO NOTHING. Matches known_variants RLS,
+    // which has no UPDATE policy by design (toggle = delete-then-reinsert).
+    const remote = rows.map((k: KnownVariant) => ({
+      user_id: k.userId,
+      variant_id: k.variantId,
+      marked_at: k.markedAt,
+    }));
+    const { error } = await getSupabase()
+      .from('known_variants')
+      .upsert(remote, { onConflict: 'user_id,variant_id', ignoreDuplicates: true });
     if (error) throw new Error(error.message);
   },
 };
