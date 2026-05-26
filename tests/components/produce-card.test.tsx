@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
+import { Keyboard } from 'react-native';
 
 import { ProduceCard } from '@/components';
 
@@ -66,5 +67,30 @@ describe('ProduceCard', () => {
 
     expect(onGraded).toHaveBeenCalledTimes(1);
     expect(onGraded).toHaveBeenCalledWith('close');
+  });
+
+  it('propagates the right tier through Continue', () => {
+    const { onGraded } = setup();
+    fireEvent.changeText(screen.getByPlaceholderText('...'), 'piše');
+    fireEvent.press(screen.getByText('Check'));
+    fireEvent.press(screen.getByText('Continue'));
+    expect(onGraded).toHaveBeenCalledWith('right');
+  });
+
+  it('propagates the wrong tier through Continue', () => {
+    const { onGraded } = setup();
+    fireEvent.changeText(screen.getByPlaceholderText('...'), 'kruh');
+    fireEvent.press(screen.getByText('Check'));
+    fireEvent.press(screen.getByText('Continue'));
+    expect(onGraded).toHaveBeenCalledWith('wrong');
+  });
+
+  it('dismisses the keyboard when Check is pressed', () => {
+    const spy = jest.spyOn(Keyboard, 'dismiss');
+    setup();
+    fireEvent.changeText(screen.getByPlaceholderText('...'), 'pise');
+    fireEvent.press(screen.getByText('Check'));
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
   });
 });

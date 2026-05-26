@@ -135,13 +135,30 @@ export function upsertReviewItem(item: ReviewItem): void {
   );
 }
 
-export function getDueItems(userId: string, now: Date = new Date()): ReviewItem[] {
-  const rows = getReviewQueueDb().getAllSync<Row>(
-    `SELECT * FROM review_items
-       WHERE user_id = ? AND due_at <= ?
-       ORDER BY due_at ASC`,
-    [userId, now.toISOString()],
-  );
+export interface GetDueItemsOpts {
+  /** Restrict to one direction. Omit to return all directions. */
+  direction?: ReviewDirection;
+  now?: Date;
+}
+
+export function getDueItems(
+  userId: string,
+  opts: GetDueItemsOpts = {},
+): ReviewItem[] {
+  const now = opts.now ?? new Date();
+  const rows = opts.direction
+    ? getReviewQueueDb().getAllSync<Row>(
+        `SELECT * FROM review_items
+           WHERE user_id = ? AND due_at <= ? AND direction = ?
+           ORDER BY due_at ASC`,
+        [userId, now.toISOString(), opts.direction],
+      )
+    : getReviewQueueDb().getAllSync<Row>(
+        `SELECT * FROM review_items
+           WHERE user_id = ? AND due_at <= ?
+           ORDER BY due_at ASC`,
+        [userId, now.toISOString()],
+      );
   return rows.map(rowToItem);
 }
 
@@ -149,14 +166,28 @@ export function getDueItems(userId: string, now: Date = new Date()): ReviewItem[
  * Variants the user has been graded on at least once (i.e. has a review_items row).
  * Pareto sequencer input #1: "skip what's already in the SRS queue".
  *
+ * Pass `direction` to scope the seen-set to one FSRS lane (recognize OR produce).
+ * Without it, recognize-completed words would hide from produce lessons and
+ * vice versa, defeating the `(user, variant, direction)` UNIQUE that lets the
+ * two schedules coexist for the same word.
+ *
  * NOTE: this is the "seen-set", not the self-marked-known set. Self-marking
- * lives in `known_variants` below; the sequencer unions both before skipping.
+ * (`known_variants`) is intentionally direction-independent — a user who says
+ * "I know this word" means it in both directions.
  */
-export function getSeenVariantIds(userId: string): Set<string> {
-  const rows = getReviewQueueDb().getAllSync<{ variant_id: string }>(
-    'SELECT DISTINCT variant_id FROM review_items WHERE user_id = ?',
-    [userId],
-  );
+export function getSeenVariantIds(
+  userId: string,
+  direction?: ReviewDirection,
+): Set<string> {
+  const rows = direction
+    ? getReviewQueueDb().getAllSync<{ variant_id: string }>(
+        'SELECT DISTINCT variant_id FROM review_items WHERE user_id = ? AND direction = ?',
+        [userId, direction],
+      )
+    : getReviewQueueDb().getAllSync<{ variant_id: string }>(
+        'SELECT DISTINCT variant_id FROM review_items WHERE user_id = ?',
+        [userId],
+      );
   return new Set(rows.map((r) => r.variant_id));
 }
 

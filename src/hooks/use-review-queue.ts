@@ -89,8 +89,12 @@ export function useReviewQueue(): UseReviewQueue {
 }
 
 function safeRead(userId: string): ReviewItem[] {
+  // Hard-scope to recognize until the review UI branches per direction.
+  // Produce items still get FSRS-scheduled by the lesson runner, but
+  // surfacing them here would render a typing card as a Serbian→English
+  // flashcard and silently advance the wrong schedule on self-grade.
   try {
-    return getDueItems(userId);
+    return getDueItems(userId, { direction: 'recognize' });
   } catch {
     return [];
   }

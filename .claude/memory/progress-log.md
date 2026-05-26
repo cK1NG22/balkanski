@@ -2,6 +2,17 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-25 — Session 11 (cont'd): produce-direction review fixes
+
+Gemini + Codex two-model review of `1ef934d` surfaced 2 architectural [P2]s + 1 mobile-UX miss. All shipped as follow-up:
+
+- **Direction-aware seen-set** (Codex P2 #1) — `getSeenVariantIds(userId, direction?)` now filters `review_items` by direction when supplied. `useParetoLesson`'s `safeReadKnown` passes `direction` through, so recognize-completed words no longer hide from produce lessons (and vice versa). Self-marked `known_variants` stays direction-independent — "I know this word" means both directions. The `(user, variant, direction)` UNIQUE finally delivers on its promise: two FSRS schedules can coexist for the same word.
+- **Review tab guarded** (Codex P2 #2) — `getDueItems` gained an `opts.direction` filter; `useReviewQueue`'s `safeRead` hardcodes `direction: 'recognize'`. Produce items still FSRS-schedule but stay invisible in the Review tab until the UI branches per direction (deferred to Phase 3). Prevents the silent corruption where a due produce item would render as a flashcard and self-grading would advance the wrong schedule.
+- **Keyboard.dismiss() on Check** (Gemini) — `FillInBlankInput.handleSubmit` calls `Keyboard.dismiss()` before grading so the feedback card + Continue button (rendered below the input) aren't covered by the IME on mobile.
+- **Test coverage** — added 3 cases to `produce-card.test.tsx`: right-tier propagation, wrong-tier propagation, Keyboard.dismiss spy. Total now 77/77 (was 74).
+
+**Verification**: `pnpm tsc --noEmit` ✓ · `pnpm test` 77/77 ✓.
+
 ## 2026-05-25 — Session 11: produce direction wired into lesson runner
 
 Closes the ROADMAP Phase 1 Done-when criterion "close answers show correction inline" on the code side (iOS smoke test still pending Xcode).

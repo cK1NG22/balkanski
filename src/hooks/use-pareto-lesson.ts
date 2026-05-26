@@ -35,7 +35,7 @@ export function useParetoLesson(direction: LessonDirection = 'recognize'): UsePa
   const [vocab] = useState<LoadedVocab>(() => loadStarterVocab('sr'));
   const userId = useMemo(getLocalLearnerId, []);
 
-  const [known, setKnown] = useState<Set<string>>(() => safeReadKnown(userId));
+  const [known, setKnown] = useState<Set<string>>(() => safeReadKnown(userId, direction));
 
   const conceptById = useMemo(() => {
     const m = new Map<string, Concept>();
@@ -99,12 +99,15 @@ export function useParetoLesson(direction: LessonDirection = 'recognize'): UsePa
   };
 }
 
-function safeReadKnown(userId: string): Set<string> {
-  // Sequencer's skip-set = (variants seen in SRS) ∪ (variants user marked known).
-  // Either source is a fail-soft read; if SQLite isn't available the lesson
-  // loop still progresses, it just won't honor self-marks until next launch.
+function safeReadKnown(userId: string, direction: LessonDirection): Set<string> {
+  // Sequencer's skip-set = (variants seen in *this* direction's SRS) ∪
+  // (variants user marked known). Seen-set is direction-scoped so a word
+  // graded in recognize doesn't hide from produce (and vice versa). Marks
+  // stay direction-independent — "I know this word" means both directions.
+  // Either source is fail-soft; if SQLite isn't available the lesson loop
+  // still progresses, it just won't honor self-marks until next launch.
   try {
-    const seen = getSeenVariantIds(userId);
+    const seen = getSeenVariantIds(userId, direction);
     const marked = getMarkedKnownVariantIds(userId);
     return new Set([...seen, ...marked]);
   } catch {

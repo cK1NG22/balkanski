@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { Keyboard, TextInput, View } from 'react-native';
 
 import { Button } from '../primitives/Button';
 import { Text } from '../primitives/Text';
@@ -25,6 +25,9 @@ export function FillInBlankInput({
   const [value, setValue] = useState('');
 
   const handleSubmit = () => {
+    // Drop the keyboard before grading so the feedback + Continue button
+    // (which render below the input) aren't hidden under the IME on mobile.
+    Keyboard.dismiss();
     const result = gradingTier(value, acceptedAnswers);
     onAnswer(value, result);
   };
