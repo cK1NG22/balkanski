@@ -15,6 +15,34 @@ import {
 } from '@/components';
 import { useParetoLesson, type LessonDirection } from '@/hooks/use-pareto-lesson';
 import type { GradingTier } from '@/data/schemas/grading';
+import type { Variant } from '@/data/schemas/variant';
+import { storage, storageKeys } from '@/lib/storage/mmkv';
+
+type ScriptPref = 'latin' | 'cyrillic';
+
+// SR variants always carry both spellings; HR/BS only carry latinSpelling
+// (the zod schema enforces cyrillicSpelling === null there). Returns the
+// learner's preferred-script form plus the alternate (or empty when there
+// is no alternate to show).
+function pickScripts(variant: Variant, pref: ScriptPref): {
+  primary: string;
+  alternate: string;
+  acceptedAnswers: string[];
+} {
+  const cyr = variant.cyrillicSpelling;
+  if (pref === 'cyrillic' && cyr) {
+    return {
+      primary: cyr,
+      alternate: variant.latinSpelling,
+      acceptedAnswers: [cyr, variant.latinSpelling],
+    };
+  }
+  return {
+    primary: variant.latinSpelling,
+    alternate: cyr ?? '',
+    acceptedAnswers: cyr ? [variant.latinSpelling, cyr] : [variant.latinSpelling],
+  };
+}
 
 const COACH_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuD4QBuQyffkksLihLTnrilh0lLqRDcjLbLHqUXHyM6_NGIxxanpTHAi9DB8KyMKYtGMc-jVhSjX6OZ6FXxxDhoYZ_3AmDLUsAUBI--oQr_pogZhk3MnMxQADRVblONZUp3LBIwvL0xwIjqrVvkAxZjS8mATwZc9MVi3sOU0MzcMVBOIDB68hQV05KJbxLneRKAgRCxpGI2kuF1jWO0SeCAW4Q2sDA1ZtWBBnPm7eOqA5m_ILVNCY-GoUgtSQoKIN5WUtI9ATUR16Rs';
@@ -26,6 +54,8 @@ export default function LessonActive() {
   const direction: LessonDirection =
     params.direction === 'produce' ? 'produce' : 'recognize';
   const { nextVariant, nextConcept, grade } = useParetoLesson(direction);
+  const scriptPref = (storage.getString(storageKeys.serbianScriptPref) ?? 'latin') as ScriptPref;
+  const scripts = nextVariant ? pickScripts(nextVariant, scriptPref) : null;
   const [flipped, setFlipped] = useState(false);
   const [completed, setCompleted] = useState(0);
   const [lastTier, setLastTier] = useState<GradingTier | null>(null);
@@ -104,11 +134,15 @@ export default function LessonActive() {
             </Text>
             <Button label="Done" onPress={() => router.back()} fullWidth size="lg" />
           </View>
-        ) : nextVariant && nextConcept && direction === 'produce' ? (
+        ) : nextVariant && nextConcept && scripts && direction === 'produce' ? (
           <LessonStep
             stepNumber={completed + 1}
             totalSteps={SESSION_LENGTH}
-            instruction="Type the Serbian spelling. Diacritics count."
+            instruction={
+              scriptPref === 'cyrillic' && nextVariant.cyrillicSpelling
+                ? 'Type the Serbian spelling — Cyrillic or Latin both count.'
+                : 'Type the Serbian spelling. Diacritics count.'
+            }
             prompt={
               <ProduceCard
                 key={nextVariant.id}
@@ -118,14 +152,14 @@ export default function LessonActive() {
                     ? `${nextConcept.partOfSpeech} · ${nextConcept.senseDisambiguator}`
                     : nextConcept.partOfSpeech
                 }
-                acceptedAnswers={[nextVariant.latinSpelling]}
+                acceptedAnswers={scripts.acceptedAnswers}
                 onGraded={onGrade}
               />
             }
           >
             <View />
           </LessonStep>
-        ) : nextVariant && nextConcept ? (
+        ) : nextVariant && nextConcept && scripts ? (
           <LessonStep
             stepNumber={completed + 1}
             totalSteps={SESSION_LENGTH}
@@ -138,8 +172,8 @@ export default function LessonActive() {
                 front={
                   <CardFace
                     eyebrow={`Rank #${nextVariant.frequencyRankInLang} · Serbian`}
-                    title={nextVariant.latinSpelling}
-                    subtitle={nextVariant.cyrillicSpelling ?? ''}
+                    title={scripts.primary}
+                    subtitle={scripts.alternate}
                     helper="Tap to reveal meaning"
                   />
                 }
@@ -151,7 +185,7 @@ export default function LessonActive() {
                         : ''
                     }`}
                     title={nextConcept.englishTranslation}
-                    subtitle={nextVariant.latinSpelling}
+                    subtitle={scripts.primary}
                     helper={
                       nextVariant.caseForms
                         ? `nom: ${nextVariant.caseForms.nom ?? '—'} · gen: ${

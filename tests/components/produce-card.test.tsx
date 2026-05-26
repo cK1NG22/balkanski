@@ -93,4 +93,27 @@ describe('ProduceCard', () => {
     expect(spy).toHaveBeenCalled();
     spy.mockRestore();
   });
+
+  // Phase 2 — Serbian Latin/Cyrillic script toggle. When the learner's
+  // pref is Cyrillic, the lesson runner passes BOTH spellings as
+  // acceptedAnswers so a Cyrillic answer grades as `right` and Latin still
+  // works as the keyboard-fallback. Multi-answer grading picks the best
+  // match across the set.
+  it('accepts a Cyrillic answer when both scripts are in acceptedAnswers', () => {
+    const onGraded = jest.fn();
+    render(
+      <ProduceCard
+        englishTranslation="he writes"
+        acceptedAnswers={['piše', 'пише']}
+        onGraded={onGraded}
+      />,
+    );
+    fireEvent.changeText(screen.getByPlaceholderText('...'), 'пише');
+    fireEvent.press(screen.getByText('Check'));
+
+    expect(screen.getByText('Bravo!')).toBeTruthy();
+    expect(screen.queryByText(/^Correct spelling:/)).toBeNull();
+    fireEvent.press(screen.getByText('Continue'));
+    expect(onGraded).toHaveBeenCalledWith('right');
+  });
 });

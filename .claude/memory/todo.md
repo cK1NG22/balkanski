@@ -82,6 +82,13 @@ Authoritative design: **`docs/decisions/0002-known-words-vs-placement-test.md`**
 
 - [x] **"Close answers show correction inline"** — landed 2026-05-25 (session 11). `useParetoLesson` now accepts an optional `direction` arg, new `ProduceCard` shell wraps `FillInBlankInput` with an inline correction surface, `(modal)/lesson-active.tsx` branches on `?direction=produce`, and a "Practice typing" entry-point lives on the Learn screen. 5 new tests cover the close/right/wrong/Continue flows. tsc + 74 tests clean. iOS smoke test still pending Xcode (see below).
 
+## Phase 2 — three languages + compare + Cyrillic
+
+- [x] **Serbian Latin/Cyrillic script toggle** — landed 2026-05-25 (session 13). Settings card writes `storageKeys.serbianScriptPref`; `(modal)/lesson-active.tsx` reads it via a `pickScripts(variant, pref)` helper that flows into FlashCard `title`/`subtitle` (both faces) and `ProduceCard.acceptedAnswers` (both scripts accepted for SR, Latin-only for HR/BS via schema-enforced null). 1 new produce-card test (Cyrillic acceptance). tsc + 78 tests clean.
+- [ ] **Branch the Review UI per direction** — currently `useReviewQueue.safeRead` hardcodes `'recognize'` (Phase 3 territory per the prior handoff's DO NOT). Defer until typed-produce review flow is designed.
+- [ ] **Seed HR + BS vocab** — content pipeline currently only emits `sr-starter.json`. Run the pipeline for HR and BS as its own session so deltas stay tight.
+- [ ] **Cross-language compare view** — separate Phase 2 unit. Concept-keyed grid showing all three languages side-by-side. No work yet.
+
 ## Phase 4 — locked decisions (when phase starts)
 
 - Persona roster: **full named list incl. politicians** (Jokić, Modrić, Đoković, Dodik, Vučić, Tesla, Balkan Dad, +TBD per country)

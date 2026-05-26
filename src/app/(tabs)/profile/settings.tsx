@@ -3,6 +3,13 @@ import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { Button, Card, Screen, TeacherAvatar, Text } from '@/components';
+import { storage, storageKeys } from '@/lib/storage/mmkv';
+
+type ScriptPref = 'latin' | 'cyrillic';
+
+function readScriptPref(): ScriptPref {
+  return (storage.getString(storageKeys.serbianScriptPref) ?? 'latin') as ScriptPref;
+}
 
 const DAD_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuCnYtcAIEGQ1AlHCVTI2RiTs7_gqdye8YtQK9pwYRB2idawzZ5mro-WClEjOe9SZOJD0SuFGQEd2NgxFC740M4vh6nHB2qmFChYNjXYLwU2wUq7iETyoZDb28g4lHxqlzYXdKAoGZ373fsYj0iUqNf9hbA3OshqCQFeJv8h86wlD7PYOE4FtJYqozESCL26jOFszxLSkTCd6WXX0_Dre-n9dK7ERCZlobbaoa5uPTAM9hKHOOyghphwcwul9imAgTCImEEcbvNwcDE';
@@ -16,6 +23,12 @@ const languages = [
 export default function Settings() {
   const [selectedLanguage, setSelectedLanguage] = useState('Srpski');
   const [dailyGoal, setDailyGoal] = useState(5);
+  const [scriptPref, setScriptPref] = useState<ScriptPref>(readScriptPref);
+
+  const handleScriptChange = (next: ScriptPref) => {
+    setScriptPref(next);
+    storage.set(storageKeys.serbianScriptPref, next);
+  };
 
   return (
     <Screen scroll>
@@ -104,6 +117,29 @@ export default function Settings() {
 
         <Card variant="outlined" className="gap-4">
           <Text variant="h2" weight="bold">
+            Script
+          </Text>
+          <Text variant="body" color="muted">
+            How Serbian words appear in lessons. Croatian and Bosnian stay Latin.
+          </Text>
+          <View className="flex-row gap-3">
+            <ScriptOption
+              label="Latin"
+              sample="piše"
+              selected={scriptPref === 'latin'}
+              onPress={() => handleScriptChange('latin')}
+            />
+            <ScriptOption
+              label="Cyrillic"
+              sample="пише"
+              selected={scriptPref === 'cyrillic'}
+              onPress={() => handleScriptChange('cyrillic')}
+            />
+          </View>
+        </Card>
+
+        <Card variant="outlined" className="gap-4">
+          <Text variant="h2" weight="bold">
             Daily Goal
           </Text>
           <Text variant="body" color="muted">
@@ -163,5 +199,41 @@ export default function Settings() {
         </View>
       </View>
     </Screen>
+  );
+}
+
+interface ScriptOptionProps {
+  label: string;
+  sample: string;
+  selected: boolean;
+  onPress: () => void;
+}
+
+function ScriptOption({ label, sample, selected, onPress }: ScriptOptionProps) {
+  return (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="radio"
+      accessibilityState={{ selected }}
+      accessibilityLabel={`${label} script`}
+      className={`flex-1 items-center gap-2 rounded-card border p-4 ${
+        selected ? 'border-brand-500 bg-brand-50' : 'border-border bg-surface'
+      }`}
+    >
+      <Text
+        variant="h3"
+        weight="bold"
+        className={selected ? 'text-brand-500' : ''}
+      >
+        {sample}
+      </Text>
+      <Text
+        variant="caption"
+        color={selected ? 'accent' : 'muted'}
+        weight="semibold"
+      >
+        {label}
+      </Text>
+    </Pressable>
   );
 }

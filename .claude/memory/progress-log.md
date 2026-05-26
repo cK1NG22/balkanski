@@ -2,6 +2,22 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-25 — Session 13: Phase 2 kickoff — Serbian script toggle
+
+First Phase 2 unit shipped. SR variants now render in the learner's chosen script across the lesson runner.
+
+- **Settings UI** — new "Script" card in `src/app/(tabs)/profile/settings.tsx` between Target Dialect and Daily Goal. Two side-by-side `Pressable` options ("piše" Latin / "пише" Cyrillic), `accessibilityRole="radio"` + `accessibilityState={{selected}}`. Tap persists via `storage.set(storageKeys.serbianScriptPref, ...)` and updates local `useState<ScriptPref>`. No new shell — followed the existing inline pattern from the Target Dialect picker so deltas stay tight.
+- **Lesson runner** — added `pickScripts(variant, pref)` helper in `src/app/(modal)/lesson-active.tsx` that returns `{ primary, alternate, acceptedAnswers }`. Called once at component top (`scripts = nextVariant ? pickScripts(...) : null`). Both ternary branches now gate on `nextVariant && nextConcept && scripts` so TS narrows naturally — no `!` assertions. FlashCard front face: `title=scripts.primary, subtitle=scripts.alternate`. Back face subtitle = pref-script. ProduceCard `acceptedAnswers = [pref-script, other-script]` for SR, `[latinSpelling]` for HR/BS — multi-answer grading picks the best match across the set so either-script typing grades correctly.
+- **Schema-level HR/BS no-op** — `VariantSchema` already enforces `cyrillicSpelling === null` for hr/bs (lines 49–55), so `pickScripts` returns `{ primary: latin, alternate: '', acceptedAnswers: [latin] }` for those languages. `CardFace` renders subtitle conditionally on truthiness → empty subtitle = no layout artifact. The toggle is a true no-op for non-Serbian content.
+- **Test coverage** — added one case to `tests/components/produce-card.test.tsx`: types `пише`, asserts `Bravo!`, asserts `onGraded('right')`. The grader's `normalize` is Unicode-aware so cross-script comparisons fail correctly (Cyrillic input vs Latin accepted → wrong; Cyrillic input vs Cyrillic accepted → right). Total 78/78 (was 77).
+- **Verification** — `pnpm tsc --noEmit` ✓ · `pnpm test` 78/78 ✓.
+
+**Deferred to follow-up sessions per the handoff's DO NOT list**: Review UI direction-branching (Phase 3 territory), HR/BS vocab seed (separate session), iOS smoke test (still pending Xcode install).
+
+## 2026-05-25 — Session 12: handed off to fresh session
+
+Phase 1 produce direction shipped (commits `1ef934d` + `2ddecc9`); two-model Gemini+Codex review caught + fixed the cross-direction skip bug and Review-tab guard. Handed off to a fresh session to kick off Phase 2 with the Latin/Cyrillic script toggle. Handoff: `.claude/memory/handoffs/handoff-latest.md`.
+
 ## 2026-05-25 — Session 11 (cont'd): produce-direction review fixes
 
 Gemini + Codex two-model review of `1ef934d` surfaced 2 architectural [P2]s + 1 mobile-UX miss. All shipped as follow-up:
