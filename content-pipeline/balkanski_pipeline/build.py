@@ -13,8 +13,14 @@ from uuid import NAMESPACE_URL, uuid5
 
 from .cyrillic import latin_to_cyrillic
 from .models import CaseForms, Concept, Language, Methodology, Variant, VocabBundle
+from .seed.bs_top100 import BS_TOP100
+from .seed.hr_top100 import HR_TOP100
 from .seed.sr_top100 import SR_TOP100, SeedEntry
-from .sources.opensubtitles import load_opensubtitles_ranks, source_metadata
+from .sources.opensubtitles import (
+    SourceUnavailableError,
+    load_opensubtitles_ranks,
+    source_metadata,
+)
 
 # Anchor at repo root regardless of where `python -m balkanski_pipeline` is run.
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -162,3 +168,56 @@ def build_serbian() -> None:
     print(f"\n✓ wrote {rel}")
     print(f"  · rank-1 lemma: {min(bundle.variants, key=lambda v: v.frequencyRankInLang).latinSpelling}")
     print(f"  · rank-100 lemma: {max(bundle.variants, key=lambda v: v.frequencyRankInLang).latinSpelling}")
+
+
+def build_croatian() -> None:
+    print("\n=== Building Croatian vocab ===")
+    print("Loading OpenSubtitles HR corpus...")
+    corpus = load_opensubtitles_ranks("hr")
+    print(f"  · {len(corpus)} ranked lemmas after dedupe + filter")
+
+    print("\nMerging seed × corpus...")
+    bundle = _build_language("hr", HR_TOP100, corpus)
+    print(f"  · {len(bundle.concepts)} concepts, {len(bundle.variants)} variants")
+
+    out = OUT_DIR / "hr-starter.json"
+    _write(bundle, out)
+    rel = out.relative_to(REPO_ROOT)
+    print(f"\n✓ wrote {rel}")
+    print(f"  · rank-1 lemma: {min(bundle.variants, key=lambda v: v.frequencyRankInLang).latinSpelling}")
+
+
+def build_bosnian() -> None:
+    print("\n=== Building Bosnian vocab ===")
+    # No Bosnian list in Hermit Dave's OpenSubtitles 2018. Bosnian shares the
+    # vast majority of high-frequency vocabulary with Croatian (both ijekavian
+    # Latin), so we use HR ranks as the corpus-rank proxy. Documented in the
+    # bundle's _meta block so the Pareto-honesty rule isn't compromised: the
+    # source is still real-corpus-derived, just attributed correctly.
+    try:
+        corpus = load_opensubtitles_ranks("bs")
+    except SourceUnavailableError:
+        print("  · no native BS corpus available; using HR ranks as proxy")
+        corpus = load_opensubtitles_ranks("hr")
+
+    bundle = _build_language("bs", BS_TOP100, corpus)
+    # Patch the _meta to reflect the proxy honestly.
+    if bundle.meta.sources[0].get("note") == "unavailable":
+        bundle.meta.sources = [
+            {
+                "name": "opensubtitles-2018",
+                "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/hr/hr_50k.txt",
+                "note": (
+                    "HR ranks used as proxy: no Bosnian list exists in "
+                    "Hermit Dave's 2018 dataset; BS shares ~95%+ top-100 "
+                    "vocabulary with HR (both ijekavian Latin-only)."
+                ),
+            },
+        ]
+    print(f"  · {len(bundle.concepts)} concepts, {len(bundle.variants)} variants")
+
+    out = OUT_DIR / "bs-starter.json"
+    _write(bundle, out)
+    rel = out.relative_to(REPO_ROOT)
+    print(f"\n✓ wrote {rel}")
+    print(f"  · rank-1 lemma: {min(bundle.variants, key=lambda v: v.frequencyRankInLang).latinSpelling}")

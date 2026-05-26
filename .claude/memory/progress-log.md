@@ -2,6 +2,18 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-26 — Session 14 (cont'd): HR + BS vocab seed via content-pipeline
+
+Phase 2's third item lands. All three languages now have real corpus-ranked starter vocabulary.
+
+- **Seed derivation pattern** — `hr_top100.py` and `bs_top100.py` import `SR_TOP100` and apply an override dict. Only entries that lexically/orthographically differ get listed (ko→tko, hleb→kruh, lep→lijep, dete→dijete, etc.); identical entries (ja, ti, voda, hvala, all biti clitics) inherit verbatim. case_forms dropped on every override since lexical replacement changes declension paradigms (Phase 3 native review with Carter's wife will redo). Schema constraint `cyrillicSpelling===null` for hr/bs is honored at zod-validation time.
+- **HR specifics** — HR collapses SR's "šta"/"što" distinction onto a single "što" surface form. To keep both conceptIds (question-sense + relative-sense) populated for the compare view, the SR "šta" entry is overridden to latin="što" (preserves the question-sense conceptId) while SR's "što" entry inherits unchanged. Result: two HR variants with identical latin spelling but different conceptIds — linguistically correct.
+- **BS specifics** — BS is ijekavian like HR (lijep, dijete, gdje, čovjek, riječ) but keeps SR-like "ko"/"šta" function words (BS uses both ko/tko + šta/što interchangeably; SR forms are more widespread in spoken BS). SR "hleb" → BS "hljeb" (ijekavian-traditional, not HR "kruh"). All choices documented in the seed file's module docstring.
+- **BS corpus = HR proxy** — Hermit Dave's 2018 dataset has no Bosnian list. `build_bosnian()` tries `load_opensubtitles_ranks('bs')` and falls back to HR ranks on `SourceUnavailableError`. The `_meta.sources[0].note` is rewritten to honestly attribute the proxy ("HR ranks used as proxy: no Bosnian list exists in Hermit Dave's 2018 dataset; BS shares ~95%+ top-100 vocabulary with HR (both ijekavian Latin-only)."). Pareto-honesty rule preserved — every shipped variant has a corpus-derived rank, with the attribution paper trail intact.
+- **`src/data/loader.ts`** — BUNDLES map now includes `hr: hrStarter` and `bs: bsStarter`. Throws-for-unsupported-language test deleted (all three Language enum values are now mapped) and replaced with 6 new tests covering: HR/BS validated=true, HR/BS variants all cyrillicSpelling===null, HR contains lexical overrides, BS blends ijekavian + SR-like function words, BS methodology cites the HR proxy.
+- **Cross-language conceptId overlap is the architectural lever for compare view** — `_concept_id()` derives from `english_lemma + sense_disambiguator`, so HR "lijep" and SR "lep" naturally land on the SAME conceptId (both anchor English "pretty"). The compare view (next task) can group variants across all three bundles by conceptId without any join table.
+- **Verification**: `uv run python -m balkanski_pipeline` ✓ (120 concepts / 121 variants each language) · `pnpm validate-content` ✓ · `pnpm tsc --noEmit` ✓ · `pnpm test` 93/93 ✓.
+
 ## 2026-05-26 — Session 14 (cont'd): Gemini+Codex follow-ups on scriptPref sync
 
 Two-model review of `eac9c14`. Genuine finding overlap this round (first time across sessions 9/11/13/14): both models flagged the silent zero-row UPDATE + rapid-toggle race independently.

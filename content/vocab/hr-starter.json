@@ -1,0 +1,3006 @@
+{
+  "language": "hr",
+  "concepts": [
+    {
+      "id": "9f79258b-af40-5067-82c6-94ee661d855d",
+      "englishLemma": "yes",
+      "englishTranslation": "yes; that (complementizer)",
+      "partOfSpeech": "particle",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 2
+    },
+    {
+      "id": "14348699-4811-54b1-be4a-9181c058a9bc",
+      "englishLemma": "not",
+      "englishTranslation": "not; no",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": "negation",
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 3
+    },
+    {
+      "id": "f108862c-ba8c-5a05-a7b2-6bf88700b532",
+      "englishLemma": "oneself",
+      "englishTranslation": "(reflexive particle)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "reflexive",
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 4
+    },
+    {
+      "id": "8bc1380f-0d83-576e-95f4-c0e67441cac5",
+      "englishLemma": "and",
+      "englishTranslation": "and",
+      "partOfSpeech": "conjunction",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 5
+    },
+    {
+      "id": "fbc9bbac-224f-5a3a-9ed2-610bba54590f",
+      "englishLemma": "in",
+      "englishTranslation": "in; into",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 6
+    },
+    {
+      "id": "dbbe3ed8-f6d0-57cd-8d16-d9c6307200c4",
+      "englishLemma": "on",
+      "englishTranslation": "on; at; to",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 10
+    },
+    {
+      "id": "cd85678e-6b25-5831-ab30-fd6ffc377e33",
+      "englishLemma": "for",
+      "englishTranslation": "for; in order to",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 12
+    },
+    {
+      "id": "bcc2129d-e042-5642-88e5-d91f8b20c020",
+      "englishLemma": "Q-particle",
+      "englishTranslation": "(question particle)",
+      "partOfSpeech": "particle",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 15
+    },
+    {
+      "id": "1f32ba1d-ef94-59f3-b3a5-bb784c70a9ca",
+      "englishLemma": "with",
+      "englishTranslation": "with",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 35
+    },
+    {
+      "id": "cd9311be-29d8-55a9-884a-b1ec73190b38",
+      "englishLemma": "from",
+      "englishTranslation": "from; of",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 24
+    },
+    {
+      "id": "0e2f674c-cfa0-5203-b528-9a9e1d78260a",
+      "englishLemma": "but",
+      "englishTranslation": "but",
+      "partOfSpeech": "conjunction",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 18
+    },
+    {
+      "id": "9426af96-80df-50f7-a6b0-486f8b539cb6",
+      "englishLemma": "if",
+      "englishTranslation": "if",
+      "partOfSpeech": "conjunction",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 33
+    },
+    {
+      "id": "0d5b362a-ac2b-5b3f-bfb7-4ab0654b7d26",
+      "englishLemma": "or",
+      "englishTranslation": "or",
+      "partOfSpeech": "conjunction",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 60
+    },
+    {
+      "id": "fcb7bc5c-025f-5b65-ad79-02e316efa61a",
+      "englishLemma": "out of",
+      "englishTranslation": "out of; from",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 59
+    },
+    {
+      "id": "d8bb3401-634a-5d24-bdfa-ecfb39ba0a2e",
+      "englishLemma": "about",
+      "englishTranslation": "about; of",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 31
+    },
+    {
+      "id": "33deadf6-a0cb-5d43-aa6d-57e30126371d",
+      "englishLemma": "until",
+      "englishTranslation": "until; up to",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 76
+    },
+    {
+      "id": "5d3f5398-c765-56ce-88a3-0eaeb6fdb102",
+      "englishLemma": "because of",
+      "englishTranslation": "because of; due to",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 101
+    },
+    {
+      "id": "942c6d7a-0602-597d-87ec-b3d06302a95f",
+      "englishLemma": "like",
+      "englishTranslation": "like; as",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 37
+    },
+    {
+      "id": "7e40759b-0126-51cf-baf3-d7bb89a98769",
+      "englishLemma": "well",
+      "englishTranslation": "well; so; then",
+      "partOfSpeech": "particle",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 47
+    },
+    {
+      "id": "5f83fff6-9cce-584d-b22b-ca62c450e90e",
+      "englishLemma": "neither",
+      "englishTranslation": "neither; not even",
+      "partOfSpeech": "conjunction",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 102
+    },
+    {
+      "id": "b14d5923-c782-5733-bfac-28f3a1efa906",
+      "englishLemma": "because",
+      "englishTranslation": "because",
+      "partOfSpeech": "conjunction",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 92
+    },
+    {
+      "id": "8709d358-82fa-50f5-a572-d2e03cd0502a",
+      "englishLemma": "along",
+      "englishTranslation": "along; per; according to",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 114
+    },
+    {
+      "id": "64a84da8-0c05-5b02-a960-25b6ab4fc0b9",
+      "englishLemma": "with",
+      "englishTranslation": "with (short form)",
+      "partOfSpeech": "preposition",
+      "senseDisambiguator": "short-form",
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 20
+    },
+    {
+      "id": "cedff7cd-0ab2-5879-baed-7630c1a1cc1a",
+      "englishLemma": "him/it",
+      "englishTranslation": "him; it (acc.)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "3sg-m-n-acc",
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 22
+    },
+    {
+      "id": "7a9c7b90-0169-50e4-9782-a7031a379c66",
+      "englishLemma": "I",
+      "englishTranslation": "I",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 16
+    },
+    {
+      "id": "d4a48084-a942-5684-af0c-8b11df3a3bcf",
+      "englishLemma": "you",
+      "englishTranslation": "you (singular, informal)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 11
+    },
+    {
+      "id": "17468a57-c028-5715-a5e6-501c182ad186",
+      "englishLemma": "he",
+      "englishTranslation": "he",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 49
+    },
+    {
+      "id": "d7148bc6-db5c-589e-9529-1417fabfe4f6",
+      "englishLemma": "she",
+      "englishTranslation": "she",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 82
+    },
+    {
+      "id": "c11473b2-fe51-58ce-a447-31d27f030180",
+      "englishLemma": "we",
+      "englishTranslation": "we",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 13
+    },
+    {
+      "id": "939ffa9b-c35b-5355-894f-4d046af2ea31",
+      "englishLemma": "you (pl)",
+      "englishTranslation": "you (plural / formal)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 87
+    },
+    {
+      "id": "f646b2b7-2230-5bc2-8bb3-60dc3b5145f5",
+      "englishLemma": "this",
+      "englishTranslation": "this (here)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "neut-near",
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 27
+    },
+    {
+      "id": "4525db45-8509-5a08-9efc-d541a974a997",
+      "englishLemma": "that",
+      "englishTranslation": "that; it",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "neut-mid",
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 7
+    },
+    {
+      "id": "7cd63c6a-cd43-5c13-9189-4a64bb4d3d47",
+      "englishLemma": "that",
+      "englishTranslation": "that (over there)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "neut-far",
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 132
+    },
+    {
+      "id": "915ae24c-42fd-5e1c-83a0-ef16b7e39501",
+      "englishLemma": "me",
+      "englishTranslation": "me (acc.)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "1sg-acc-clitic",
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 23
+    },
+    {
+      "id": "35e9841f-678b-5284-9e56-f144a02924f2",
+      "englishLemma": "you",
+      "englishTranslation": "you (acc.)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "2sg-acc-clitic",
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 29
+    },
+    {
+      "id": "ef2b070e-1dd6-5c86-9c10-96d677b98ce4",
+      "englishLemma": "who",
+      "englishTranslation": "who",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 73
+    },
+    {
+      "id": "dfe0f209-0407-570a-aaa6-d3f66175d483",
+      "englishLemma": "what",
+      "englishTranslation": "what",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 9
+    },
+    {
+      "id": "fe0e4b63-c601-59b9-9679-9cf3311baede",
+      "englishLemma": "what",
+      "englishTranslation": "what; that (relative)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "relative",
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 9
+    },
+    {
+      "id": "f216d7e1-d75a-5a78-b51a-cd1b036d6dd2",
+      "englishLemma": "which",
+      "englishTranslation": "which; who (relative)",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 55
+    },
+    {
+      "id": "169ef205-101e-5b3f-ac4f-4acac3639b30",
+      "englishLemma": "all",
+      "englishTranslation": "everything; all",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": "neut",
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 36
+    },
+    {
+      "id": "733c515f-7ce9-5818-8f8a-2e8964a1e0db",
+      "englishLemma": "nothing",
+      "englishTranslation": "nothing",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 79
+    },
+    {
+      "id": "ab2be6d2-d093-5488-aba8-71c62b6c7e7d",
+      "englishLemma": "something",
+      "englishTranslation": "something",
+      "partOfSpeech": "pronoun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "pronoun"
+      ],
+      "frequencyRankAggregate": 53
+    },
+    {
+      "id": "e99651fc-8d9d-53fa-8ec7-e12643f16b1a",
+      "englishLemma": "to be",
+      "englishTranslation": "to be",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "infinitive",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 39
+    },
+    {
+      "id": "02b6c7fd-d6d8-5360-8950-2479d3e0ae68",
+      "englishLemma": "am",
+      "englishTranslation": "I am",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-1sg",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 8
+    },
+    {
+      "id": "aeea24ab-998d-504d-8e79-9e81583534e1",
+      "englishLemma": "are",
+      "englishTranslation": "you are (sg.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-2sg",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 14
+    },
+    {
+      "id": "281f4d10-931f-5bbf-a790-c02bddb9426a",
+      "englishLemma": "is",
+      "englishTranslation": "is (3sg.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-3sg",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 1
+    },
+    {
+      "id": "9606f3ad-08d6-5f6c-9342-bf2398ca9627",
+      "englishLemma": "are",
+      "englishTranslation": "we are",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-1pl",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 34
+    },
+    {
+      "id": "a5c38ff6-1fbe-5763-828d-b142d734d4b7",
+      "englishLemma": "are",
+      "englishTranslation": "you are (pl.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-2pl",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 42
+    },
+    {
+      "id": "994d2d78-e2ed-51d4-9b6e-5f10087e86ed",
+      "englishLemma": "are",
+      "englishTranslation": "they are",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-3pl",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 17
+    },
+    {
+      "id": "2b8e7701-e555-5ddb-bb3c-9d11b74b5a52",
+      "englishLemma": "is not",
+      "englishTranslation": "is not (3sg.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-neg-3sg",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 19
+    },
+    {
+      "id": "50fba414-9d77-5728-86f9-88553b78cb18",
+      "englishLemma": "am not",
+      "englishTranslation": "I am not",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-neg-1sg",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 43
+    },
+    {
+      "id": "a4a8d2b0-428f-568e-8240-803ba0b91077",
+      "englishLemma": "was",
+      "englishTranslation": "was (m. past)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-m-past",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 45
+    },
+    {
+      "id": "9441cf38-1670-585f-ba11-701a91950617",
+      "englishLemma": "was",
+      "englishTranslation": "was (f. past)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-f-past",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 78
+    },
+    {
+      "id": "995691a3-9e9a-5a8d-a53e-f9ee411cda1a",
+      "englishLemma": "was",
+      "englishTranslation": "was (n. past)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "biti-n-past",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 52
+    },
+    {
+      "id": "88e2dc24-6124-5e32-8026-e1ccffac2a99",
+      "englishLemma": "would",
+      "englishTranslation": "would (conditional)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "cond-3",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 26
+    },
+    {
+      "id": "e50f187f-2c24-512f-bbf0-4ba9811dc4cc",
+      "englishLemma": "would",
+      "englishTranslation": "I would (cond. 1sg.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "cond-1sg",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 72
+    },
+    {
+      "id": "ecf982bd-251e-567a-a09c-e8483b2148ab",
+      "englishLemma": "will",
+      "englishTranslation": "will (1sg.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "hteti-fut-1sg",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 38
+    },
+    {
+      "id": "5347abc2-af44-5531-844a-bfdd134d2948",
+      "englishLemma": "will",
+      "englishTranslation": "will (2sg.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "hteti-fut-2sg",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 100
+    },
+    {
+      "id": "d889fdc8-d139-5a12-b886-87ced103d275",
+      "englishLemma": "will",
+      "englishTranslation": "will (3sg./3pl.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "hteti-fut-3",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 30
+    },
+    {
+      "id": "7609d86b-a1ce-5165-8785-7e7a56cb0995",
+      "englishLemma": "will",
+      "englishTranslation": "will (1pl.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "hteti-fut-1pl",
+      "topicTags": [
+        "aux-verb"
+      ],
+      "frequencyRankAggregate": 75
+    },
+    {
+      "id": "fa51297c-0cc6-51e2-8515-dd93a347dbb9",
+      "englishLemma": "to have",
+      "englishTranslation": "to have",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "infinitive",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 297
+    },
+    {
+      "id": "d793850e-0c79-5296-983c-410a5b609721",
+      "englishLemma": "has",
+      "englishTranslation": "has (3sg.); there is",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "imati-3sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 64
+    },
+    {
+      "id": "b1628f47-0f81-5ed7-b33d-661592bd7163",
+      "englishLemma": "I have",
+      "englishTranslation": "I have",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "imati-1sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 96
+    },
+    {
+      "id": "ff0c84c1-78fd-52df-ae04-d8dac6ee1dbe",
+      "englishLemma": "doesn't have",
+      "englishTranslation": "there isn't; doesn't have",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "imati-neg-3sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 77
+    },
+    {
+      "id": "70fe747f-0ba2-540b-8a9b-5d760a42af81",
+      "englishLemma": "to be able to",
+      "englishTranslation": "to be able to; can",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "infinitive",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 534
+    },
+    {
+      "id": "17ce5cfb-78f4-54b7-818d-9c1df0ff1f54",
+      "englishLemma": "I can",
+      "englishTranslation": "I can",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "moći-1sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 46
+    },
+    {
+      "id": "e2760808-5179-51cf-8bbb-cd4c8672c97a",
+      "englishLemma": "can",
+      "englishTranslation": "can (3sg.); it's possible",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "moći-3sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 86
+    },
+    {
+      "id": "c58998f0-7aea-5eee-94c3-6bf5ff199b5a",
+      "englishLemma": "you can",
+      "englishTranslation": "you can (sg.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "moći-2sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 97
+    },
+    {
+      "id": "a36e21c7-23a3-51ff-b69a-e8c7918f548f",
+      "englishLemma": "to know",
+      "englishTranslation": "to know",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "infinitive",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 268
+    },
+    {
+      "id": "8bb9f09b-0073-53a9-bad4-03c3516e51d1",
+      "englishLemma": "I know",
+      "englishTranslation": "I know",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "znati-1sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 41
+    },
+    {
+      "id": "1e94f920-6fac-5895-9e08-308bc9355ad9",
+      "englishLemma": "you know",
+      "englishTranslation": "you know (sg.)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "znati-2sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 67
+    },
+    {
+      "id": "f8a8441e-1f5b-5e34-822a-677530d75495",
+      "englishLemma": "to think",
+      "englishTranslation": "to think",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "infinitive",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 1088
+    },
+    {
+      "id": "a501cf39-8e45-5da0-98ec-5efc33eb2618",
+      "englishLemma": "I think",
+      "englishTranslation": "I think",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "misliti-1sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 57
+    },
+    {
+      "id": "ec1c690f-76f2-5f5d-86d9-1a5be3466763",
+      "englishLemma": "to want",
+      "englishTranslation": "to want; to wish",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "infinitive",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 6832
+    },
+    {
+      "id": "1038191e-27d9-5452-9509-3152438fcb28",
+      "englishLemma": "I want",
+      "englishTranslation": "I want",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "želeti-1sg",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 83
+    },
+    {
+      "id": "f4f1cc27-7daa-5be2-8103-bb72a7fab5d3",
+      "englishLemma": "to go",
+      "englishTranslation": "to go",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "infinitive",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 196
+    },
+    {
+      "id": "659b64ff-12a7-54cb-8aac-1b10cdde63c4",
+      "englishLemma": "let's go",
+      "englishTranslation": "let's go; we are going",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "ići-1pl",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 118
+    },
+    {
+      "id": "3dffcaf3-27ba-5e28-a456-68645fcf1800",
+      "englishLemma": "needs",
+      "englishTranslation": "needs; one should",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "impersonal",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 111
+    },
+    {
+      "id": "32521a8a-36ce-5b0d-b632-6c0b5daa35c6",
+      "englishLemma": "said",
+      "englishTranslation": "said (m. past)",
+      "partOfSpeech": "verb",
+      "senseDisambiguator": "reći-m-past",
+      "topicTags": [
+        "verb"
+      ],
+      "frequencyRankAggregate": 68
+    },
+    {
+      "id": "7c434da7-9719-55f5-b2ee-58f20330a60e",
+      "englishLemma": "come on",
+      "englishTranslation": "come on; let's go",
+      "partOfSpeech": "interjection",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "interjection"
+      ],
+      "frequencyRankAggregate": 113
+    },
+    {
+      "id": "e3123277-b424-5c53-8ad6-236ab77fbf78",
+      "englishLemma": "how",
+      "englishTranslation": "how",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 28
+    },
+    {
+      "id": "ca4c2324-bbf8-5808-8669-2cd3e7552b84",
+      "englishLemma": "why",
+      "englishTranslation": "why",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 48
+    },
+    {
+      "id": "242f6746-4fd8-5989-9fe6-d088790b4325",
+      "englishLemma": "where",
+      "englishTranslation": "where",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 63
+    },
+    {
+      "id": "825ebea3-75d7-5a1f-9f62-f956c948356a",
+      "englishLemma": "when",
+      "englishTranslation": "when",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 54
+    },
+    {
+      "id": "85bd2306-4d78-5f31-8d45-7533fd25e032",
+      "englishLemma": "when",
+      "englishTranslation": "when (long form)",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": "long-form",
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 89
+    },
+    {
+      "id": "f0a3d456-1300-5e88-aab4-adaf7e723517",
+      "englishLemma": "how much",
+      "englishTranslation": "how much; how many",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "question-word"
+      ],
+      "frequencyRankAggregate": 116
+    },
+    {
+      "id": "523eff17-bb3a-5317-94a8-1c7a6ffa0088",
+      "englishLemma": "here",
+      "englishTranslation": "here",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "place-adverb"
+      ],
+      "frequencyRankAggregate": 44
+    },
+    {
+      "id": "96063112-5fa2-5271-b8c7-be3bfef595a9",
+      "englishLemma": "there",
+      "englishTranslation": "there",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "place-adverb"
+      ],
+      "frequencyRankAggregate": 104
+    },
+    {
+      "id": "6d0922fd-c3f7-5939-a33e-442a5bb16a6e",
+      "englishLemma": "here",
+      "englishTranslation": "right here",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": "near",
+      "topicTags": [
+        "place-adverb"
+      ],
+      "frequencyRankAggregate": 99
+    },
+    {
+      "id": "68a69eb1-9fcf-5cbf-a118-3570d5b0fe52",
+      "englishLemma": "now",
+      "englishTranslation": "now",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "time-adverb"
+      ],
+      "frequencyRankAggregate": 98
+    },
+    {
+      "id": "5d151889-8b2a-5009-934e-7988f45f05ce",
+      "englishLemma": "now",
+      "englishTranslation": "now (long form)",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": "long-form",
+      "topicTags": [
+        "time-adverb"
+      ],
+      "frequencyRankAggregate": 69
+    },
+    {
+      "id": "f9cdc9d0-4400-5ba9-b3b4-bf2721347f0e",
+      "englishLemma": "then",
+      "englishTranslation": "then",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "time-adverb"
+      ],
+      "frequencyRankAggregate": 71
+    },
+    {
+      "id": "ecd94136-9a90-5005-9855-94f89fc38983",
+      "englishLemma": "only",
+      "englishTranslation": "only; just",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 21
+    },
+    {
+      "id": "88dc5acd-98d9-59c8-88f2-e13d5da60ce7",
+      "englishLemma": "still",
+      "englishTranslation": "still; yet",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 50
+    },
+    {
+      "id": "d1ac865a-5c75-513a-ab4b-a88f064198c7",
+      "englishLemma": "more",
+      "englishTranslation": "more; no longer (negated)",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 66
+    },
+    {
+      "id": "07170248-866c-59b7-ab3a-2fac54b8861d",
+      "englishLemma": "a little",
+      "englishTranslation": "a little; few",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 84
+    },
+    {
+      "id": "5c000b00-224d-58cd-a444-855d6ab52721",
+      "englishLemma": "maybe",
+      "englishTranslation": "maybe; perhaps",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 61
+    },
+    {
+      "id": "eb1ffa85-d1dd-5763-920c-9b7b8aa895ab",
+      "englishLemma": "so",
+      "englishTranslation": "so; thus",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 40
+    },
+    {
+      "id": "c2234618-4f54-5b72-80a7-5178d384e747",
+      "englishLemma": "well",
+      "englishTranslation": "well; fine",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": "adverb-sense",
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 32
+    },
+    {
+      "id": "1bdf676e-792e-56d3-9d22-e08182724de3",
+      "englishLemma": "really",
+      "englishTranslation": "really; just",
+      "partOfSpeech": "adverb",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "function-word"
+      ],
+      "frequencyRankAggregate": 121
+    },
+    {
+      "id": "f662c71a-0243-5bcf-b67c-c86819482968",
+      "englishLemma": "good",
+      "englishTranslation": "good (m.)",
+      "partOfSpeech": "adjective",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "appearance"
+      ],
+      "frequencyRankAggregate": 180
+    },
+    {
+      "id": "0c2e9998-201d-5109-b40f-00bb03cb989b",
+      "englishLemma": "pretty",
+      "englishTranslation": "pretty; beautiful (m.)",
+      "partOfSpeech": "adjective",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "appearance"
+      ],
+      "frequencyRankAggregate": 1312
+    },
+    {
+      "id": "4b644327-c780-5adb-933a-b2f6e388e89b",
+      "englishLemma": "big",
+      "englishTranslation": "big (m.)",
+      "partOfSpeech": "adjective",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "size"
+      ],
+      "frequencyRankAggregate": 429
+    },
+    {
+      "id": "77937ad1-e2e2-55da-98d1-a87feca1a2ad",
+      "englishLemma": "small",
+      "englishTranslation": "small (m.)",
+      "partOfSpeech": "adjective",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "size"
+      ],
+      "frequencyRankAggregate": 376
+    },
+    {
+      "id": "176db82d-d4be-551f-b735-b7e52ca3354a",
+      "englishLemma": "new",
+      "englishTranslation": "new (m.)",
+      "partOfSpeech": "adjective",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "quality"
+      ],
+      "frequencyRankAggregate": 3875
+    },
+    {
+      "id": "2543269c-a846-565b-a463-9710f488656a",
+      "englishLemma": "water",
+      "englishTranslation": "water",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "food",
+        "everyday"
+      ],
+      "frequencyRankAggregate": 1305
+    },
+    {
+      "id": "3ac0ee84-d62f-58dc-b532-e3eccce2ed2b",
+      "englishLemma": "bread",
+      "englishTranslation": "bread",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "food",
+        "everyday"
+      ],
+      "frequencyRankAggregate": 4052
+    },
+    {
+      "id": "dee89aa6-d509-57ad-9f21-34ab979c9eaa",
+      "englishLemma": "man",
+      "englishTranslation": "man; person",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "people"
+      ],
+      "frequencyRankAggregate": 223
+    },
+    {
+      "id": "592dacd9-cfa1-5124-8928-6465ca4c9ef1",
+      "englishLemma": "woman",
+      "englishTranslation": "woman",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "people"
+      ],
+      "frequencyRankAggregate": 242
+    },
+    {
+      "id": "80405917-c42f-5904-8543-48bad9bb31ab",
+      "englishLemma": "child",
+      "englishTranslation": "child",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "family",
+        "people"
+      ],
+      "frequencyRankAggregate": 352
+    },
+    {
+      "id": "e9205455-d178-5275-a4c8-8a4515ab3570",
+      "englishLemma": "house",
+      "englishTranslation": "house; home",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "places",
+        "everyday"
+      ],
+      "frequencyRankAggregate": 746
+    },
+    {
+      "id": "0b275fea-4d56-50a3-ae84-2511fc34a24c",
+      "englishLemma": "day",
+      "englishTranslation": "day",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "time"
+      ],
+      "frequencyRankAggregate": 154
+    },
+    {
+      "id": "2682ec90-143c-57a4-b1f2-2b9ec5c06942",
+      "englishLemma": "night",
+      "englishTranslation": "night",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "time"
+      ],
+      "frequencyRankAggregate": 330
+    },
+    {
+      "id": "e9b82404-d787-5d03-b8e3-5ae92c58bdde",
+      "englishLemma": "word",
+      "englishTranslation": "word",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "language"
+      ],
+      "frequencyRankAggregate": 514
+    },
+    {
+      "id": "3dc9460c-bfc1-53d0-a6a2-3fd7570fc05c",
+      "englishLemma": "friend",
+      "englishTranslation": "friend (m.)",
+      "partOfSpeech": "noun",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "people"
+      ],
+      "frequencyRankAggregate": 414
+    },
+    {
+      "id": "12fb3638-5ad1-5b95-8cff-0c449718a927",
+      "englishLemma": "thank you",
+      "englishTranslation": "thank you",
+      "partOfSpeech": "interjection",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "greeting"
+      ],
+      "frequencyRankAggregate": 58
+    },
+    {
+      "id": "6ea1b1b3-b843-519c-bdf4-b748456a5b4b",
+      "englishLemma": "please",
+      "englishTranslation": "please; you're welcome",
+      "partOfSpeech": "interjection",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "greeting"
+      ],
+      "frequencyRankAggregate": 88
+    },
+    {
+      "id": "ceede75d-7bc1-53d2-a0e6-c4b9083e4be6",
+      "englishLemma": "hey",
+      "englishTranslation": "hey",
+      "partOfSpeech": "interjection",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "greeting"
+      ],
+      "frequencyRankAggregate": 95
+    },
+    {
+      "id": "b10b26af-4a8c-5356-ba28-378aac457b57",
+      "englishLemma": "hello",
+      "englishTranslation": "hello (informal)",
+      "partOfSpeech": "interjection",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "greeting"
+      ],
+      "frequencyRankAggregate": 230
+    },
+    {
+      "id": "6a25d8d8-d897-5f7e-ba98-44d5be862688",
+      "englishLemma": "goodbye",
+      "englishTranslation": "goodbye",
+      "partOfSpeech": "interjection",
+      "senseDisambiguator": null,
+      "topicTags": [
+        "greeting"
+      ],
+      "frequencyRankAggregate": 1840
+    }
+  ],
+  "variants": [
+    {
+      "id": "51d700b1-a628-539c-bee8-c29f87941a93",
+      "conceptId": "9f79258b-af40-5067-82c6-94ee661d855d",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "da",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 2,
+      "caseForms": null
+    },
+    {
+      "id": "f84af5f4-a80c-52a1-ac61-d01b305814cb",
+      "conceptId": "14348699-4811-54b1-be4a-9181c058a9bc",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ne",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 3,
+      "caseForms": null
+    },
+    {
+      "id": "ed7cab94-47d5-5dc7-935d-922043af9e7a",
+      "conceptId": "f108862c-ba8c-5a05-a7b2-6bf88700b532",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "se",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 4,
+      "caseForms": null
+    },
+    {
+      "id": "fc1e0a68-ef46-5e30-bd65-cac3e75aebb3",
+      "conceptId": "8bc1380f-0d83-576e-95f4-c0e67441cac5",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "i",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 5,
+      "caseForms": null
+    },
+    {
+      "id": "cdd19607-f28d-503f-861b-c76550382544",
+      "conceptId": "fbc9bbac-224f-5a3a-9ed2-610bba54590f",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "u",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 6,
+      "caseForms": null
+    },
+    {
+      "id": "8c03b5dc-688b-5590-b5fe-aefb483f4b2e",
+      "conceptId": "dbbe3ed8-f6d0-57cd-8d16-d9c6307200c4",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "na",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 10,
+      "caseForms": null
+    },
+    {
+      "id": "af4ea8e5-ddce-5f58-b431-345dd5f46519",
+      "conceptId": "cd85678e-6b25-5831-ab30-fd6ffc377e33",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "za",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 12,
+      "caseForms": null
+    },
+    {
+      "id": "449c8833-8a65-554e-8050-e07f054cf839",
+      "conceptId": "bcc2129d-e042-5642-88e5-d91f8b20c020",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "li",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 15,
+      "caseForms": null
+    },
+    {
+      "id": "53c520cc-9a3c-5a0a-957d-062d0e015463",
+      "conceptId": "1f32ba1d-ef94-59f3-b3a5-bb784c70a9ca",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "sa",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 35,
+      "caseForms": null
+    },
+    {
+      "id": "aed90488-5307-5e77-ba6f-9ee14cd6c9c5",
+      "conceptId": "cd9311be-29d8-55a9-884a-b1ec73190b38",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "od",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 24,
+      "caseForms": null
+    },
+    {
+      "id": "f71d55b3-4e10-5ac6-8fbc-ecafd338aae6",
+      "conceptId": "0e2f674c-cfa0-5203-b528-9a9e1d78260a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "a",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 25,
+      "caseForms": null
+    },
+    {
+      "id": "24d6876b-1ca9-51d0-ae63-73f3ed056fd0",
+      "conceptId": "0e2f674c-cfa0-5203-b528-9a9e1d78260a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ali",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 18,
+      "caseForms": null
+    },
+    {
+      "id": "281eca31-a77a-58fe-9027-fbe0a1f2576d",
+      "conceptId": "9426af96-80df-50f7-a6b0-486f8b539cb6",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ako",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 33,
+      "caseForms": null
+    },
+    {
+      "id": "ab1355d5-9021-5016-afbc-e4c220194a07",
+      "conceptId": "0d5b362a-ac2b-5b3f-bfb7-4ab0654b7d26",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ili",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 60,
+      "caseForms": null
+    },
+    {
+      "id": "5aa11d9c-f1b5-5aab-ab42-e064f7403eec",
+      "conceptId": "fcb7bc5c-025f-5b65-ad79-02e316efa61a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "iz",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 59,
+      "caseForms": null
+    },
+    {
+      "id": "76a38968-6ad1-59bb-a885-67af70f1077b",
+      "conceptId": "d8bb3401-634a-5d24-bdfa-ecfb39ba0a2e",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "o",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 31,
+      "caseForms": null
+    },
+    {
+      "id": "aeaccf3d-0a6e-5203-9bb5-b87d0f70102d",
+      "conceptId": "33deadf6-a0cb-5d43-aa6d-57e30126371d",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "do",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 76,
+      "caseForms": null
+    },
+    {
+      "id": "5eb790fd-f63b-5928-90da-9b5eb0831df6",
+      "conceptId": "5d3f5398-c765-56ce-88a3-0eaeb6fdb102",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "zbog",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 101,
+      "caseForms": null
+    },
+    {
+      "id": "598d405e-60e7-596f-9269-fd721ee42315",
+      "conceptId": "942c6d7a-0602-597d-87ec-b3d06302a95f",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "kao",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 37,
+      "caseForms": null
+    },
+    {
+      "id": "94837553-6b4e-5044-bde3-11d6a918064c",
+      "conceptId": "7e40759b-0126-51cf-baf3-d7bb89a98769",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "pa",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 47,
+      "caseForms": null
+    },
+    {
+      "id": "10e5ad1e-ff9a-5e37-912b-5a9e64d0a191",
+      "conceptId": "5f83fff6-9cce-584d-b22b-ca62c450e90e",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ni",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 102,
+      "caseForms": null
+    },
+    {
+      "id": "409335a7-aca2-5f42-81a8-4dca8a14f68c",
+      "conceptId": "b14d5923-c782-5733-bfac-28f3a1efa906",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "jer",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 92,
+      "caseForms": null
+    },
+    {
+      "id": "9902a791-f282-5089-b14d-504faf85d24e",
+      "conceptId": "8709d358-82fa-50f5-a572-d2e03cd0502a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "po",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 114,
+      "caseForms": null
+    },
+    {
+      "id": "4b46439e-91a1-5f77-b236-1aaf40232713",
+      "conceptId": "64a84da8-0c05-5b02-a960-25b6ab4fc0b9",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "s",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 20,
+      "caseForms": null
+    },
+    {
+      "id": "55779938-26bb-599e-a7db-8c30b20d542a",
+      "conceptId": "cedff7cd-0ab2-5879-baed-7630c1a1cc1a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ga",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 22,
+      "caseForms": null
+    },
+    {
+      "id": "56e9204f-dc4a-59d7-b55d-8112629ea40a",
+      "conceptId": "7a9c7b90-0169-50e4-9782-a7031a379c66",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ja",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 16,
+      "caseForms": null
+    },
+    {
+      "id": "40340584-43c9-5bb4-b158-e33eecf8cb24",
+      "conceptId": "d4a48084-a942-5684-af0c-8b11df3a3bcf",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ti",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 11,
+      "caseForms": null
+    },
+    {
+      "id": "119891f9-daa1-5948-8551-08b0c0d4a9b4",
+      "conceptId": "17468a57-c028-5715-a5e6-501c182ad186",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "on",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 49,
+      "caseForms": null
+    },
+    {
+      "id": "4f75e6c9-4697-5633-ad93-4741eb95bebc",
+      "conceptId": "d7148bc6-db5c-589e-9529-1417fabfe4f6",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ona",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 82,
+      "caseForms": null
+    },
+    {
+      "id": "e7391e8e-d5b0-5494-8051-304a0e77c818",
+      "conceptId": "c11473b2-fe51-58ce-a447-31d27f030180",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "mi",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 13,
+      "caseForms": null
+    },
+    {
+      "id": "5bf2ec97-4ba7-53c3-a494-2a5f5e3ca0ec",
+      "conceptId": "939ffa9b-c35b-5355-894f-4d046af2ea31",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "vi",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 87,
+      "caseForms": null
+    },
+    {
+      "id": "04d0fe57-8971-53f1-a5a1-33a1c132c888",
+      "conceptId": "f646b2b7-2230-5bc2-8bb3-60dc3b5145f5",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ovo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 27,
+      "caseForms": null
+    },
+    {
+      "id": "a07d6e77-0cf4-520c-a3e7-fe4c4ba09325",
+      "conceptId": "4525db45-8509-5a08-9efc-d541a974a997",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "to",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 7,
+      "caseForms": null
+    },
+    {
+      "id": "eb8ed875-b3cc-5138-ad62-03d87b6ccc00",
+      "conceptId": "7cd63c6a-cd43-5c13-9189-4a64bb4d3d47",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ono",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 132,
+      "caseForms": null
+    },
+    {
+      "id": "dbbf72f5-8d28-5523-8d42-354ebb74f4e1",
+      "conceptId": "915ae24c-42fd-5e1c-83a0-ef16b7e39501",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "me",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 23,
+      "caseForms": null
+    },
+    {
+      "id": "3b2796a9-13db-5c8c-9e85-4c16fc3ad834",
+      "conceptId": "35e9841f-678b-5284-9e56-f144a02924f2",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "te",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 29,
+      "caseForms": null
+    },
+    {
+      "id": "7e2026fe-96a8-51f4-b42a-121b861a4d55",
+      "conceptId": "ef2b070e-1dd6-5c86-9c10-96d677b98ce4",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "tko",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 73,
+      "caseForms": null
+    },
+    {
+      "id": "ebd0c716-da30-536b-89df-434aa24a36ec",
+      "conceptId": "dfe0f209-0407-570a-aaa6-d3f66175d483",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "što",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 9,
+      "caseForms": null
+    },
+    {
+      "id": "8b6d356a-5235-5b9a-9876-43b5c2dc5c00",
+      "conceptId": "fe0e4b63-c601-59b9-9679-9cf3311baede",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "što",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 9,
+      "caseForms": null
+    },
+    {
+      "id": "8238f571-34ef-5264-8f5a-1f0e6438daf0",
+      "conceptId": "f216d7e1-d75a-5a78-b51a-cd1b036d6dd2",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "koji",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 55,
+      "caseForms": null
+    },
+    {
+      "id": "02aa8bb6-8cb5-58a1-a0a7-3d7e87554d3d",
+      "conceptId": "169ef205-101e-5b3f-ac4f-4acac3639b30",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "sve",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 36,
+      "caseForms": null
+    },
+    {
+      "id": "beb88c21-3205-5577-8843-341fcfcbd277",
+      "conceptId": "733c515f-7ce9-5818-8f8a-2e8964a1e0db",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ništa",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 79,
+      "caseForms": null
+    },
+    {
+      "id": "33f726e5-8f9d-5e5f-bb1a-f2c72c2b47f6",
+      "conceptId": "ab2be6d2-d093-5488-aba8-71c62b6c7e7d",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "nešto",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 53,
+      "caseForms": null
+    },
+    {
+      "id": "34cc2950-b37c-5306-ad89-cb7d1de3e522",
+      "conceptId": "e99651fc-8d9d-53fa-8ec7-e12643f16b1a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "biti",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 39,
+      "caseForms": null
+    },
+    {
+      "id": "d5bca112-9912-59b0-9a84-9acfb3c18581",
+      "conceptId": "02b6c7fd-d6d8-5360-8950-2479d3e0ae68",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "sam",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 8,
+      "caseForms": null
+    },
+    {
+      "id": "8084642e-79c2-54ad-be12-7b13d7de2c14",
+      "conceptId": "aeea24ab-998d-504d-8e79-9e81583534e1",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "si",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 14,
+      "caseForms": null
+    },
+    {
+      "id": "26edaaef-97f9-57a7-bbd7-9bec589efada",
+      "conceptId": "281f4d10-931f-5bbf-a790-c02bddb9426a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "je",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 1,
+      "caseForms": null
+    },
+    {
+      "id": "1464d98e-3576-59b3-8afe-57c22d1c4e64",
+      "conceptId": "9606f3ad-08d6-5f6c-9342-bf2398ca9627",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "smo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 34,
+      "caseForms": null
+    },
+    {
+      "id": "a178b330-36bd-55c4-88f1-4ece77f844e6",
+      "conceptId": "a5c38ff6-1fbe-5763-828d-b142d734d4b7",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ste",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 42,
+      "caseForms": null
+    },
+    {
+      "id": "63b0b39b-ddbe-59b0-96c7-ffe43cf66194",
+      "conceptId": "994d2d78-e2ed-51d4-9b6e-5f10087e86ed",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "su",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 17,
+      "caseForms": null
+    },
+    {
+      "id": "01b2e81e-bd41-5258-89e6-e453f3232917",
+      "conceptId": "2b8e7701-e555-5ddb-bb3c-9d11b74b5a52",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "nije",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 19,
+      "caseForms": null
+    },
+    {
+      "id": "6684043b-00f4-5e43-bd20-48b695b0b2f6",
+      "conceptId": "50fba414-9d77-5728-86f9-88553b78cb18",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "nisam",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 43,
+      "caseForms": null
+    },
+    {
+      "id": "7a76260a-a6c6-5c31-aeb5-21ee4b066358",
+      "conceptId": "a4a8d2b0-428f-568e-8240-803ba0b91077",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "bio",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 45,
+      "caseForms": null
+    },
+    {
+      "id": "0e1a8a0e-b055-5193-8aef-f71b6f46b83d",
+      "conceptId": "9441cf38-1670-585f-ba11-701a91950617",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "bila",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 78,
+      "caseForms": null
+    },
+    {
+      "id": "619c1619-5c5b-5637-8e36-2ef810dc6421",
+      "conceptId": "995691a3-9e9a-5a8d-a53e-f9ee411cda1a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "bilo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 52,
+      "caseForms": null
+    },
+    {
+      "id": "bd2b12e9-76bc-5c42-9233-192fe6153828",
+      "conceptId": "88e2dc24-6124-5e32-8026-e1ccffac2a99",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "bi",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 26,
+      "caseForms": null
+    },
+    {
+      "id": "fdd93a23-a4a1-50a8-a10a-b5f5d62ac41a",
+      "conceptId": "e50f187f-2c24-512f-bbf0-4ba9811dc4cc",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "bih",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 72,
+      "caseForms": null
+    },
+    {
+      "id": "094cb9c3-1277-575f-8676-dea5b3f19243",
+      "conceptId": "ecf982bd-251e-567a-a09c-e8483b2148ab",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ću",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 38,
+      "caseForms": null
+    },
+    {
+      "id": "938e9fa8-8693-514f-ab35-cee1cc7d6ca8",
+      "conceptId": "5347abc2-af44-5531-844a-bfdd134d2948",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ćeš",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 100,
+      "caseForms": null
+    },
+    {
+      "id": "51cd74dd-8bc6-5633-897a-71a71f01fb33",
+      "conceptId": "d889fdc8-d139-5a12-b886-87ced103d275",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "će",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 30,
+      "caseForms": null
+    },
+    {
+      "id": "3c4c17d0-e280-598c-bc6f-d65c6cfd41b0",
+      "conceptId": "7609d86b-a1ce-5165-8785-7e7a56cb0995",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ćemo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 75,
+      "caseForms": null
+    },
+    {
+      "id": "bfcde3dd-ed31-548c-bb7b-19057ccc9bcc",
+      "conceptId": "fa51297c-0cc6-51e2-8515-dd93a347dbb9",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "imati",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 297,
+      "caseForms": null
+    },
+    {
+      "id": "75c5ba1e-49ec-5433-9fd5-0501ee233c06",
+      "conceptId": "d793850e-0c79-5296-983c-410a5b609721",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ima",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 64,
+      "caseForms": null
+    },
+    {
+      "id": "5b206058-46a6-5729-92de-2e12465af22b",
+      "conceptId": "b1628f47-0f81-5ed7-b33d-661592bd7163",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "imam",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 96,
+      "caseForms": null
+    },
+    {
+      "id": "d14c34a6-382a-59a5-9d1c-83723b102ab6",
+      "conceptId": "ff0c84c1-78fd-52df-ae04-d8dac6ee1dbe",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "nema",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 77,
+      "caseForms": null
+    },
+    {
+      "id": "d63a2948-17d0-5d74-be67-3c4f355c444c",
+      "conceptId": "70fe747f-0ba2-540b-8a9b-5d760a42af81",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "moći",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 534,
+      "caseForms": null
+    },
+    {
+      "id": "17abb3da-647a-5737-8d6c-170c8fb93ada",
+      "conceptId": "17ce5cfb-78f4-54b7-818d-9c1df0ff1f54",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "mogu",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 46,
+      "caseForms": null
+    },
+    {
+      "id": "7ba1fb5c-dfe8-53d5-a73f-85e9d28ec84b",
+      "conceptId": "e2760808-5179-51cf-8bbb-cd4c8672c97a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "može",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 86,
+      "caseForms": null
+    },
+    {
+      "id": "1399a309-8e4f-5b8f-bc68-06ffc4b17ff4",
+      "conceptId": "c58998f0-7aea-5eee-94c3-6bf5ff199b5a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "možeš",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 97,
+      "caseForms": null
+    },
+    {
+      "id": "538e623c-72f1-5302-a3d3-850899576533",
+      "conceptId": "a36e21c7-23a3-51ff-b69a-e8c7918f548f",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "znati",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 268,
+      "caseForms": null
+    },
+    {
+      "id": "4f7608cf-e220-5b33-9c16-0c077513e5c3",
+      "conceptId": "8bb9f09b-0073-53a9-bad4-03c3516e51d1",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "znam",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 41,
+      "caseForms": null
+    },
+    {
+      "id": "ace856f3-1813-5cf7-9997-4763c9c4d9b3",
+      "conceptId": "1e94f920-6fac-5895-9e08-308bc9355ad9",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "znaš",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 67,
+      "caseForms": null
+    },
+    {
+      "id": "c80ee90d-464e-5314-9138-b2d0e0fc11b7",
+      "conceptId": "f8a8441e-1f5b-5e34-822a-677530d75495",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "misliti",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 1088,
+      "caseForms": null
+    },
+    {
+      "id": "f59d305a-a100-575b-b556-82bca953ce83",
+      "conceptId": "a501cf39-8e45-5da0-98ec-5efc33eb2618",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "mislim",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 57,
+      "caseForms": null
+    },
+    {
+      "id": "17f659ed-12f6-505f-a367-d0cd20438ed6",
+      "conceptId": "ec1c690f-76f2-5f5d-86d9-1a5be3466763",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "željeti",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 6832,
+      "caseForms": null
+    },
+    {
+      "id": "b9af0f36-361e-5a2e-a0c3-14fb9dddd17b",
+      "conceptId": "1038191e-27d9-5452-9509-3152438fcb28",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "želim",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 83,
+      "caseForms": null
+    },
+    {
+      "id": "e1dff17e-772e-5e8f-9091-97af5450c91f",
+      "conceptId": "f4f1cc27-7daa-5be2-8103-bb72a7fab5d3",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ići",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 196,
+      "caseForms": null
+    },
+    {
+      "id": "e6439e46-ba0b-542d-b787-5bdba39bc7c8",
+      "conceptId": "659b64ff-12a7-54cb-8aac-1b10cdde63c4",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "idemo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 118,
+      "caseForms": null
+    },
+    {
+      "id": "2b6ccb39-0432-5f1b-bdc5-4a1e7c9084c6",
+      "conceptId": "3dffcaf3-27ba-5e28-a456-68645fcf1800",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "treba",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 111,
+      "caseForms": null
+    },
+    {
+      "id": "55f91ddc-8d28-5192-8670-b12652e5668c",
+      "conceptId": "32521a8a-36ce-5b0d-b632-6c0b5daa35c6",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "rekao",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 68,
+      "caseForms": null
+    },
+    {
+      "id": "ff2aa64b-ee20-5874-beb5-958a159f0ca0",
+      "conceptId": "7c434da7-9719-55f5-b2ee-58f20330a60e",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "hajde",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 113,
+      "caseForms": null
+    },
+    {
+      "id": "aeefb738-4bca-59c2-88bf-c1dd4612a107",
+      "conceptId": "e3123277-b424-5c53-8ad6-236ab77fbf78",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "kako",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 28,
+      "caseForms": null
+    },
+    {
+      "id": "1d464eb4-7e76-5570-9043-a41fc7ffa1a2",
+      "conceptId": "ca4c2324-bbf8-5808-8669-2cd3e7552b84",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "zašto",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 48,
+      "caseForms": null
+    },
+    {
+      "id": "60aa136d-8e82-5396-ab4d-7591449a90c6",
+      "conceptId": "242f6746-4fd8-5989-9fe6-d088790b4325",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "gdje",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 63,
+      "caseForms": null
+    },
+    {
+      "id": "05141e5b-5895-5525-afa1-b65da5fd913c",
+      "conceptId": "825ebea3-75d7-5a1f-9f62-f956c948356a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "kad",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 54,
+      "caseForms": null
+    },
+    {
+      "id": "1aa0a0c0-b76b-581a-afbe-eaf2010b2cca",
+      "conceptId": "85bd2306-4d78-5f31-8d45-7533fd25e032",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "kada",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 89,
+      "caseForms": null
+    },
+    {
+      "id": "0227499b-ee42-59b9-9243-033def223fe2",
+      "conceptId": "f0a3d456-1300-5e88-aab4-adaf7e723517",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "koliko",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 116,
+      "caseForms": null
+    },
+    {
+      "id": "1d0ebb59-700b-5681-abae-8fdf38358634",
+      "conceptId": "523eff17-bb3a-5317-94a8-1c7a6ffa0088",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "ovdje",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 44,
+      "caseForms": null
+    },
+    {
+      "id": "2286ea34-9209-5098-b102-3854af14334a",
+      "conceptId": "96063112-5fa2-5271-b8c7-be3bfef595a9",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "tamo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 104,
+      "caseForms": null
+    },
+    {
+      "id": "2df0b359-d404-5b12-98b9-956c355f545a",
+      "conceptId": "6d0922fd-c3f7-5939-a33e-442a5bb16a6e",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "tu",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 99,
+      "caseForms": null
+    },
+    {
+      "id": "e3b4eede-f040-5b0d-8bf8-47f6b805d40e",
+      "conceptId": "68a69eb1-9fcf-5cbf-a118-3570d5b0fe52",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "sad",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 98,
+      "caseForms": null
+    },
+    {
+      "id": "719d0a2d-22c9-5abb-94b3-348b14623158",
+      "conceptId": "5d151889-8b2a-5009-934e-7988f45f05ce",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "sada",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 69,
+      "caseForms": null
+    },
+    {
+      "id": "1566175d-cd9c-5e72-858b-3b4447e1ca38",
+      "conceptId": "f9cdc9d0-4400-5ba9-b3b4-bf2721347f0e",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "onda",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 71,
+      "caseForms": null
+    },
+    {
+      "id": "98c45f69-c199-5bd4-8c2a-7631588bd784",
+      "conceptId": "ecd94136-9a90-5005-9855-94f89fc38983",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "samo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 21,
+      "caseForms": null
+    },
+    {
+      "id": "ba09f828-70f5-5e05-aa70-fd7e63888c15",
+      "conceptId": "88dc5acd-98d9-59c8-88f2-e13d5da60ce7",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "još",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 50,
+      "caseForms": null
+    },
+    {
+      "id": "841edea3-4657-5828-ab81-13f405aac313",
+      "conceptId": "d1ac865a-5c75-513a-ab4b-a88f064198c7",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "više",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 66,
+      "caseForms": null
+    },
+    {
+      "id": "323ab0ec-5b03-5924-9afe-a7b053a2db60",
+      "conceptId": "07170248-866c-59b7-ab3a-2fac54b8861d",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "malo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 84,
+      "caseForms": null
+    },
+    {
+      "id": "8307e64c-e2ab-5574-9271-7bc5355a524c",
+      "conceptId": "5c000b00-224d-58cd-a444-855d6ab52721",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "možda",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 61,
+      "caseForms": null
+    },
+    {
+      "id": "367e1607-28d6-50b2-a692-b1d393ed62b3",
+      "conceptId": "eb1ffa85-d1dd-5763-920c-9b7b8aa895ab",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "tako",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 40,
+      "caseForms": null
+    },
+    {
+      "id": "b2786564-6bf8-582f-94c9-48e6dd406980",
+      "conceptId": "c2234618-4f54-5b72-80a7-5178d384e747",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "dobro",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 32,
+      "caseForms": null
+    },
+    {
+      "id": "5fc57314-f498-55f5-88a0-6bff801568ce",
+      "conceptId": "1bdf676e-792e-56d3-9d22-e08182724de3",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "baš",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 121,
+      "caseForms": null
+    },
+    {
+      "id": "92cee89f-2ea1-5581-9767-5c2f84d1831e",
+      "conceptId": "f662c71a-0243-5bcf-b67c-c86819482968",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "dobar",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 180,
+      "caseForms": null
+    },
+    {
+      "id": "56febab9-45b9-5533-af4a-3575c1b55f90",
+      "conceptId": "0c2e9998-201d-5109-b40f-00bb03cb989b",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "lijep",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 1312,
+      "caseForms": null
+    },
+    {
+      "id": "fcc53ad5-8096-56ca-a953-058cc60a10a5",
+      "conceptId": "4b644327-c780-5adb-933a-b2f6e388e89b",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "veliki",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 429,
+      "caseForms": null
+    },
+    {
+      "id": "e80a01ff-3c28-5b7f-b8f4-259e766eddd3",
+      "conceptId": "77937ad1-e2e2-55da-98d1-a87feca1a2ad",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "mali",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 376,
+      "caseForms": null
+    },
+    {
+      "id": "205ae0e7-bc6e-55da-956c-c07d9e3f6ea2",
+      "conceptId": "176db82d-d4be-551f-b735-b7e52ca3354a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "nov",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 3875,
+      "caseForms": null
+    },
+    {
+      "id": "62ca5c06-ad6b-5cd8-87d3-4e6e37544f2a",
+      "conceptId": "2543269c-a846-565b-a463-9710f488656a",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "voda",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 1305,
+      "caseForms": {
+        "nom": "voda",
+        "gen": "vode",
+        "dat": "vodi",
+        "acc": "vodu",
+        "voc": "vodo",
+        "ins": "vodom",
+        "loc": "vodi",
+        "nomPl": "vode",
+        "genPl": "voda",
+        "datPl": "vodama",
+        "accPl": "vode",
+        "vocPl": "vode",
+        "insPl": "vodama",
+        "locPl": "vodama"
+      }
+    },
+    {
+      "id": "01fffe4d-982d-59cc-b220-92ac2ee49f1c",
+      "conceptId": "3ac0ee84-d62f-58dc-b532-e3eccce2ed2b",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "kruh",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 4052,
+      "caseForms": null
+    },
+    {
+      "id": "8cc5cd47-c75f-5703-baac-6df5b00ac7f8",
+      "conceptId": "dee89aa6-d509-57ad-9f21-34ab979c9eaa",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "čovjek",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 223,
+      "caseForms": null
+    },
+    {
+      "id": "84505156-6265-5f5a-a050-ac68f70b06be",
+      "conceptId": "592dacd9-cfa1-5124-8928-6465ca4c9ef1",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "žena",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 242,
+      "caseForms": {
+        "nom": "žena",
+        "gen": "žene",
+        "dat": "ženi",
+        "acc": "ženu",
+        "voc": "ženo",
+        "ins": "ženom",
+        "loc": "ženi",
+        "nomPl": "žene",
+        "genPl": "žena",
+        "datPl": "ženama",
+        "accPl": "žene",
+        "vocPl": "žene",
+        "insPl": "ženama",
+        "locPl": "ženama"
+      }
+    },
+    {
+      "id": "8c6b951c-0c57-5625-ad90-75e1aac69e31",
+      "conceptId": "80405917-c42f-5904-8543-48bad9bb31ab",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "dijete",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 352,
+      "caseForms": null
+    },
+    {
+      "id": "d1ea0a04-09e0-55e3-b510-1d78b5e7a1a5",
+      "conceptId": "e9205455-d178-5275-a4c8-8a4515ab3570",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "kuća",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 746,
+      "caseForms": {
+        "nom": "kuća",
+        "gen": "kuće",
+        "dat": "kući",
+        "acc": "kuću",
+        "voc": "kućo",
+        "ins": "kućom",
+        "loc": "kući",
+        "nomPl": "kuće",
+        "genPl": "kuća",
+        "datPl": "kućama",
+        "accPl": "kuće",
+        "vocPl": "kuće",
+        "insPl": "kućama",
+        "locPl": "kućama"
+      }
+    },
+    {
+      "id": "24e625b8-2074-5d16-a35c-6c99d1353ba9",
+      "conceptId": "0b275fea-4d56-50a3-ae84-2511fc34a24c",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "dan",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 154,
+      "caseForms": {
+        "nom": "dan",
+        "gen": "dana",
+        "dat": "danu",
+        "acc": "dan",
+        "voc": "dane",
+        "ins": "danom",
+        "loc": "danu",
+        "nomPl": "dani",
+        "genPl": "dana",
+        "datPl": "danima",
+        "accPl": "dane",
+        "vocPl": "dani",
+        "insPl": "danima",
+        "locPl": "danima"
+      }
+    },
+    {
+      "id": "d9f31c11-116d-5a0a-bce2-473132a9e08f",
+      "conceptId": "2682ec90-143c-57a4-b1f2-2b9ec5c06942",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "noć",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 330,
+      "caseForms": {
+        "nom": "noć",
+        "gen": "noći",
+        "dat": "noći",
+        "acc": "noć",
+        "voc": "noći",
+        "ins": "noći",
+        "loc": "noći",
+        "nomPl": "noći",
+        "genPl": "noći",
+        "datPl": "noćima",
+        "accPl": "noći",
+        "vocPl": "noći",
+        "insPl": "noćima",
+        "locPl": "noćima"
+      }
+    },
+    {
+      "id": "5575a435-d7ef-530c-9bab-03de23f17ca1",
+      "conceptId": "e9b82404-d787-5d03-b8e3-5ae92c58bdde",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "riječ",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 514,
+      "caseForms": null
+    },
+    {
+      "id": "de36f660-cb7a-58aa-ae31-378143c03a96",
+      "conceptId": "3dc9460c-bfc1-53d0-a6a2-3fd7570fc05c",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "prijatelj",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 414,
+      "caseForms": {
+        "nom": "prijatelj",
+        "gen": "prijatelja",
+        "dat": "prijatelju",
+        "acc": "prijatelja",
+        "voc": "prijatelju",
+        "ins": "prijateljem",
+        "loc": "prijatelju",
+        "nomPl": "prijatelji",
+        "genPl": "prijatelja",
+        "datPl": "prijateljima",
+        "accPl": "prijatelje",
+        "vocPl": "prijatelji",
+        "insPl": "prijateljima",
+        "locPl": "prijateljima"
+      }
+    },
+    {
+      "id": "910343e1-3e06-529f-938f-6d0815cc66ec",
+      "conceptId": "12fb3638-5ad1-5b95-8cff-0c449718a927",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "hvala",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 58,
+      "caseForms": null
+    },
+    {
+      "id": "5bcac3b0-76b2-5b1e-8268-b8e96145b7a4",
+      "conceptId": "6ea1b1b3-b843-519c-bdf4-b748456a5b4b",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "molim",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 88,
+      "caseForms": null
+    },
+    {
+      "id": "309a1352-3d93-5205-a267-7c9a76fb0976",
+      "conceptId": "ceede75d-7bc1-53d2-a0e6-c4b9083e4be6",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "hej",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 95,
+      "caseForms": null
+    },
+    {
+      "id": "d055605d-788a-5a56-ad19-70f314c1af80",
+      "conceptId": "b10b26af-4a8c-5356-ba28-378aac457b57",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "zdravo",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 230,
+      "caseForms": null
+    },
+    {
+      "id": "731cb855-7ca7-5766-b090-b4dc9e0b062c",
+      "conceptId": "6a25d8d8-d897-5f7e-ba98-44d5be862688",
+      "language": "hr",
+      "regionalTag": null,
+      "latinSpelling": "doviđenja",
+      "cyrillicSpelling": null,
+      "stressMark": null,
+      "ipa": null,
+      "audioUrl": null,
+      "frequencyRankInLang": 1840,
+      "caseForms": null
+    }
+  ],
+  "_meta": {
+    "version": "1.0.0",
+    "generated_at": "2026-05-26T06:36:55.074602+00:00",
+    "sources": [
+      {
+        "name": "opensubtitles-2018",
+        "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/hr/hr_50k.txt",
+        "note": "Hermit Dave's lemmatized OpenSubtitles 2018 frequency list"
+      }
+    ],
+    "notes": "Curated top-100 seed cross-referenced with Hermit Dave's OpenSubtitles 2018 frequency list. POS hand-tagged. Case forms hand-authored for top common nouns. Cyrillic spelling derived programmatically from Latin via the mirror of src/lib/cyrillic/translit.ts. See content-pipeline/README.md for full methodology."
+  }
+}

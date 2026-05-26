@@ -47,8 +47,80 @@ describe('loadStarterVocab("sr")', () => {
     const b = loadStarterVocab('sr');
     expect(a).toBe(b);
   });
+});
 
-  it('throws a clear error for an unsupported language', () => {
-    expect(() => loadStarterVocab('hr')).toThrow(/No starter vocab bundle/);
+describe('loadStarterVocab("hr")', () => {
+  beforeEach(() => {
+    __resetVocabCache();
+  });
+
+  it('parses and reports validated=true', () => {
+    const v = loadStarterVocab('hr');
+    expect(v.validated).toBe(true);
+    expect(v.language).toBe('hr');
+  });
+
+  it('every HR variant has cyrillicSpelling === null (schema constraint)', () => {
+    const v = loadStarterVocab('hr');
+    for (const variant of v.variants) {
+      expect(variant.cyrillicSpelling).toBeNull();
+    }
+  });
+
+  it('contains the HR-specific lexical overrides', () => {
+    const v = loadStarterVocab('hr');
+    const latins = new Set(v.variants.map((x) => x.latinSpelling));
+    // Spot-check the systematic differences from SR.
+    expect(latins.has('tko')).toBe(true);      // SR: ko
+    expect(latins.has('gdje')).toBe(true);     // SR: gde
+    expect(latins.has('lijep')).toBe(true);    // SR: lep
+    expect(latins.has('kruh')).toBe(true);     // SR: hleb
+    expect(latins.has('čovjek')).toBe(true);   // SR: čovek
+    expect(latins.has('željeti')).toBe(true); // SR: želeti   // SR: hteti
+    // SR-only forms should not appear in HR:
+    expect(latins.has('ko')).toBe(false);
+    expect(latins.has('hleb')).toBe(false);
+  });
+});
+
+describe('loadStarterVocab("bs")', () => {
+  beforeEach(() => {
+    __resetVocabCache();
+  });
+
+  it('parses and reports validated=true', () => {
+    const v = loadStarterVocab('bs');
+    expect(v.validated).toBe(true);
+    expect(v.language).toBe('bs');
+  });
+
+  it('every BS variant has cyrillicSpelling === null (schema constraint)', () => {
+    const v = loadStarterVocab('bs');
+    for (const variant of v.variants) {
+      expect(variant.cyrillicSpelling).toBeNull();
+    }
+  });
+
+  it('blends ijekavian (like HR) with SR-like function words', () => {
+    const v = loadStarterVocab('bs');
+    const latins = new Set(v.variants.map((x) => x.latinSpelling));
+    // ijekavian (like HR):
+    expect(latins.has('lijep')).toBe(true);
+    expect(latins.has('gdje')).toBe(true);
+    expect(latins.has('čovjek')).toBe(true);
+    expect(latins.has('željeti')).toBe(true); // SR: želeti
+    expect(latins.has('hljeb')).toBe(true); // BS-specific spelling
+    // SR-like function words:
+    expect(latins.has('ko')).toBe(true);
+    expect(latins.has('šta')).toBe(true);
+    // HR-specific forms NOT in BS:
+    expect(latins.has('tko')).toBe(false);
+    expect(latins.has('kruh')).toBe(false);
+  });
+
+  it('flags HR-as-proxy in its methodology block (Pareto-honesty)', () => {
+    const v = loadStarterVocab('bs');
+    const source = v.meta.sources[0];
+    expect(source.note).toMatch(/proxy|HR/i);
   });
 });

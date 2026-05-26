@@ -10,6 +10,8 @@
 
 import { z } from 'zod';
 
+import bsStarter from '../../content/vocab/bs-starter.json';
+import hrStarter from '../../content/vocab/hr-starter.json';
 import srStarter from '../../content/vocab/sr-starter.json';
 import { ConceptSchema, type Concept } from './schemas/concept';
 import { VariantSchema, type Variant } from './schemas/variant';
@@ -17,8 +19,8 @@ import { LanguageSchema, type Language } from './schemas/variant';
 
 const BUNDLES: Partial<Record<Language, unknown>> = {
   sr: srStarter,
-  // hr: hrStarter   ← lands in Phase 2
-  // bs: bsStarter   ← lands in Phase 2
+  hr: hrStarter,
+  bs: bsStarter,
 };
 
 export const MethodologySchema = z.object({
