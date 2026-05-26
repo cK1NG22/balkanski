@@ -2,6 +2,15 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-26 — Session 14 (cont'd): Codex follow-up — BS rank lookup for proxy corpus
+
+Codex review of `5531a8b` found one P1 (Gemini hit a 429 capacity error this round — server-side, not a finding gap; retrying after the seed fix lands).
+
+**Real → shipped**:
+- **BS rank-lookup override for proxy corpus** — Codex spotted that BS's "hljeb" was inheriting the fallback rank (49750 — higher than every meaningful corpus word) because the HR-proxy corpus only knows HR's "kruh", not BS's "hljeb". Result: "bread" was ranked dead-last in BS even though it sits at rank ~220 in HR + 200 in SR. Fix: `_build_language` gained an optional `rank_lookup_overrides` dict mapping seed latin → corpus lookup key. `build_bosnian` passes `{"hljeb": "kruh"}` when proxying via HR. "hljeb" now ranks 4052 in the BS bundle (inherits HR's "kruh" rank). The Pareto-honesty rule stays intact: every variant still has a real-corpus-derived rank, with the proxy mapping documented inline.
+
+**Verification**: `uv run python -m balkanski_pipeline` ✓ (no more "missing from corpus" warning) · `pnpm validate-content` ✓ · `pnpm test` 99/99 ✓ (6 new compare/group tests added in same session).
+
 ## 2026-05-26 — Session 14 (cont'd): HR + BS vocab seed via content-pipeline
 
 Phase 2's third item lands. All three languages now have real corpus-ranked starter vocabulary.

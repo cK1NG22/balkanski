@@ -70,16 +70,29 @@ def _build_language(
     language: Language,
     seed: list[SeedEntry],
     corpus: dict[str, int],
+    rank_lookup_overrides: dict[str, str] | None = None,
 ) -> VocabBundle:
+    """Build a language bundle.
+
+    `rank_lookup_overrides` maps the seed entry's display latin form → the
+    key to look up in `corpus`. Used by build_bosnian() where BS's chosen
+    spelling (e.g. "hljeb") doesn't appear in the HR-proxy corpus and we
+    want the rank to track HR's equivalent ("kruh") instead of falling
+    back to the unranked tail.
+    """
     concepts: list[Concept] = []
     variants: list[Variant] = []
     missing: list[str] = []
     fallback_base = max(corpus.values(), default=0) + 1
+    overrides = rank_lookup_overrides or {}
 
     for entry in seed:
         # Corpus rank if known; else assign a deterministic fallback rank that
-        # still puts the word into the teachable range.
-        rank = corpus.get(entry.latin)
+        # still puts the word into the teachable range. A rank-lookup override
+        # lets a per-language proxy reach across the spelling gap (BS "hljeb"
+        # → HR "kruh").
+        lookup_key = overrides.get(entry.latin, entry.latin)
+        rank = corpus.get(lookup_key)
         if rank is None:
             rank = fallback_base + len(missing)
             missing.append(entry.latin)
@@ -194,13 +207,20 @@ def build_bosnian() -> None:
     # Latin), so we use HR ranks as the corpus-rank proxy. Documented in the
     # bundle's _meta block so the Pareto-honesty rule isn't compromised: the
     # source is still real-corpus-derived, just attributed correctly.
+    proxy_via_hr = False
     try:
         corpus = load_opensubtitles_ranks("bs")
     except SourceUnavailableError:
         print("  · no native BS corpus available; using HR ranks as proxy")
         corpus = load_opensubtitles_ranks("hr")
+        proxy_via_hr = True
 
-    bundle = _build_language("bs", BS_TOP100, corpus)
+    # When proxying via HR, the BS-specific spelling "hljeb" won't appear in
+    # HR's corpus (HR uses "kruh"). Map it explicitly so "bread" gets a
+    # corpus-derived rank instead of being shoved to the unranked tail
+    # (would've been ~49750 — bigger than every meaningful starter word).
+    overrides = {"hljeb": "kruh"} if proxy_via_hr else {}
+    bundle = _build_language("bs", BS_TOP100, corpus, rank_lookup_overrides=overrides)
     # Patch the _meta to reflect the proxy honestly.
     if bundle.meta.sources[0].get("note") == "unavailable":
         bundle.meta.sources = [

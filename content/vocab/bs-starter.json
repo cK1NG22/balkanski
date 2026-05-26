@@ -1178,7 +1178,7 @@
         "food",
         "everyday"
       ],
-      "frequencyRankAggregate": 49750
+      "frequencyRankAggregate": 4052
     },
     {
       "id": "dee89aa6-d509-57ad-9f21-34ab979c9eaa",
@@ -2743,7 +2743,7 @@
       "stressMark": null,
       "ipa": null,
       "audioUrl": null,
-      "frequencyRankInLang": 49750,
+      "frequencyRankInLang": 4052,
       "caseForms": null
     },
     {
@@ -2993,7 +2993,7 @@
   ],
   "_meta": {
     "version": "1.0.0",
-    "generated_at": "2026-05-26T06:36:55.115147+00:00",
+    "generated_at": "2026-05-26T06:42:41.020994+00:00",
     "sources": [
       {
         "name": "opensubtitles-2018",
