@@ -14,6 +14,21 @@ import {
 import { useParetoLesson } from '@/hooks/use-pareto-lesson';
 import { useStreak } from '@/hooks/use-streak';
 import { selectNextVariants, FLUENCY_TARGET_RANK } from '@/lib/pareto/sequencer';
+import { storage, storageKeys } from '@/lib/storage/mmkv';
+import type { Variant } from '@/data/schemas/variant';
+
+type ScriptPref = 'latin' | 'cyrillic';
+
+// Mirrors the pickScripts contract in (modal)/lesson-active.tsx: for SR
+// the learner sees their chosen script; for HR/BS (cyrillicSpelling===null
+// per zod schema) it's always latin and the alternate stays empty.
+function pickVariantScripts(variant: Variant, pref: ScriptPref): { primary: string; alternate: string } {
+  const cyr = variant.cyrillicSpelling;
+  if (pref === 'cyrillic' && cyr) {
+    return { primary: cyr, alternate: variant.latinSpelling };
+  }
+  return { primary: variant.latinSpelling, alternate: cyr ?? '' };
+}
 
 const DAD_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuCnYtcAIEGQ1AlHCVTI2RiTs7_gqdye8YtQK9pwYRB2idawzZ5mro-WClEjOe9SZOJD0SuFGQEd2NgxFC740M4vh6nHB2qmFChYNjXYLwU2wUq7iETyoZDb28g4lHxqlzYXdKAoGZ373fsYj0iUqNf9hbA3OshqCQFeJv8h86wlD7PYOE4FtJYqozESCL26jOFszxLSkTCd6WXX0_Dre-n9dK7ERCZlobbaoa5uPTAM9hKHOOyghphwcwul9imAgTCImEEcbvNwcDE';
@@ -21,6 +36,7 @@ const DAD_IMAGE =
 export default function LearnHome() {
   const { vocab, known, knownCount, nextVariant, nextConcept } = useParetoLesson();
   const { state: streak, refresh: refreshStreak } = useStreak();
+  const scriptPref = (storage.getString(storageKeys.serbianScriptPref) ?? 'latin') as ScriptPref;
 
   // The Learn screen stays mounted while the lesson modal grades cards above
   // it. When the modal closes, re-read MMKV so the streak count is current.
@@ -69,7 +85,7 @@ export default function LearnHome() {
             </Text>
             <Text variant="body" align="center" color="muted">
               {nextVariant && nextConcept
-                ? `Next up: ${nextVariant.latinSpelling} ("${nextConcept.englishTranslation}").`
+                ? `Next up: ${pickVariantScripts(nextVariant, scriptPref).primary} ("${nextConcept.englishTranslation}").`
                 : 'Session complete for now.'}
             </Text>
           </View>
@@ -138,31 +154,34 @@ export default function LearnHome() {
               Serbian
             </Text>
           </View>
-          {upcoming.map((variant, index) => (
-            <View
-              key={variant.id}
-              className={`flex-row items-center justify-between rounded-button border p-3 ${
-                index === 0 ? 'border-brand-500 bg-brand-50' : 'border-border bg-bg'
-              }`}
-            >
-              <View className="flex-row items-center gap-3">
-                <Text variant="body" weight="bold" className="text-brand-500">
-                  #{variant.frequencyRankInLang}
-                </Text>
-                <View>
-                  <Text variant="body" weight="semibold">
-                    {variant.latinSpelling}
+          {upcoming.map((variant, index) => {
+            const { primary, alternate } = pickVariantScripts(variant, scriptPref);
+            return (
+              <View
+                key={variant.id}
+                className={`flex-row items-center justify-between rounded-button border p-3 ${
+                  index === 0 ? 'border-brand-500 bg-brand-50' : 'border-border bg-bg'
+                }`}
+              >
+                <View className="flex-row items-center gap-3">
+                  <Text variant="body" weight="bold" className="text-brand-500">
+                    #{variant.frequencyRankInLang}
                   </Text>
-                  <Text variant="caption" color="muted">
-                    {variant.cyrillicSpelling ?? 'Latin only'}
-                  </Text>
+                  <View>
+                    <Text variant="body" weight="semibold">
+                      {primary}
+                    </Text>
+                    <Text variant="caption" color="muted">
+                      {alternate || 'Latin only'}
+                    </Text>
+                  </View>
                 </View>
+                <Text variant="caption" color="muted">
+                  {index === 0 ? 'Next' : 'Up next'}
+                </Text>
               </View>
-              <Text variant="caption" color="muted">
-                {index === 0 ? 'Next' : 'Up next'}
-              </Text>
-            </View>
-          ))}
+            );
+          })}
         </Card>
       </View>
     </Screen>

@@ -4,12 +4,29 @@ import { useFocusEffect } from 'expo-router';
 
 import { Button, Card, FlashCard, GradingButtonRow, Screen, Text } from '@/components';
 import type { GradingTier } from '@/data/schemas/grading';
+import type { Variant } from '@/data/schemas/variant';
 import { useReviewQueue, type ReviewQueueRow } from '@/hooks/use-review-queue';
+import { storage, storageKeys } from '@/lib/storage/mmkv';
+
+type ScriptPref = 'latin' | 'cyrillic';
+
+// Mirrors the pickScripts contract in (modal)/lesson-active.tsx. SR has both
+// spellings; HR/BS guarantee cyrillicSpelling===null via VariantSchema, so
+// `alternate` is empty and the secondary line collapses.
+function pickVariantScripts(variant: Variant, pref: ScriptPref): { primary: string; alternate: string } {
+  const cyr = variant.cyrillicSpelling;
+  if (pref === 'cyrillic' && cyr) {
+    return { primary: cyr, alternate: variant.latinSpelling };
+  }
+  return { primary: variant.latinSpelling, alternate: cyr ?? '' };
+}
 
 export default function ReviewHome() {
   const { queue, grade, refresh } = useReviewQueue();
   const [flipped, setFlipped] = useState(false);
   const current: ReviewQueueRow | undefined = queue[0];
+  const scriptPref = (storage.getString(storageKeys.serbianScriptPref) ?? 'latin') as ScriptPref;
+  const scripts = current ? pickVariantScripts(current.variant, scriptPref) : null;
 
   // Cards graded elsewhere (lesson modal) become due in this tab silently.
   // Re-fetch the queue every time the tab regains focus.
@@ -47,7 +64,7 @@ export default function ReviewHome() {
               </Text>
             </Card>
 
-            {current ? (
+            {current && scripts ? (
               <View className="gap-4">
                 <FlashCard
                   flipped={flipped}
@@ -58,10 +75,10 @@ export default function ReviewHome() {
                       <Text variant="label" color="accent">
                         Serbian
                       </Text>
-                      <Text variant="display">{current.variant.latinSpelling}</Text>
-                      {current.variant.cyrillicSpelling ? (
+                      <Text variant="display">{scripts.primary}</Text>
+                      {scripts.alternate ? (
                         <Text variant="label" className="text-brand-500">
-                          {current.variant.cyrillicSpelling}
+                          {scripts.alternate}
                         </Text>
                       ) : null}
                       <Text variant="caption" color="muted">
