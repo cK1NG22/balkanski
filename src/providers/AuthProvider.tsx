@@ -34,19 +34,33 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setSession(s);
       if (s && !reboundFor.current.has(s.userId)) {
         reboundFor.current.add(s.userId);
-        // Sequence matters: rebind runs first so review_items + known_variants
-        // land on the auth uid. Then sync the script pref using the rebind
-        // result to decide push (first sign-in on this device) vs pull
-        // (returning user — remote may have a newer value from device 2).
-        rebindOnSignIn(s.userId, realRebindIO)
-          .then((result) =>
-            syncScriptPrefOnSignIn(s.userId, realScriptPrefIO, {
-              didRebind: result.ran,
-            }),
-          )
-          .catch((err) => {
-            console.warn('[auth] sign-in sync failed:', err);
-          });
+        void runSignInSync(s.userId);
+      }
+    }
+
+    // Isolated error boundaries: a rebind failure shouldn't silently drop
+    // the script-pref sync if rebind partially succeeded, and conversely a
+    // pref-sync failure shouldn't get conflated with a rebind warning.
+    // Rebind runs first so review_items + known_variants land on the auth
+    // uid before script-pref decides push (first sign-in this device) vs
+    // pull (returning user — remote may have a newer value from device 2).
+    async function runSignInSync(userId: string) {
+      let didRebind = false;
+      try {
+        const result = await rebindOnSignIn(userId, realRebindIO);
+        didRebind = result.ran;
+      } catch (err) {
+        console.warn('[auth] rebindOnSignIn failed:', err);
+        // Without a rebind result we can't safely choose sync direction
+        // (push would risk overwriting remote with stale local; pull would
+        // risk overwriting a pre-auth local toggle). Skip this cycle; next
+        // sign-in event retries.
+        return;
+      }
+      try {
+        await syncScriptPrefOnSignIn(userId, realScriptPrefIO, { didRebind });
+      } catch (err) {
+        console.warn('[auth] syncScriptPrefOnSignIn failed:', err);
       }
     }
 

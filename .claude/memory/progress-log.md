@@ -2,6 +2,22 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-26 — Session 14 (cont'd): Gemini+Codex follow-ups on scriptPref sync
+
+Two-model review of `eac9c14`. Genuine finding overlap this round (first time across sessions 9/11/13/14): both models flagged the silent zero-row UPDATE + rapid-toggle race independently.
+
+**Real → shipped**:
+- **`setRemote` now verifies the affected row** — added `.select('id').maybeSingle()` to the Supabase update so a zero-row match (auth-trigger RLS lag on fresh sign-up, or row missing) throws instead of silently succeeding. Next sign-in cycle retries automatically. Gemini P2 + Codex P2.
+- **Settings push serialization** — `useRef<Promise>` chain in `handleScriptChange` serializes remote pushes so rapid Latin→Cyrillic→Latin toggles can't land on the server in reverse order. Each link's `.catch(()=>{})` swallows prior rejections so one network blip doesn't stall future toggles. Gemini P1 + Codex P2.
+- **AuthProvider isolated error boundaries** — replaced the single `.catch` on the rebind→sync chain with an `async runSignInSync(userId)` IIFE that try/catches each step independently. Rebind failure now logs its own message AND explicitly skips the pref sync (since without a rebind result we can't safely choose push vs pull). Pref-sync failure logs separately. Gemini P2.
+
+**Skipped with reasoning**:
+- **[P1] Lost offline write (Gemini)** — returning user toggles offline, restart → didRebind=false → pull overwrites their pending change. Real, but adding a dirty-flag for an offline edge case Carter + wife are unlikely to hit is over-engineering. Trade-off documented; sync-on-next-online-sign-in is the recovery path.
+- **[P1] reboundFor never cleared on sign-out (Codex)** — pre-existing architecture quirk affecting the whole rebind system, not introduced by this commit. Out of scope; if Carter + wife start sign-out/sign-in cycling in the same process, file a separate fix.
+- **[P1] StrictMode double-effect (Codex)** — Codex's trace missed the existing `cancelled` flag in `handleSession`. In StrictMode dev double-mount: effect-1's closure-scoped `cancelled` is set to true by its cleanup, so when effect-1's getCurrentSession resolves it early-returns before touching reboundFor; only effect-2's chain runs. False positive.
+
+**Verification**: `pnpm tsc --noEmit` ✓ · `pnpm test` 87/87 ✓.
+
 ## 2026-05-26 — Session 14 (cont'd): server-side User.serbianScriptPref sync
 
 Closed Phase 2D item: MMKV-only pref now syncs through Supabase users table on sign-in.
