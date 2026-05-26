@@ -1,6 +1,7 @@
 export * from './FlashCard';
 export * from './LessonStep';
 export * from './FillInBlankInput';
+export * from './ProduceCard';
 export * from './CaseEndingPicker';
 export * from './CyrillicLetter';
 export * from './WordChip';

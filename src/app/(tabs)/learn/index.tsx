@@ -81,6 +81,18 @@ export default function LearnHome() {
             size="lg"
             disabled={!nextVariant}
           />
+          <Button
+            label="Practice typing"
+            variant="secondary"
+            onPress={() =>
+              router.push({
+                pathname: '/(modal)/lesson-active',
+                params: { direction: 'produce' },
+              })
+            }
+            fullWidth
+            disabled={!nextVariant}
+          />
         </Card>
 
         <Card variant="outlined" className="gap-4">

@@ -80,7 +80,7 @@ Authoritative design: **`docs/decisions/0002-known-words-vs-placement-test.md`**
 
 ## Phase 1 polish — scope decision needed
 
-- [ ] **"Close answers show correction inline" — implementation gap surfaced 2026-05-25 audit.** The ROADMAP Phase 1 Done-when criterion calls for this, but the lesson runner only ships the `recognize` direction (FlashCard + self-grade via `GradingButtonRow`); the user never types an answer to be graded against `gradingTier()`. The grading library returns `result.correction` for close + wrong tiers, and `FillInBlankInput` calls into it correctly — but `FillInBlankInput` is currently only referenced from `(debug)/components.tsx`. **Decision needed**: either (A) wire a `produce` direction into `(modal)/lesson-active.tsx` so the user types the Serbian word + correction renders inline on close, or (B) update the ROADMAP criterion to clarify `produce` direction ships in Phase 2/3 alongside `CaseEndingPicker` typing drills. Recommend (A) since the underlying machinery (`useParetoLesson`, grading lib, FillInBlankInput shell) is all built — only the screen wiring is missing.
+- [x] **"Close answers show correction inline"** — landed 2026-05-25 (session 11). `useParetoLesson` now accepts an optional `direction` arg, new `ProduceCard` shell wraps `FillInBlankInput` with an inline correction surface, `(modal)/lesson-active.tsx` branches on `?direction=produce`, and a "Practice typing" entry-point lives on the Learn screen. 5 new tests cover the close/right/wrong/Continue flows. tsc + 74 tests clean. iOS smoke test still pending Xcode (see below).
 
 ## Phase 4 — locked decisions (when phase starts)
 

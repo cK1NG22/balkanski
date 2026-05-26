@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
@@ -7,12 +7,13 @@ import {
   FlashCard,
   GradingButtonRow,
   LessonStep,
+  ProduceCard,
   ProgressBar,
   Screen,
   TeacherAvatar,
   Text,
 } from '@/components';
-import { useParetoLesson } from '@/hooks/use-pareto-lesson';
+import { useParetoLesson, type LessonDirection } from '@/hooks/use-pareto-lesson';
 import type { GradingTier } from '@/data/schemas/grading';
 
 const COACH_IMAGE =
@@ -21,7 +22,10 @@ const COACH_IMAGE =
 const SESSION_LENGTH = 10;
 
 export default function LessonActive() {
-  const { nextVariant, nextConcept, grade } = useParetoLesson();
+  const params = useLocalSearchParams<{ direction?: string }>();
+  const direction: LessonDirection =
+    params.direction === 'produce' ? 'produce' : 'recognize';
+  const { nextVariant, nextConcept, grade } = useParetoLesson(direction);
   const [flipped, setFlipped] = useState(false);
   const [completed, setCompleted] = useState(0);
   const [lastTier, setLastTier] = useState<GradingTier | null>(null);
@@ -100,6 +104,27 @@ export default function LessonActive() {
             </Text>
             <Button label="Done" onPress={() => router.back()} fullWidth size="lg" />
           </View>
+        ) : nextVariant && nextConcept && direction === 'produce' ? (
+          <LessonStep
+            stepNumber={completed + 1}
+            totalSteps={SESSION_LENGTH}
+            instruction="Type the Serbian spelling. Diacritics count."
+            prompt={
+              <ProduceCard
+                key={nextVariant.id}
+                englishTranslation={nextConcept.englishTranslation}
+                hint={
+                  nextConcept.senseDisambiguator
+                    ? `${nextConcept.partOfSpeech} · ${nextConcept.senseDisambiguator}`
+                    : nextConcept.partOfSpeech
+                }
+                acceptedAnswers={[nextVariant.latinSpelling]}
+                onGraded={onGrade}
+              />
+            }
+          >
+            <View />
+          </LessonStep>
         ) : nextVariant && nextConcept ? (
           <LessonStep
             stepNumber={completed + 1}

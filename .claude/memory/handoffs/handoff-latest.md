@@ -1,10 +1,10 @@
 ---
 project: balkanski
 task: balkanski
-session_ended: 2026-05-24T23:30:00Z
+session_ended: 2026-05-25T16:30:00Z
 cwd: /Users/carterking/Projects/Personal/balkanski
 git_branch: main
-git_sha: f75c79d (uncommitted)
+git_sha: 8ff7947
 shape: project-container
 ---
 
@@ -12,41 +12,42 @@ shape: project-container
 
 ## Next Action
 
-**Carter: run `pnpm exec supabase db push`** to land `supabase/migrations/0004_known_variants.sql` on `khbwshwghilupemmvloq`. The auto-mode classifier gated this from Claude because it drops a table (`placement_test_results`) and a column (`users.proficiency_estimate`) on a production-ish DB — your hand on the trigger is the safety gate. After that: extend the rebind-on-sign-in path to push `known_variants` rows too (currently only `review_items` flows through `rebind-io.ts`).
+Wire the `produce` lesson direction into `src/app/(modal)/lesson-active.tsx` so a typed Serbian answer rendering as `tier === 'close'` shows the `correction` string inline — closes the ROADMAP Phase 1 Done-when criterion "close answers show correction inline."
 
 ## Pointers
 
-- **Authoritative ADR**: `docs/decisions/0002-known-words-vs-placement-test.md`
-- **Migration to deploy**: `supabase/migrations/0004_known_variants.sql`
-- Implementation surface (this session): `src/lib/known-variants/`, `src/components/learning/{KnownWordRow,BulkMarkButton}.tsx`, `src/app/(modal)/known-words.tsx`, `src/app/(auth)/onboarding.tsx`, `src/lib/srs/sqlite.ts`, `src/lib/pareto/sequencer.ts`
-- Rebind pattern to extend: `src/lib/sync/rebind.ts` + `rebind-io.ts` (mirror the same shape for `known_variants`)
-- Task memory entry point: `.claude/memory/INDEX.md`
-- Open work: `.claude/memory/todo.md` (Phase 1C open section + Phase 1D follow-ups)
+- **ROADMAP criterion**: `ROADMAP.md` → Phase 1 Done-when block ("close answers show correction inline")
+- **Audit finding (full scope + design notes)**: `.claude/memory/todo.md` → "Phase 1 polish — scope decision needed" section
+- **Task memory entry point**: `.claude/memory/INDEX.md`
+- **Stack rules + conventions**: `AGENTS.md`
+- **Spec authority**: `CLARIFICATIONS.md`
+- **Existing grading lib**: `src/lib/grading/tiered.ts` (already returns `correction` for close/wrong tiers; 21 unit tests in `tests/lib/grading/`)
+- **Existing shell**: `src/components/learning/FillInBlankInput.tsx` (currently only referenced from `(debug)/components.tsx` — wire it into production here)
+- **Hook to flex**: `src/hooks/use-pareto-lesson.ts` — `const DIRECTION = 'recognize' as const` hardcoded
+- **Lesson screen to extend**: `src/app/(modal)/lesson-active.tsx` (don't change the recognize path; add a sibling produce path)
+- **Persist path**: `src/lib/srs/persist.ts:gradeAndPersistVariant` accepts any `ReviewDirection`; `('user_id', 'variant_id', 'direction')` UNIQUE means produce + recognize are separately tracked FSRS items for the same variant — that's intended.
+- **Schema**: `src/data/schemas/review-item.ts` already has `'produce'` in the `ReviewDirection` enum
 
 ## Decisions This Session
 
-- **0004 migration shape**: `known_variants(user_id, variant_id, marked_at)` with composite PK; 3 RLS policies (select/insert/delete — no UPDATE because the model is delete-then-reinsert); `ON DELETE CASCADE` on user_id, `ON DELETE RESTRICT` on variant_id; drops `placement_test_results` + `users.proficiency_estimate`.
-- **Sequencer takes two named skip-sets**: `knownVariantIds` (the SRS seen-set) + optional `markedKnownVariantIds`, unioned internally via `buildSkipSet`. Renamed `getAllKnownVariantIds` → `getSeenVariantIds` to remove ambiguity. Deleted dead `startingRankForProficiency`.
-- **Supabase upsert uses `ignoreDuplicates: true`** for known_variants — PostgREST issues `ON CONFLICT DO NOTHING` which doesn't require an UPDATE RLS policy, matching the ADR's mutation model.
-- **Sync is additive-only**: deletions don't propagate through `syncKnownVariants`. Documented as a Phase 1D boundary inside `sync.ts`; latent today because no bidirectional sync caller exists.
-- **Onboarding navigates with one `router.replace`** carrying `?from=onboarding`; the modal's Done handler branches on the param. Replaces the chained replace+push that Gemini correctly flagged as a race.
-- **`KnownWordRow` accessibility**: one outer `Pressable` wraps the checkbox + word + gloss with `accessibilityRole="checkbox"`, `accessibilityState={{checked}}`, and a composed `accessibilityLabel`. Bulk-mark stays a separate, smaller pressable.
-- **Dual review**: Gemini surfaced 4 real defects (RLS upsert, zombie marks, split-focus a11y, router race) — all addressed in-session. Codex `exec review --uncommitted` was kicked off after the first `codex review --uncommitted` form hung in interactive mode; see the brtwcrig4/bf8i53a6s output files for what landed.
+- **Pipeline dedup landed**: `content-pipeline/balkanski_pipeline/build.py:_dedupe_concepts` collapses concept rows sharing a UUIDv5 (e.g. "a" + "ali" → one "but" concept with two SR variants). Regenerated `content/vocab/sr-starter.json` (120 concepts / 121 variants). Seeder's defensive dedup kept as defence-in-depth. Commit `8ff7947`.
+- **Rebind extension + unmark deletion propagation shipped** last session (commits `a7409fc`, `210c41e`). Rebind now pushes both `review_items` and `known_variants`; unmark path issues local + best-effort remote DELETE when a session matches. Memory + todo updated, no Phase 1D follow-ups outstanding on those two items.
+- **0004 migration deployed** to `khbwshwghilupemmvloq` (Carter ran `pnpm exec supabase db push` 2026-05-25). Remote probed: `known_variants` table exists, `placement_test_results` dropped, `users.proficiency_estimate` dropped.
+- **All four origin/main commits pushed** through `8ff7947`.
 
 ## In-Flight Work
 
-- **Two Phase 1D follow-ups landed this session** (rebind extension + unmark propagation) — both committed.
-- **Remote 0004 push pending Carter** (see Next Action).
+- **None.** Clean checkpoint at `8ff7947`. Working tree was committed + pushed before handoff.
 
 ## Open Questions / Blockers
 
-- **Xcode install still needed** for any iOS smoke test. Known Words is code-verified + unit-tested only.
-- **Phase 1D — known_variants delete propagation**: DONE. `unmarkAndPropagate` in `src/lib/known-variants/toggle.ts` does local + best-effort remote DELETE when session matches.
-- **Phase 1D — push known_variants in rebind**: DONE. `RebindIO` gained `getLocalKnown` + `upsertRemoteKnown`; orchestration pushes both tables together.
+- **iOS smoke test still pending Xcode install** — installation is in progress (per Carter's "C while xcode installs" framing this session). The produce-direction work itself is type-checked + unit-testable without an iOS sim, but the full Phase 1 Done-when gate needs both this produce work AND the simulator pass.
+- **Optional UX call inside produce path**: when `tier === 'close'` and `missedDiacritics` is non-empty, do you want the correction to underline the specific characters (richer feedback) or just render plain `"Almost — correct spelling is ‘<correction>’"` (faster to ship)? Default to the simpler form unless Carter asks; the rich form is a polish pass.
 
 ## DO NOT in this handoff
 
-- Don't run `supabase db push` for the user — auto-mode gates this, and the user explicitly wants to drive the destructive remote drop themselves.
-- Don't claim the iOS flow works end-to-end until the smoke test actually runs.
-- Don't change `known_variants` RLS to allow UPDATE — the data model is delete-then-reinsert by design; UPDATE would only widen the attack surface.
-- Don't restore `placement-test.tsx` or `proficiency_estimate` — ADR 0002 supersedes both.
+- Don't change the recognize flow's UI/UX — only add the produce path alongside it.
+- Don't introduce a Cyrillic keyboard mode (that's Phase 2 with the script toggle).
+- Don't refactor `FillInBlankInput` unless something blocks integration — keep deltas tight.
+- Don't claim Phase 1 done without the iOS smoke test actually passing.
+- Don't widen the lesson runner to handle `audio_recognize` or `script_convert` — those are Phase 5+.

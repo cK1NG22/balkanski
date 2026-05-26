@@ -2,14 +2,16 @@
 // Pareto-ordered seed, plus a grade callback that delegates persistence to
 // `gradeAndPersistVariant` and ticks the streak.
 //
-// Phase 1A scope: SR only, recognition direction only. Phase 1C will add
-// language selection + Supabase sync.
+// Phase 1A scope: SR only. Direction defaults to `'recognize'`; `'produce'`
+// shares the same selection logic — the UNIQUE (user, variant, direction) on
+// `review_items` keeps the two FSRS schedules independent for the same word.
 
 import { useCallback, useMemo, useState } from 'react';
 
 import { loadStarterVocab, type LoadedVocab } from '@/data/loader';
 import type { Concept } from '@/data/schemas/concept';
 import type { GradingTier } from '@/data/schemas/grading';
+import type { ReviewDirection } from '@/data/schemas/review-item';
 import type { Variant } from '@/data/schemas/variant';
 import { getLocalLearnerId } from '@/lib/learner-id';
 import { selectNextVariant } from '@/lib/pareto/sequencer';
@@ -17,7 +19,7 @@ import { gradeAndPersistVariant } from '@/lib/srs/persist';
 import { getMarkedKnownVariantIds, getSeenVariantIds } from '@/lib/srs/sqlite';
 import { tickStreak } from '@/lib/streak';
 
-const DIRECTION = 'recognize' as const;
+export type LessonDirection = Extract<ReviewDirection, 'recognize' | 'produce'>;
 
 export interface UseParetoLesson {
   vocab: LoadedVocab;
@@ -29,7 +31,7 @@ export interface UseParetoLesson {
   grade: (tier: GradingTier) => void;
 }
 
-export function useParetoLesson(): UseParetoLesson {
+export function useParetoLesson(direction: LessonDirection = 'recognize'): UseParetoLesson {
   const [vocab] = useState<LoadedVocab>(() => loadStarterVocab('sr'));
   const userId = useMemo(getLocalLearnerId, []);
 
@@ -63,7 +65,7 @@ export function useParetoLesson(): UseParetoLesson {
         gradeAndPersistVariant({
           userId,
           variantId: nextVariant.id,
-          direction: DIRECTION,
+          direction,
           tier,
           now,
         });
@@ -84,7 +86,7 @@ export function useParetoLesson(): UseParetoLesson {
         if (__DEV__) console.warn('[useParetoLesson] streak tick failed', err);
       }
     },
-    [nextVariant, userId],
+    [nextVariant, userId, direction],
   );
 
   return {

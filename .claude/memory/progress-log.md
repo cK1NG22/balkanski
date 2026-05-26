@@ -2,6 +2,23 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-25 — Session 11: produce direction wired into lesson runner
+
+Closes the ROADMAP Phase 1 Done-when criterion "close answers show correction inline" on the code side (iOS smoke test still pending Xcode).
+
+- **`useParetoLesson(direction?)`** — flexed the hardcoded `DIRECTION = 'recognize'` to an optional arg defaulting to `'recognize'`. Exposes a new `LessonDirection` type narrowing `ReviewDirection` to `'recognize' | 'produce'`. The `gradeAndPersistVariant` call already accepted any `ReviewDirection`, so persistence is wired by passing the param through. The `(user_id, variant_id, direction)` UNIQUE means recognize and produce FSRS schedules for the same word stay independent — intentional.
+- **`src/components/learning/ProduceCard.tsx`** — new shell, composes `FillInBlankInput` (untouched) + an inline tier-tinted feedback box that shows `"Correct spelling: <correction>"` for `close` and `wrong` tiers, then a Continue button that fires `onGraded(tier)`. Right tier shows "Bravo!" with no correction.
+- **`(modal)/lesson-active.tsx`** — reads `?direction=produce` from `useLocalSearchParams`. If produce, renders `ProduceCard` as the `LessonStep.prompt` (keyed on `nextVariant.id` so the input resets per word). Recognize path JSX is byte-identical.
+- **Learn screen** — added a `secondary`-variant "Practice typing" button below "Continue Learning" that pushes the modal with `{ direction: 'produce' }`. Without this, the new path was unreachable for smoke-testing.
+- **Test** — `tests/components/produce-card.test.tsx`, 5 cases: renders prompt + input; close answer ("pise" → "piše") shows `"Correct spelling: piše"` inline; right answer hides correction; wrong answer shows correction; Continue calls `onGraded('close')`.
+- **Verification**: `pnpm tsc --noEmit` ✓, `pnpm test` 74/74 (was 69; +5 from produce-card test).
+
+Still open: iOS smoke test (Xcode install pending) — `Practice typing` button → type close answer → verify inline correction + FSRS persistence end-to-end.
+
+## 2026-05-25 — Session 10: handed off to fresh session
+
+Pipeline dedup + Phase 1 polish audit landed (commit `8ff7947`); the audit surfaced one real gap — `(modal)/lesson-active.tsx` only ships `recognize` direction, so the ROADMAP's "close answers show correction inline" Done-when criterion isn't met yet. Handed off to a fresh session to wire the `produce` direction. Handoff: `.claude/memory/handoffs/handoff-latest.md`.
+
 ## 2026-05-25 — Session 9 (cont'd): pipeline dedup + Phase 1 polish audit
 
 **Pipeline dedup**: `content-pipeline/balkanski_pipeline/build.py` gained `_dedupe_concepts` which collapses concept rows that share a UUIDv5 (favoring the lower aggregate rank). Two seed entries can legitimately point at one concept — "a" and "ali" both mean "but" in Serbian — and the build loop was naively emitting one concept row per seed entry. JSON now ships clean: 120 concepts / 121 variants (was 121 / 121 with the seeder catching the dup on upload). Seeder's defensive dedup stays in place as defence-in-depth; its warning text updated to reflect the new role.
