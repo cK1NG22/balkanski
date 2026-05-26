@@ -215,11 +215,17 @@ def build_bosnian() -> None:
         corpus = load_opensubtitles_ranks("hr")
         proxy_via_hr = True
 
-    # When proxying via HR, the BS-specific spelling "hljeb" won't appear in
-    # HR's corpus (HR uses "kruh"). Map it explicitly so "bread" gets a
-    # corpus-derived rank instead of being shoved to the unranked tail
-    # (would've been ~49750 — bigger than every meaningful starter word).
-    overrides = {"hljeb": "kruh"} if proxy_via_hr else {}
+    # When proxying via HR, three lexical mismatches need bridging so BS
+    # ranks reflect actual BS frequency, not HR's:
+    #   hljeb → kruh (HR doesn't have "hljeb" at all → fallback rank)
+    #   ko → tko, šta → što (HR has these colloquial forms at LOW rank;
+    #     they're CANONICAL high-rank words in BS, so we proxy via HR's
+    #     standard forms tko/što which carry the right frequency signal).
+    # Without these overrides BS's top function words "ko" (#386) and
+    # "šta" (#91) would look like niche words instead of top-10 essentials.
+    overrides = (
+        {"hljeb": "kruh", "ko": "tko", "šta": "što"} if proxy_via_hr else {}
+    )
     bundle = _build_language("bs", BS_TOP100, corpus, rank_lookup_overrides=overrides)
     # Patch the _meta to reflect the proxy honestly.
     if bundle.meta.sources[0].get("note") == "unavailable":

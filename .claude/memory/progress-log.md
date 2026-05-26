@@ -2,6 +2,24 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-26 — Session 14 (cont'd): Gemini+Codex follow-ups on compare view + BS rank overrides
+
+Two-model review of `45c8c96` (compare view). Plus the retried Gemini review of the seed commits surfaced one extra real BS-rank issue.
+
+**Real → shipped on compare view**:
+- **Variant arrays per language** (Codex P1 + Gemini P1, both models flagged independently) — `CompareRow.variants` was `{ sr?: Variant; hr?: Variant; bs?: Variant }`, silently dropping the second variant when a concept maps to multiple variants in one language (SR's "a" + "ali" both = English "but"). Now `{ sr: Variant[]; hr: Variant[]; bs: Variant[] }`, sorted ascending by rank so `[0]` is the primary surface form. Compare screen's `LangCell` renders `[0]` as primary + the rest as small alternates. 1 new test asserts the multi-variant grouping (synonyms case). 100/100 tests.
+- **FlatList `extraData={scriptPref}`** (Gemini P1) — FlatList is a PureComponent: without `extraData`, a Settings toggle while this tab was off-screen wouldn't refresh visible SR cells on return.
+- **Back-button accessibility** (Gemini P2) — added `accessibilityRole="button"` + `accessibilityLabel="Back"` to the Compare screen's Pressable. (Other gemini accessibility findings — table-role on the row grid — skipped because RN's accessibility model for grids is poor and this is personal-use.)
+
+**Real → shipped on BS seed**:
+- **`ko`/`šta` rank overrides for HR-proxied BS** (Gemini retried review of 5531a8b's followup) — BS retains SR-like "ko"/"šta" function words, but HR's corpus has those as colloquial-low-rank tokens (HR's canonical forms are "tko" at #73 and "što" at #9). Before fix: BS "ko" was ranked #386 and "šta" was #91 — looked like niche words instead of top-10 essentials. Fix extends `build_bosnian`'s rank_lookup_overrides to `{"hljeb": "kruh", "ko": "tko", "šta": "što"}`. After fix: BS "ko" is #73 and "šta" is #9. The Pareto-honesty paper trail: BS variants ride HR's canonical-form ranks, documented inline.
+
+**Skipped with reasoning**:
+- **Gemini P1 perf cliffs on FlatList** — JSON parsing is sub-millisecond for our ~80KB bundles; grouping is O(n) over 360 variants; FlatList defaults handle 60 rows fine. The `initialNumToRender`/`maxToRenderPerBatch`/`windowSize` tuning would matter only if we 10× the dataset.
+- **Gemini P2 discriminated union for cyrillicSpelling** — Type ergonomics nice-to-have, but `z.infer` flattening of `.refine()` ripples through every Variant consumer. The runtime invariant is already enforced; runtime checks in LangCell handle the null case. Out of scope.
+
+**Verification**: `pnpm validate-content` ✓ · `pnpm tsc --noEmit` ✓ · `pnpm test` 100/100 ✓.
+
 ## 2026-05-26 — Session 14 (cont'd): cross-language compare view
 
 Phase 2's headline feature lands.

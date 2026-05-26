@@ -395,7 +395,7 @@
       "topicTags": [
         "question-word"
       ],
-      "frequencyRankAggregate": 386
+      "frequencyRankAggregate": 73
     },
     {
       "id": "dfe0f209-0407-570a-aaa6-d3f66175d483",
@@ -406,7 +406,7 @@
       "topicTags": [
         "question-word"
       ],
-      "frequencyRankAggregate": 91
+      "frequencyRankAggregate": 9
     },
     {
       "id": "fe0e4b63-c601-59b9-9679-9cf3311baede",
@@ -1805,7 +1805,7 @@
       "stressMark": null,
       "ipa": null,
       "audioUrl": null,
-      "frequencyRankInLang": 386,
+      "frequencyRankInLang": 73,
       "caseForms": null
     },
     {
@@ -1818,7 +1818,7 @@
       "stressMark": null,
       "ipa": null,
       "audioUrl": null,
-      "frequencyRankInLang": 91,
+      "frequencyRankInLang": 9,
       "caseForms": null
     },
     {
@@ -2993,7 +2993,7 @@
   ],
   "_meta": {
     "version": "1.0.0",
-    "generated_at": "2026-05-26T06:42:41.020994+00:00",
+    "generated_at": "2026-05-26T06:48:57.361456+00:00",
     "sources": [
       {
         "name": "opensubtitles-2018",

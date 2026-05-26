@@ -90,9 +90,9 @@ describe('groupConceptsAcrossLanguages', () => {
     const rows = groupConceptsAcrossLanguages([sr, hr, bs]);
     expect(rows).toHaveLength(3);
     const who = rows.find((r) => r.concept.englishTranslation === 'who')!;
-    expect(who.variants.sr?.latinSpelling).toBe('ko');
-    expect(who.variants.hr?.latinSpelling).toBe('tko');
-    expect(who.variants.bs?.latinSpelling).toBe('ko');
+    expect(who.variants.sr.map((v) => v.latinSpelling)).toEqual(['ko']);
+    expect(who.variants.hr.map((v) => v.latinSpelling)).toEqual(['tko']);
+    expect(who.variants.bs.map((v) => v.latinSpelling)).toEqual(['ko']);
   });
 
   it('sorts by ascending minRank (most frequent first)', () => {
@@ -104,13 +104,13 @@ describe('groupConceptsAcrossLanguages', () => {
     ]);
   });
 
-  it('leaves a slot undefined when a language is missing the concept', () => {
+  it('leaves a slot empty when a language is missing the concept', () => {
     const partialHr = makeBundle('hr', [c1], [makeVariant(c1.id, 'hr', 'tko', 35)]);
     const rows = groupConceptsAcrossLanguages([sr, partialHr, bs]);
     const pretty = rows.find((r) => r.concept.englishTranslation === 'pretty')!;
-    expect(pretty.variants.sr).toBeDefined();
-    expect(pretty.variants.hr).toBeUndefined();
-    expect(pretty.variants.bs).toBeDefined();
+    expect(pretty.variants.sr).toHaveLength(1);
+    expect(pretty.variants.hr).toHaveLength(0);
+    expect(pretty.variants.bs).toHaveLength(1);
   });
 
   it('respects the limit option', () => {
@@ -129,7 +129,29 @@ describe('groupConceptsAcrossLanguages', () => {
   it('handles a single-language bundle (Phase 1 backwards compat)', () => {
     const rows = groupConceptsAcrossLanguages([sr]);
     expect(rows).toHaveLength(3);
-    expect(rows[0].variants.sr).toBeDefined();
-    expect(rows[0].variants.hr).toBeUndefined();
+    expect(rows[0].variants.sr).toHaveLength(1);
+    expect(rows[0].variants.hr).toHaveLength(0);
+  });
+
+  it('keeps multiple variants per language when one concept has synonyms', () => {
+    // Concept "but" with TWO SR variants ("a" + "ali") — exactly the pattern
+    // SR_TOP100 ships. The grouping must not silently drop one.
+    const but = makeConcept('4', 'but');
+    const srBut = makeBundle(
+      'sr',
+      [but],
+      [
+        makeVariant(but.id, 'sr', 'a', 27, 'а'),
+        makeVariant(but.id, 'sr', 'ali', 18, 'али'),
+      ],
+    );
+    const rows = groupConceptsAcrossLanguages([srBut]);
+    const row = rows[0];
+    expect(row.variants.sr).toHaveLength(2);
+    // Sorted ascending by rank → "ali" (rank 18) is primary, "a" (rank 27) is alternate.
+    expect(row.variants.sr[0].latinSpelling).toBe('ali');
+    expect(row.variants.sr[1].latinSpelling).toBe('a');
+    // minRank takes the smaller of the two.
+    expect(row.minRank).toBe(18);
   });
 });

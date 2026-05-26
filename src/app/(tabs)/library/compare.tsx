@@ -39,7 +39,12 @@ export default function CompareScreen() {
     <Screen>
       <View className="gap-4 pb-2">
         <View className="flex-row items-center gap-4">
-          <Pressable onPress={() => router.back()} className="active:opacity-70">
+          <Pressable
+            onPress={() => router.back()}
+            accessibilityRole="button"
+            accessibilityLabel="Back"
+            className="active:opacity-70"
+          >
             <Text variant="h3" className="text-brand-500">
               Back
             </Text>
@@ -57,6 +62,10 @@ export default function CompareScreen() {
         data={rows}
         keyExtractor={(row) => row.concept.id}
         renderItem={({ item }) => <CompareRowView row={item} scriptPref={scriptPref} />}
+        // FlatList is a PureComponent: without extraData it won't re-render
+        // visible rows when scriptPref flips, so a Settings toggle wouldn't
+        // refresh the SR cells until the list remounted.
+        extraData={scriptPref}
       />
     </Screen>
   );
@@ -97,22 +106,27 @@ function CompareRowView({ row, scriptPref }: { row: CompareRow; scriptPref: Scri
       </View>
       <View className="flex-row items-start gap-2">
         <View className="flex-1" />
-        <LangCell variant={row.variants.sr} scriptPref={scriptPref} />
-        <LangCell variant={row.variants.hr} scriptPref={scriptPref} />
-        <LangCell variant={row.variants.bs} scriptPref={scriptPref} />
+        <LangCell variants={row.variants.sr} scriptPref={scriptPref} />
+        <LangCell variants={row.variants.hr} scriptPref={scriptPref} />
+        <LangCell variants={row.variants.bs} scriptPref={scriptPref} />
       </View>
     </Card>
   );
 }
 
+// One language → many variants: a single concept can map to multiple
+// surface forms in one language (SR/HR/BS "a" + "ali" both = English "but").
+// We render the [0] form (lowest rank → primary) with the rest stacked
+// below as small alternates, plus the cyrillic alternate for SR when the
+// learner's script pref is Latin (or Latin alternate when pref is Cyrillic).
 function LangCell({
-  variant,
+  variants,
   scriptPref,
 }: {
-  variant: Variant | undefined;
+  variants: Variant[];
   scriptPref: ScriptPref;
 }) {
-  if (!variant) {
+  if (variants.length === 0) {
     return (
       <View className="w-20 items-center">
         <Text variant="body" color="muted">
@@ -121,19 +135,28 @@ function LangCell({
       </View>
     );
   }
-  const cyr = variant.cyrillicSpelling;
-  const primary = scriptPref === 'cyrillic' && cyr ? cyr : variant.latinSpelling;
-  const alternate = scriptPref === 'cyrillic' && cyr ? variant.latinSpelling : (cyr ?? '');
+  const primaryVariant = variants[0];
+  const cyr = primaryVariant.cyrillicSpelling;
+  const primary = scriptPref === 'cyrillic' && cyr ? cyr : primaryVariant.latinSpelling;
+  const scriptAlt = scriptPref === 'cyrillic' && cyr ? primaryVariant.latinSpelling : (cyr ?? '');
+  const synonymAlts = variants.slice(1).map((v) =>
+    scriptPref === 'cyrillic' && v.cyrillicSpelling ? v.cyrillicSpelling : v.latinSpelling,
+  );
   return (
     <View className="w-20 items-center gap-0.5">
       <Text variant="body" weight="semibold" align="center">
         {primary}
       </Text>
-      {alternate ? (
+      {scriptAlt ? (
         <Text variant="caption" color="muted" align="center">
-          {alternate}
+          {scriptAlt}
         </Text>
       ) : null}
+      {synonymAlts.map((alt) => (
+        <Text key={alt} variant="caption" color="muted" align="center">
+          {alt}
+        </Text>
+      ))}
     </View>
   );
 }
