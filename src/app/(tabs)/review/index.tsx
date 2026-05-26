@@ -10,6 +10,10 @@ import { storage, storageKeys } from '@/lib/storage/mmkv';
 
 type ScriptPref = 'latin' | 'cyrillic';
 
+function readScriptPref(): ScriptPref {
+  return (storage.getString(storageKeys.serbianScriptPref) ?? 'latin') as ScriptPref;
+}
+
 // Mirrors the pickScripts contract in (modal)/lesson-active.tsx. SR has both
 // spellings; HR/BS guarantee cyrillicSpelling===null via VariantSchema, so
 // `alternate` is empty and the secondary line collapses.
@@ -24,15 +28,17 @@ function pickVariantScripts(variant: Variant, pref: ScriptPref): { primary: stri
 export default function ReviewHome() {
   const { queue, grade, refresh } = useReviewQueue();
   const [flipped, setFlipped] = useState(false);
+  const [scriptPref, setScriptPref] = useState<ScriptPref>(readScriptPref);
   const current: ReviewQueueRow | undefined = queue[0];
-  const scriptPref = (storage.getString(storageKeys.serbianScriptPref) ?? 'latin') as ScriptPref;
   const scripts = current ? pickVariantScripts(current.variant, scriptPref) : null;
 
-  // Cards graded elsewhere (lesson modal) become due in this tab silently.
-  // Re-fetch the queue every time the tab regains focus.
+  // Tab stays mounted across navigation: cards graded in the lesson modal
+  // become due silently, and the user may have toggled the script pref in
+  // Settings while this tab was off-screen. Re-read both on focus.
   useFocusEffect(
     useCallback(() => {
       refresh();
+      setScriptPref(readScriptPref());
     }, [refresh]),
   );
 

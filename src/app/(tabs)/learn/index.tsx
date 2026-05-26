@@ -1,5 +1,5 @@
 import { router, useFocusEffect } from 'expo-router';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { View } from 'react-native';
 
 import {
@@ -19,6 +19,10 @@ import type { Variant } from '@/data/schemas/variant';
 
 type ScriptPref = 'latin' | 'cyrillic';
 
+function readScriptPref(): ScriptPref {
+  return (storage.getString(storageKeys.serbianScriptPref) ?? 'latin') as ScriptPref;
+}
+
 // Mirrors the pickScripts contract in (modal)/lesson-active.tsx: for SR
 // the learner sees their chosen script; for HR/BS (cyrillicSpelling===null
 // per zod schema) it's always latin and the alternate stays empty.
@@ -36,13 +40,15 @@ const DAD_IMAGE =
 export default function LearnHome() {
   const { vocab, known, knownCount, nextVariant, nextConcept } = useParetoLesson();
   const { state: streak, refresh: refreshStreak } = useStreak();
-  const scriptPref = (storage.getString(storageKeys.serbianScriptPref) ?? 'latin') as ScriptPref;
+  const [scriptPref, setScriptPref] = useState<ScriptPref>(readScriptPref);
 
-  // The Learn screen stays mounted while the lesson modal grades cards above
-  // it. When the modal closes, re-read MMKV so the streak count is current.
+  // Tab screens stay mounted across navigation, so re-read MMKV on focus to
+  // catch the streak tick from the lesson modal AND any script-pref change
+  // made in Settings while this tab was off-screen.
   useFocusEffect(
     useCallback(() => {
       refreshStreak();
+      setScriptPref(readScriptPref());
     }, [refreshStreak]),
   );
 

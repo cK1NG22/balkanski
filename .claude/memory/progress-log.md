@@ -2,6 +2,23 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-26 — Session 14: Phase 2 surface fixes + scriptPref focus re-read
+
+Closed out the Phase 2 follow-up "make other surfaces honor scriptPref":
+
+- **`(tabs)/learn/index.tsx`** — extracted `pickVariantScripts(variant, pref)` helper that mirrors the `pickScripts` contract from `lesson-active.tsx` (returning `{primary, alternate}`, not `acceptedAnswers` — Learn doesn't grade). Used in three places: the "Next up" sentence, the upcoming-row primary, and the upcoming-row caption (which retains the `'Latin only'` fallback for HR/BS).
+- **`(tabs)/review/index.tsx`** — same helper. FlashCard front face now flips primary/alternate based on pref. HR/BS variants (cyrillicSpelling===null per VariantSchema) collapse the alternate line naturally.
+- **Commit `40745a1`** — clean tsc + 79/79 tests still passing.
+
+**Two-model review on `40745a1`**:
+- **Codex: PASS** — confirmed cross-surface consistency with `pickScripts` in lesson-active (Cyrillic+SR → Cyrillic primary, Latin alternate; HR/BS → Latin only). No findings.
+- **Gemini: 1 P1** — stale state when user toggles in Settings and returns to a still-mounted tab. **Real for tab screens**, unlike the same finding in session 13 which was correctly skipped for the modal (modal remounts on pop, tabs don't). The Learn/Review tabs were *incidentally* self-healing because their existing `useFocusEffect` calls (`refreshStreak`/`refresh`) `setState` with fresh object references → re-render → MMKV re-read. A future refactor that bailed on identical state would silently break the script-pref display.
+- **Fix shipped as follow-up commit**: stored `scriptPref` in local `useState<ScriptPref>(readScriptPref)` and re-read it inside the same `useFocusEffect` that already refreshes streak/queue. Makes the dependency explicit instead of riding on an incidental side effect. Matches the Settings card's local-state pattern.
+
+## 2026-05-26 — handed off to fresh session
+
+Phase 2 kickoff shipped (commits `0c4c453` + `814c2af`, both pushed to `origin/main`): Serbian Latin/Cyrillic script toggle wired through Settings + lesson runner, with Gemini+Codex two-model review surfacing 2 real follow-up fixes (back-face shows both scripts + Latin-fallback test). Handed off to a fresh session with Carter's directive to "finish building everything then review with gemini and codex throughout" — sequential Phase 2 burn (other surfaces honor pref → server-side sync → HR/BS seed → compare view), two-model review after each substantive commit. Handoff: `.claude/memory/handoffs/handoff-latest.md`.
+
 ## 2026-05-25 — Session 13: Phase 2 kickoff — Serbian script toggle
 
 First Phase 2 unit shipped. SR variants now render in the learner's chosen script across the lesson runner.
