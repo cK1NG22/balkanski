@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { Card, Screen, Text } from '@/components';
 
 const sections = [
+  { href: '/(tabs)/library/compare', title: 'Compare', subtitle: 'Same word in SR · HR · BS' },
   { href: '/(tabs)/library/alphabet', title: 'Alphabet', subtitle: 'Serbian Cyrillic (Serbian learners only)' },
   { href: '/(tabs)/library/grammar', title: 'Grammar', subtitle: '7 cases · conjugation' },
   { href: '/(tabs)/library/vocab', title: 'Vocabulary', subtitle: 'Pareto-ranked words you know' },

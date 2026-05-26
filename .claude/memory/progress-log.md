@@ -2,6 +2,16 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-26 — Session 14 (cont'd): cross-language compare view
+
+Phase 2's headline feature lands.
+
+- **`src/lib/compare/group.ts`** — pure orchestration `groupConceptsAcrossLanguages(bundles, {limit})`. Returns `CompareRow[]` where each row carries the shared Concept and the per-language Variant slots (`{ sr?, hr?, bs? }`). Sorted by `minRank` across present variants. The conceptId join works for free because the pipeline derives `concept.id` from `english_lemma + sense_disambiguator`, so SR "lep", HR "lijep", BS "lijep" all land on the same conceptId — three variants of one English meaning.
+- **`src/app/(tabs)/library/compare.tsx`** — FlatList screen with a sticky-style header row labeling the three language columns, then one Card per concept showing the English anchor + rank + POS + three SR/HR/BS cells. Honors `serbianScriptPref` for the SR cell (Cyrillic primary when toggled, Latin alternate underneath). HR/BS cells render `latinSpelling` only (cyrillicSpelling===null is the schema invariant). `useFocusEffect` re-reads scriptPref on focus for the same self-healing reason as Learn/Review tabs.
+- **`src/app/(tabs)/library/index.tsx`** — added a "Compare" entry at the top of the library sections list.
+- **6 unit tests** in `tests/lib/compare/group.test.ts`: 3-language grouping, sort-by-minRank, missing-language slots, respects-limit, cross-language minRank, single-language Phase-1-compat.
+- **Verification**: `pnpm tsc --noEmit` ✓ · `pnpm test` 99/99 ✓.
+
 ## 2026-05-26 — Session 14 (cont'd): Codex follow-up — BS rank lookup for proxy corpus
 
 Codex review of `5531a8b` found one P1 (Gemini hit a 429 capacity error this round — server-side, not a finding gap; retrying after the seed fix lands).
