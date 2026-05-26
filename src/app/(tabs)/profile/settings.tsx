@@ -4,6 +4,8 @@ import { Pressable, View } from 'react-native';
 
 import { Button, Card, Screen, TeacherAvatar, Text } from '@/components';
 import { storage, storageKeys } from '@/lib/storage/mmkv';
+import { pushScriptPrefBestEffort, realScriptPrefIO } from '@/lib/sync';
+import { useAuth } from '@/providers/AuthProvider';
 
 type ScriptPref = 'latin' | 'cyrillic';
 
@@ -24,10 +26,21 @@ export default function Settings() {
   const [selectedLanguage, setSelectedLanguage] = useState('Srpski');
   const [dailyGoal, setDailyGoal] = useState(5);
   const [scriptPref, setScriptPref] = useState<ScriptPref>(readScriptPref);
+  const { session } = useAuth();
 
   const handleScriptChange = (next: ScriptPref) => {
     setScriptPref(next);
     storage.set(storageKeys.serbianScriptPref, next);
+    // Best-effort remote push so a second device sees the new pref on next
+    // sign-in. Local UX never blocks on network — sync-on-sign-in will
+    // reconcile if this fails.
+    if (session?.userId) {
+      void pushScriptPrefBestEffort(session.userId, next, realScriptPrefIO).then((r) => {
+        if (!r.ok && __DEV__) {
+          console.warn('[settings] scriptPref remote push failed:', r.remoteError);
+        }
+      });
+    }
   };
 
   return (

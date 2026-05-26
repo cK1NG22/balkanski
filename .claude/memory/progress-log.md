@@ -2,6 +2,16 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-26 — Session 14 (cont'd): server-side User.serbianScriptPref sync
+
+Closed Phase 2D item: MMKV-only pref now syncs through Supabase users table on sign-in.
+
+- **`src/lib/sync/script-pref.ts`** — pure orchestration with `ScriptPrefIO`. `syncScriptPrefOnSignIn(userId, io, {didRebind})` branches: `didRebind` (first sign-in on this device) → push local→remote (preserves any pre-auth toggle); `!didRebind` (returning user, same auth uid this process) → pull remote→local (a second device may have toggled since last open). Both halves fail-soft so a remote outage never breaks local UX.
+- **`src/lib/sync/script-pref-io.ts`** — real wiring. `getRemote` reads `users.serbian_script_pref` via `maybeSingle()` (RLS `users_select_own`); `setRemote` updates the row (RLS `users_update_own`). Both validated with `ScriptPrefSchema.safeParse` so a corrupted remote value can't bypass the type.
+- **`src/providers/AuthProvider.tsx`** — chained: `rebindOnSignIn().then((r) => syncScriptPrefOnSignIn(..., {didRebind: r.ran}))`. Sequence matters — rebind first rewrites the user_id on local rows so a subsequent remote read uses the right id.
+- **`src/app/(tabs)/profile/settings.tsx`** — `handleScriptChange` now calls `pushScriptPrefBestEffort(session.userId, next, realScriptPrefIO)` after writing MMKV. Wrapped in `if (session?.userId)` so unauthenticated/anon flows still work without network calls. `void ... .then(...)` keeps the UI optimistic; failures only log in `__DEV__`.
+- **8 new unit tests** in `tests/lib/sync/script-pref.test.ts`: push-on-rebind, pull-on-return, noop-when-equal, noop-when-remote-null, push-failure-soft, pull-failure-soft, plus 2 for `pushScriptPrefBestEffort`. Total now 87/87. tsc clean.
+
 ## 2026-05-26 — Session 14: Phase 2 surface fixes + scriptPref focus re-read
 
 Closed out the Phase 2 follow-up "make other surfaces honor scriptPref":

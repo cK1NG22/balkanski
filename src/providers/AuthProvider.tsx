@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 
 import { getCurrentSession, onAuthChange, type AppSession } from '@/lib/auth';
-import { rebindOnSignIn, realRebindIO } from '@/lib/sync';
+import {
+  rebindOnSignIn,
+  realRebindIO,
+  realScriptPrefIO,
+  syncScriptPrefOnSignIn,
+} from '@/lib/sync';
 
 interface AuthContextValue {
   session: AppSession | null;
@@ -29,9 +34,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setSession(s);
       if (s && !reboundFor.current.has(s.userId)) {
         reboundFor.current.add(s.userId);
-        rebindOnSignIn(s.userId, realRebindIO).catch((err) => {
-          console.warn('[auth] rebindOnSignIn failed:', err);
-        });
+        // Sequence matters: rebind runs first so review_items + known_variants
+        // land on the auth uid. Then sync the script pref using the rebind
+        // result to decide push (first sign-in on this device) vs pull
+        // (returning user — remote may have a newer value from device 2).
+        rebindOnSignIn(s.userId, realRebindIO)
+          .then((result) =>
+            syncScriptPrefOnSignIn(s.userId, realScriptPrefIO, {
+              didRebind: result.ran,
+            }),
+          )
+          .catch((err) => {
+            console.warn('[auth] sign-in sync failed:', err);
+          });
       }
     }
 
