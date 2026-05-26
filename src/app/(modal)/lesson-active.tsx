@@ -185,7 +185,11 @@ export default function LessonActive() {
                         : ''
                     }`}
                     title={nextConcept.englishTranslation}
-                    subtitle={scripts.primary}
+                    subtitle={
+                      scripts.alternate
+                        ? `${scripts.primary} · ${scripts.alternate}`
+                        : scripts.primary
+                    }
                     helper={
                       nextVariant.caseForms
                         ? `nom: ${nextVariant.caseForms.nom ?? '—'} · gen: ${

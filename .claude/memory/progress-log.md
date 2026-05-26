@@ -14,6 +14,21 @@ First Phase 2 unit shipped. SR variants now render in the learner's chosen scrip
 
 **Deferred to follow-up sessions per the handoff's DO NOT list**: Review UI direction-branching (Phase 3 territory), HR/BS vocab seed (separate session), iOS smoke test (still pending Xcode install).
 
+## 2026-05-25 — Session 13 (cont'd): Gemini+Codex follow-ups on script toggle
+
+Two-model review on `0c4c453`. Codex: PASS (no findings). Gemini: 1 P0 (2 sub-items), 2 P1, 1 P2 — triaged 2 real + 3 skippable.
+
+- **Real → shipped**:
+  - **Back face shows both scripts** — recognize card's back face subtitle now renders `primary · alternate` (e.g. `пише · piše`) when a non-empty alternate exists; falls back to `primary` alone for HR/BS where there's no Cyrillic. Cyrillic-pref learners no longer lose the Latin cross-reference at the "answer reveal" moment.
+  - **Latin-fallback test added** — symmetric to the new Cyrillic acceptance test. Input `piše` against `acceptedAnswers=['piše','пише']` asserts `right` + `onGraded('right')`. Proves the keyboard-fallback claim in the test comment so the contract is asserted, not just documented. Total now 79/79.
+- **Skipped with reasoning** (so a future reviewer doesn't re-litigate):
+  - **[P0] MMKV reactive hook**: sync read happens on every render of `LessonActive`. Path to toggle requires navigating to Settings, which mounts a new screen on the stack; navigating back re-renders the lesson and picks up the new pref. The "stale mid-lesson" failure mode requires toggling without navigating — impossible from the current UI. Defensive over-engineering for a self-healing path.
+  - **[P0] Settings stale state**: no second writer exists. `known-words.tsx` only reads. Add a `useMMKVString` subscription if/when a second writer lands.
+  - **[P1] ProduceCard `key` doesn't include `scriptPref`**: for SR, `pickScripts` returns BOTH spellings in `acceptedAnswers` regardless of pref (just in different order). For HR/BS, only Latin. Grading is identical across prefs → no state staleness possible. The current key is correct.
+- **Pre-existing surfaces NOT in this patch but should also honor the toggle** — Codex's deep exploration surfaced `(tabs)/learn/index.tsx:157` and `(tabs)/review/index.tsx:62-64` rendering `cyrillicSpelling` without consulting `scriptPref`. Tracked in todo.md under "Make other surfaces honor scriptPref" as a Phase 2 follow-up.
+- **Server-side User.serbianScriptPref sync** — Codex spotted `src/data/schemas/user.ts:17`; this patch is MMKV-only. Tracked as a Phase 2D sync item alongside the existing `known_variants` rebind pattern.
+- **Verification**: `pnpm tsc --noEmit` ✓ · `pnpm test` 79/79 ✓.
+
 ## 2026-05-25 — Session 12: handed off to fresh session
 
 Phase 1 produce direction shipped (commits `1ef934d` + `2ddecc9`); two-model Gemini+Codex review caught + fixed the cross-direction skip bug and Review-tab guard. Handed off to a fresh session to kick off Phase 2 with the Latin/Cyrillic script toggle. Handoff: `.claude/memory/handoffs/handoff-latest.md`.

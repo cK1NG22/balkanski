@@ -116,4 +116,24 @@ describe('ProduceCard', () => {
     fireEvent.press(screen.getByText('Continue'));
     expect(onGraded).toHaveBeenCalledWith('right');
   });
+
+  // Symmetric Latin-fallback case for the Cyrillic-pref learner whose
+  // iPhone keyboard doesn't have Cyrillic installed: typing Latin must
+  // still grade as `right` when both spellings are accepted.
+  it('accepts a Latin answer when both scripts are in acceptedAnswers', () => {
+    const onGraded = jest.fn();
+    render(
+      <ProduceCard
+        englishTranslation="he writes"
+        acceptedAnswers={['piše', 'пише']}
+        onGraded={onGraded}
+      />,
+    );
+    fireEvent.changeText(screen.getByPlaceholderText('...'), 'piše');
+    fireEvent.press(screen.getByText('Check'));
+
+    expect(screen.getByText('Bravo!')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continue'));
+    expect(onGraded).toHaveBeenCalledWith('right');
+  });
 });
