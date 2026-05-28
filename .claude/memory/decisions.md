@@ -87,3 +87,10 @@ Chronological log of meaningful architectural decisions. See `docs/decisions/` f
 - **Google OAuth consent screen stays in "Testing" mode**: ≤100 test users (Carter + wife forever), no verification review needed. Production mode is only required if we ever distribute publicly.
 - **Redirect chain**: Google → `https://khbwshwghilupemmvloq.supabase.co/auth/v1/callback` (allow-listed in Google) → `balkanski://auth/callback` (allow-listed in Supabase). Each hop needs to be on a separate allow-list; mismatches surface as `redirect_uri_mismatch`.
 - **`detectSessionInUrl: false`** on the supabase client. Default behavior reads `window.location` (web-only). On React Native we extract the code from `WebBrowser.openAuthSessionAsync` result by hand.
+
+## 2026-05-28 — Dev login, iOS QA tooling, bug tracking
+
+- **Dev-only test login**: a `__DEV__`-gated email/password sign-in (`src/lib/dev-auth.ts`) bypasses Google OAuth for testing. Chosen over (a) fixing the OAuth handshake blind and (b) Supabase anonymous auth. Rationale: auth is orthogonal to the features being dogfooded; the login is build-gated so it never ships, and email/password gives stable accounts for Carter + wife. Required enabling the Supabase Email provider + "Confirm email" OFF.
+- **iOS QA tool = Maestro** (over idb / Detox / screenshots-only). Lightweight YAML flows, matches by accessibility label, no app instrumentation needed. Runs on the JVM (installed OpenJDK, keg-only). Full how-to in the `reference-balkanski-ios-qa` memory.
+- **Bug tracker = repo-local `BUGS.md`** (over Linear/Jira/GitHub Issues/git-bug). Personal project — the bug lives next to the code and git history. Workflow: fix-now-when-safe, else log with severity/repro/screenshot/suspected-cause.
+- **Bug-triage discipline**: a logged bug's *cause* is a hypothesis until the code confirms it. Live QA surfaces symptoms but mis-attributes causes — of 4 first-pass findings, only 1 was a real defect (1 was a symptom of it, 1 a test artifact, 1 an unbuilt screen).

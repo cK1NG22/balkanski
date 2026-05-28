@@ -102,3 +102,13 @@ Authoritative design: **`docs/decisions/0002-known-words-vs-placement-test.md`**
 
 - [ ] Native-speaker audio source — decide in Phase 5 prep (wife / freelance / ElevenLabs / mix)
 - [ ] Speech vendor for pronunciation grading — decide in Phase 6 prep (Speechace / Whisper server-side / custom)
+
+## Session 15 — iOS QA + dev login (2026-05-28)
+
+- [x] **Full Xcode installed** (26.5) — long-standing blocker since Session 8 cleared.
+- [x] **iOS smoke test (Phase 1/2 done-when gate)** — driven on-device via Maestro: dev login → onboarding → Learn → recognize lesson → produce lesson (close-tier correction) → script-aware Review/SRS grading → Compare (SR/HR/BS). Substantially satisfied.
+- [x] **Dev login to bypass Google OAuth for testing** (`src/lib/dev-auth.ts`, __DEV__-gated). Shipped `8aadcef`.
+- [x] **BUG-003** — Learn home stale after Known Words edits → `useParetoLesson.refresh()` on focus. Shipped `8aadcef`.
+- [ ] **BUG-002** (open, deferred) — Profile tab shows mock data, not real stats. Feature/wiring work; needs a product call on which gamification pieces are real. See `BUGS.md`.
+- [ ] **Google OAuth still un-smoke-tested** end-to-end (dev login made it non-blocking). Verify before real multi-device use; likely just needs Carter + wife emails added as Google consent-screen test users.
+- [ ] **Branch the Review UI per direction** (carried from Session 14) — `useReviewQueue` still hardcodes `recognize`. Phase 3.

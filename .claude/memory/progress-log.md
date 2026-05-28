@@ -2,6 +2,18 @@
 
 One-line entries per session. Most recent at top.
 
+## 2026-05-28 — Session 15: dev login, Maestro iOS QA harness, BUG-003 fix
+
+First real on-device session — full Xcode (26.5) finally installed, clearing the long-pending iOS smoke-test blocker (open since Session 8).
+
+- **Dev login (Google bypass)**: added `src/lib/dev-auth.ts` + a `__DEV__`-only "Dev sign-in (skip Google)" button on the sign-in screen, using a fixed email/password test account (`dev@balkanski.test`). Enabled the Supabase Email provider with "Confirm email" OFF. Google OAuth left untouched (still un-smoke-tested). This decouples feature testing from the fragile 4-hop OAuth handshake.
+- **iOS QA harness**: installed Maestro (`~/.maestro/bin`) + OpenJDK (keg-only). Drove the app on the iPhone 17 Pro sim via Maestro flows + `simctl` screenshots (read with vision). Full how-to + gotchas in the `reference-balkanski-ios-qa` memory.
+- **Live QA pass — verified on device**: dev login → onboarding → Learn home (real streak/progress) → Compare (3-language join + Cyrillic) → Review/SRS with tiered Right/Close/Wrong grading (queue 7→6) → recognize lesson → produce lesson with close-tier inline correction. The Phase 1/2 "done-when" iOS smoke test is now substantially satisfied.
+- **Bug tracking**: created repo-local `BUGS.md` (Carter's pick over Linear/Jira). Logged 4 findings.
+- **Debugged all 4 (systematic, root-cause-first)**: only **BUG-003** was a real defect — Learn home read the known-words set once at mount and never re-read it, so Known-Words-editor edits required an app relaunch. Fix: `useParetoLesson.refresh()` + call it in the Learn home `useFocusEffect`. BUG-001 (no-op buttons) was a *symptom* of BUG-003 (`disabled={!nextVariant}` on a stale set). BUG-004 (autocorrect) was a false positive — `autoCorrect`/`autoCapitalize` already off; "da"→"dav" was a Maestro test artifact. BUG-002 (Profile mock data) is an unbuilt screen, deferred.
+- **Verification**: `tsc` ✓ · `pnpm test` 100/100 ✓ · live Maestro repro confirmed the BUG-003 fix (un-mark now reflects with no relaunch).
+- **Shipped**: commit `8aadcef` (dev login + BUG-003 fix + BUGS.md + .gitignore worktrees) pushed to `origin/main`.
+
 ## 2026-05-26 — Session 14 (cont'd): Gemini+Codex follow-ups on compare view + BS rank overrides
 
 Two-model review of `45c8c96` (compare view). Plus the retried Gemini review of the seed commits surfaced one extra real BS-rank issue.
