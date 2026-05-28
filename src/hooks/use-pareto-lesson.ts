@@ -29,6 +29,9 @@ export interface UseParetoLesson {
   nextVariant: Variant | null;
   nextConcept: Concept | null;
   grade: (tier: GradingTier) => void;
+  /** Re-read the known-set from storage (use after the Known Words editor or
+   * a lesson modal may have changed it while this screen stayed mounted). */
+  refresh: () => void;
 }
 
 export function useParetoLesson(direction: LessonDirection = 'recognize'): UseParetoLesson {
@@ -89,6 +92,10 @@ export function useParetoLesson(direction: LessonDirection = 'recognize'): UsePa
     [nextVariant, userId, direction],
   );
 
+  const refresh = useCallback(() => {
+    setKnown(safeReadKnown(userId, direction));
+  }, [userId, direction]);
+
   return {
     vocab,
     known,
@@ -96,6 +103,7 @@ export function useParetoLesson(direction: LessonDirection = 'recognize'): UsePa
     nextVariant,
     nextConcept,
     grade,
+    refresh,
   };
 }
 

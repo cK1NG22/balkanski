@@ -52,3 +52,6 @@ content-pipeline/.venv/
 # ephemeral test / debug artifacts
 output/
 .playwright-cli/
+
+# Claude background-session worktrees
+.claude/worktrees/

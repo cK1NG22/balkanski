@@ -4,6 +4,7 @@ import { Alert, View } from 'react-native';
 
 import { Button, Screen, Text } from '@/components';
 import { signInWithGoogle } from '@/lib/auth';
+import { signInWithTestAccount } from '@/lib/dev-auth';
 
 const FLAG_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuAxpaMuyPQp2ZOu136OHkvTE5Iep7Ip09tajIBWdBQIpiCAcP7XZq6Zup8or78-Jibr2rBHn6LV4u5mKKdRId-laZrwuhZQhXcNrP-4INr-fjlQf_5SA6ajJIAVS-0D3gHFu0MS5_ULMMXp47WYsZ7E7kXvnN7yWy16pQWTdPHPbz4XgfhiBibApb7GmCWYJsBEXWOXm9xMTZGEj1JcbHUatXctATug_M6m90eopN6AdqbhJKABdJuxoadQWt6JKoCc7CV9Ghg5_nc';
@@ -21,6 +22,18 @@ export default function SignIn() {
     }
     // On success, AuthProvider's onAuthChange subscription fires and the
     // index route redirects automatically — no navigation call needed here.
+  }
+
+  // DEV-ONLY: skips the Google handshake entirely. Same redirect-on-success
+  // path as Google — AuthProvider sees the new session and routes onward.
+  async function handleDevSignIn() {
+    if (signingIn) return;
+    setSigningIn(true);
+    const result = await signInWithTestAccount();
+    setSigningIn(false);
+    if (result.type === 'error') {
+      Alert.alert('Dev sign-in failed', result.message);
+    }
   }
 
   return (
@@ -61,6 +74,16 @@ export default function SignIn() {
             </Text>
             <View className="h-px flex-1 bg-border" />
           </View>
+
+          {__DEV__ ? (
+            <Button
+              label={signingIn ? 'Signing in…' : 'Dev sign-in (skip Google)'}
+              onPress={handleDevSignIn}
+              disabled={signingIn}
+              variant="secondary"
+              fullWidth
+            />
+          ) : null}
         </View>
 
         <View className="items-center gap-3">

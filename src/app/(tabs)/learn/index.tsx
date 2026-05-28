@@ -38,18 +38,23 @@ const DAD_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuCnYtcAIEGQ1AlHCVTI2RiTs7_gqdye8YtQK9pwYRB2idawzZ5mro-WClEjOe9SZOJD0SuFGQEd2NgxFC740M4vh6nHB2qmFChYNjXYLwU2wUq7iETyoZDb28g4lHxqlzYXdKAoGZ373fsYj0iUqNf9hbA3OshqCQFeJv8h86wlD7PYOE4FtJYqozESCL26jOFszxLSkTCd6WXX0_Dre-n9dK7ERCZlobbaoa5uPTAM9hKHOOyghphwcwul9imAgTCImEEcbvNwcDE';
 
 export default function LearnHome() {
-  const { vocab, known, knownCount, nextVariant, nextConcept } = useParetoLesson();
+  const { vocab, known, knownCount, nextVariant, nextConcept, refresh: refreshLesson } =
+    useParetoLesson();
   const { state: streak, refresh: refreshStreak } = useStreak();
   const [scriptPref, setScriptPref] = useState<ScriptPref>(readScriptPref);
 
-  // Tab screens stay mounted across navigation, so re-read MMKV on focus to
-  // catch the streak tick from the lesson modal AND any script-pref change
-  // made in Settings while this tab was off-screen.
+  // Tab screens stay mounted across navigation, so re-read on focus to catch
+  // the streak tick from the lesson modal, any script-pref change made in
+  // Settings, AND known-words edits (mark/unmark) made in the editor — all
+  // while this tab was off-screen. Without refreshLesson(), nextVariant stays
+  // stale and "Continue Learning"/"Practice typing" stay wrongly disabled
+  // until a full app relaunch.
   useFocusEffect(
     useCallback(() => {
       refreshStreak();
+      refreshLesson();
       setScriptPref(readScriptPref());
-    }, [refreshStreak]),
+    }, [refreshStreak, refreshLesson]),
   );
 
   const upcoming = useMemo(
